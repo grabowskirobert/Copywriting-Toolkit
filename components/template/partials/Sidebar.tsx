@@ -1,16 +1,24 @@
+import Link from 'next/link';
 import React, { useState, useEffect, useRef } from 'react';
-// import { NavLink, useLocation } from 'react-router-dom';
+// import { Link, useLocation } from 'react-router-dom';
 
 import SidebarLinkGroup from './SidebarLinkGroup';
+
+
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   // const location = useLocation();
-  const { pathname } = location;
+  const pathname = "/";
   const trigger = useRef(null);
   const sidebar = useRef(null);
 
-  const storedSidebarExpanded = localStorage.getItem('sidebar-expanded');
+  // if (typeof window !== 'undefined') {
+  // const storedSidebarExpanded = window.localStorage.getItem('sidebar-expanded');
+  // } else {
+  const storedSidebarExpanded = null;
+  // }
+
   const [sidebarExpanded, setSidebarExpanded] = useState(storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true');
 
   // close on click outside
@@ -71,7 +79,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </svg>
           </button>
           {/* Logo */}
-          <NavLink end to="/" className="block">
+          <Link href="/" className="block">
             <svg width="32" height="32" viewBox="0 0 32 32">
               <defs>
                 <linearGradient x1="28.538%" y1="20.229%" x2="100%" y2="108.156%" id="logo-a">
@@ -88,7 +96,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               <path d="M7.404 2.503l18.339 26.19A15.93 15.93 0 0116 32C7.163 32 0 24.837 0 16 0 10.327 2.952 5.344 7.404 2.503z" fill="url(#logo-a)" />
               <path d="M2.223 24.14L29.777 7.86A15.926 15.926 0 0132 16c0 8.837-7.163 16-16 16-5.864 0-10.991-3.154-13.777-7.86z" fill="url(#logo-b)" />
             </svg>
-          </NavLink>
+          </Link>
         </div>
 
         {/* Links */}
@@ -102,7 +110,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             <ul className="mt-3">
               {/* Dashboard */}
               <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname === '/' && 'bg-slate-900'}`}>
-                <NavLink end to="/" className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname === '/' && 'hover:text-slate-200'}`}>
+                <Link href="/" className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname === '/' && 'hover:text-slate-200'}`}>
                   <div className="flex items-center">
                     <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                       <path className={`fill-current text-slate-400 ${pathname === '/' && '!text-indigo-500'}`} d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z" />
@@ -111,11 +119,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </svg>
                     <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Dashboard</span>
                   </div>
-                </NavLink>
+                </Link>
               </li>
               {/* Analytics */}
               <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('analytics') && 'bg-slate-900'}`}>
-                <NavLink end to="/" className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('analytics') && 'hover:text-slate-200'}`}>
+                <Link href="/" className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('analytics') && 'hover:text-slate-200'}`}>
                   <div className="flex items-center">
                     <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                       <path className={`fill-current text-slate-600 ${pathname.includes('analytics') && 'text-indigo-500'}`} d="M0 20h24v2H0z" />
@@ -123,7 +131,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </svg>
                     <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Analytics</span>
                   </div>
-                </NavLink>
+                </Link>
               </li>
               {/* E-Commerce */}
               <SidebarLinkGroup activecondition={pathname.includes('ecommerce')}>
@@ -151,49 +159,49 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
                         <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Customers</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Orders</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Invoices</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Shop</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Shop 2</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Single Product</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Cart</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Cart 2</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pay</span>
-                            </NavLink>
+                            </Link>
                           </li>
                         </ul>
                       </div>
@@ -203,7 +211,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               </SidebarLinkGroup>
               {/* Campaigns */}
               <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('campaigns') && 'bg-slate-900'}`}>
-                <NavLink end to="/" className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('campaigns') && 'hover:text-slate-200'}`}>
+                <Link href="/" className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('campaigns') && 'hover:text-slate-200'}`}>
                   <div className="flex items-center">
                     <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                       <path className={`fill-current text-slate-600 ${pathname.includes('campaigns') && 'text-indigo-500'}`} d="M20 7a.75.75 0 01-.75-.75 1.5 1.5 0 00-1.5-1.5.75.75 0 110-1.5 1.5 1.5 0 001.5-1.5.75.75 0 111.5 0 1.5 1.5 0 001.5 1.5.75.75 0 110 1.5 1.5 1.5 0 00-1.5 1.5A.75.75 0 0120 7zM4 23a.75.75 0 01-.75-.75 1.5 1.5 0 00-1.5-1.5.75.75 0 110-1.5 1.5 1.5 0 001.5-1.5.75.75 0 111.5 0 1.5 1.5 0 001.5 1.5.75.75 0 110 1.5 1.5 1.5 0 00-1.5 1.5A.75.75 0 014 23z" />
@@ -211,7 +219,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </svg>
                     <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Campaigns</span>
                   </div>
-                </NavLink>
+                </Link>
               </li>
               {/* Team */}
               <SidebarLinkGroup activecondition={pathname.includes('team')}>
@@ -238,19 +246,19 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
                         <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Team - Tabs</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Team - Tiles</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Profile</span>
-                            </NavLink>
+                            </Link>
                           </li>
                         </ul>
                       </div>
@@ -260,7 +268,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               </SidebarLinkGroup>
               {/* Messages */}
               <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('messages') && 'bg-slate-900'}`}>
-                <NavLink end to="/" className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('messages') && 'hover:text-slate-200'}`}>
+                <Link href="/" className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('messages') && 'hover:text-slate-200'}`}>
                   <div className="flex items-center">
                     <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                       <path className={`fill-current text-slate-600 ${pathname.includes('messages') && 'text-indigo-500'}`} d="M14.5 7c4.695 0 8.5 3.184 8.5 7.111 0 1.597-.638 3.067-1.7 4.253V23l-4.108-2.148a10 10 0 01-2.692.37c-4.695 0-8.5-3.184-8.5-7.11C6 10.183 9.805 7 14.5 7z" />
@@ -268,11 +276,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </svg>
                     <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Messages</span>
                   </div>
-                </NavLink>
+                </Link>
               </li>
               {/* Tasks */}
               <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('tasks') && 'bg-slate-900'}`}>
-                <NavLink end to="/" className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('tasks') && 'hover:text-slate-200'}`}>
+                <Link href="/" className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('tasks') && 'hover:text-slate-200'}`}>
                   <div className="flex items-center">
                     <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                       <path className={`fill-current text-slate-600 ${pathname.includes('tasks') && 'text-indigo-500'}`} d="M8 1v2H3v19h18V3h-5V1h7v23H1V1z" />
@@ -281,11 +289,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </svg>
                     <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Tasks</span>
                   </div>
-                </NavLink>
+                </Link>
               </li>
               {/* Inbox */}
               <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('inbox') && 'bg-slate-900'}`}>
-                <NavLink end to="/" className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('inbox') && 'hover:text-slate-200'}`}>
+                <Link href="/" className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('inbox') && 'hover:text-slate-200'}`}>
                   <div className="flex items-center">
                     <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                       <path className={`fill-current text-slate-600 ${pathname.includes('inbox') && 'text-indigo-500'}`} d="M16 13v4H8v-4H0l3-9h18l3 9h-8Z" />
@@ -293,11 +301,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </svg>
                     <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Inbox</span>
                   </div>
-                </NavLink>
+                </Link>
               </li>
               {/* Calendar */}
               <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('calendar') && 'bg-slate-900'}`}>
-                <NavLink end to="/" className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('calendar') && 'hover:text-slate-200'}`}>
+                <Link href="/" className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('calendar') && 'hover:text-slate-200'}`}>
                   <div className="flex items-center">
                     <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                       <path className={`fill-current text-slate-600 ${pathname.includes('calendar') && 'text-indigo-500'}`} d="M1 3h22v20H1z" />
@@ -305,7 +313,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </svg>
                     <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Calendar</span>
                   </div>
-                </NavLink>
+                </Link>
               </li>
               {/* Settings */}
               <SidebarLinkGroup activecondition={pathname.includes('settings')}>
@@ -334,34 +342,34 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
                         <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">My Account</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">My Notifications</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Connected Apps</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Plans</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Billing & Invoices</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Give Feedback</span>
-                            </NavLink>
+                            </Link>
                           </li>
                         </ul>
                       </div>
@@ -396,29 +404,29 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
                         <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Changelog</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Roadmap</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">FAQs</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Empty State</span>
-                            </NavLink>
+                            </Link>
                           </li>
                           <li className="mb-1 last:mb-0">
-                            <NavLink end to="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
+                            <Link href="/" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">404</span>
-                            </NavLink>
+                            </Link>
                           </li>
                         </ul>
                       </div>
@@ -431,7 +439,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
         </div>
 
         {/* Expand / collapse button */}
-        <div className="pt-3 hidden lg:inline-flex 2xl:hidden justify-end mt-auto">
+        <div className="pt-3 hidden lg:inline-flex 2xl:hidden justify- mt-auto">
           <div className="px-3 py-2">
             <button onClick={() => setSidebarExpanded(!sidebarExpanded)}>
               <span className="sr-only">Expand / collapse sidebar</span>
