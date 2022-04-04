@@ -1,14 +1,16 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useState, useEffect, useRef } from 'react'
-// import { Link, useLocation } from 'react-router-dom';
 
-import SidebarLinkGroup from './SidebarLinkGroup'
+// import SidebarLinkGroup from './SidebarLinkGroup'
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
-  const pathname = '/'
+  const router = useRouter()
+  const { pathname } = router
   const trigger = useRef(null)
   const sidebar = useRef(null)
   const storedSidebarExpanded = null
+
 
 
   const [sidebarExpanded, setSidebarExpanded] = useState(
@@ -42,7 +44,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
   })
 
   useEffect(() => {
-    localStorage.setItem('sidebar-expanded', sidebarExpanded )
+    localStorage.setItem('sidebar-expanded', sidebarExpanded.toString())
     if (sidebarExpanded) {
       document.querySelector('body').classList.add('sidebar-expanded')
     } else {
@@ -54,9 +56,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
     <div>
       {/* Sidebar backdrop (mobile only) */}
       <div
-        className={`fixed inset-0 bg-slate-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200 ${
-          sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
+        className={`fixed inset-0 bg-slate-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200 ${sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
         aria-hidden='true'
       ></div>
 
@@ -64,9 +65,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       <div
         id='sidebar'
         ref={sidebar}
-        className={`flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 transform h-screen overflow-y-scroll lg:overflow-y-auto no-scrollbar w-64 lg:w-20 lg:sidebar-expanded:!w-64 2xl:!w-64 shrink-0 bg-slate-800 p-4 transition-all duration-200 ease-in-out ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-64'
-        }`}
+        className={`flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 transform h-screen overflow-y-scroll lg:overflow-y-auto no-scrollbar w-64 lg:w-20 lg:sidebar-expanded:!w-64 2xl:!w-64 shrink-0 bg-slate-800 p-4 transition-all duration-200 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-64'
+          }`}
       >
         {/* Sidebar header */}
         <div className='flex justify-between mb-10 pr-3 sm:px-2'>
@@ -144,38 +144,34 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 Pages
               </span>
             </h3>
-            <ul className='mt-3'>
+            <ul className='mt-3' style={{ color: "#fff" }}>
               {/* Dashboard */}
               <li
-                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                  pathname === '/' && 'bg-slate-900'
-                }`}
+
+                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname === '/' && 'bg-slate-900'
+                  }`}
               >
                 <Link
                   href='/'
-                  className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
-                    pathname === '/' && 'hover:text-slate-200'
-                  }`}
+                  className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname === '/' && 'hover:text-slate-200'
+                    }`}
                   passHref
                 >
                   <div className='flex items-center'>
                     <svg className='shrink-0 h-6 w-6' viewBox='0 0 24 24'>
                       <path
-                        className={`fill-current text-slate-400 ${
-                          pathname === '/' && '!text-indigo-500'
-                        }`}
+                        className={`fill-current text-slate-400 ${pathname === '/' && '!text-indigo-500'
+                          }`}
                         d='M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z'
                       />
                       <path
-                        className={`fill-current text-slate-600 ${
-                          pathname === '/' && 'text-indigo-600'
-                        }`}
+                        className={`fill-current text-slate-600 ${pathname === '/' && 'text-indigo-600'
+                          }`}
                         d='M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z'
                       />
                       <path
-                        className={`fill-current text-slate-400 ${
-                          pathname === '/' && 'text-indigo-200'
-                        }`}
+                        className={`fill-current text-slate-400 ${pathname === '/' && 'text-indigo-200'
+                          }`}
                         d='M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z'
                       />
                     </svg>
@@ -187,29 +183,26 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               </li>
               {/* Analytics */}
               <li
-                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                  pathname.includes('analytics') && 'bg-slate-900'
-                }`}
+
+                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('analytics') && 'bg-slate-900'
+                  }`}
               >
                 <Link
-                  href='/'
-                  className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
-                    pathname.includes('analytics') && 'hover:text-slate-200'
-                  }`}
+                  href='/analytics'
+                  className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('analytics') && 'hover:text-slate-200'
+                    }`}
                   passHref
                 >
                   <div className='flex items-center'>
                     <svg className='shrink-0 h-6 w-6' viewBox='0 0 24 24'>
                       <path
-                        className={`fill-current text-slate-600 ${
-                          pathname.includes('analytics') && 'text-indigo-500'
-                        }`}
+                        className={`fill-current text-slate-600 ${pathname.includes('analytics') && 'text-indigo-500'
+                          }`}
                         d='M0 20h24v2H0z'
                       />
                       <path
-                        className={`fill-current text-slate-400 ${
-                          pathname.includes('analytics') && 'text-indigo-300'
-                        }`}
+                        className={`fill-current text-slate-400 ${pathname.includes('analytics') && 'text-indigo-300'
+                          }`}
                         d='M4 18h2a1 1 0 001-1V8a1 1 0 00-1-1H4a1 1 0 00-1 1v9a1 1 0 001 1zM11 18h2a1 1 0 001-1V3a1 1 0 00-1-1h-2a1 1 0 00-1 1v14a1 1 0 001 1zM17 12v5a1 1 0 001 1h2a1 1 0 001-1v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1z'
                       />
                     </svg>
@@ -221,35 +214,31 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               </li>
               {/* Tasks */}
               <li
-                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                  pathname.includes('tasks') && 'bg-slate-900'
-                }`}
+
+                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('tasks') && 'bg-slate-900'
+                  }`}
               >
                 <Link
-                  href='/'
-                  className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
-                    pathname.includes('tasks') && 'hover:text-slate-200'
-                  }`}
+                  href='/tasks'
+                  className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('tasks') && 'hover:text-slate-200'
+                    }`}
                   passHref
                 >
                   <div className='flex items-center'>
                     <svg className='shrink-0 h-6 w-6' viewBox='0 0 24 24'>
                       <path
-                        className={`fill-current text-slate-600 ${
-                          pathname.includes('tasks') && 'text-indigo-500'
-                        }`}
+                        className={`fill-current text-slate-600 ${pathname.includes('tasks') && 'text-indigo-500'
+                          }`}
                         d='M8 1v2H3v19h18V3h-5V1h7v23H1V1z'
                       />
                       <path
-                        className={`fill-current text-slate-600 ${
-                          pathname.includes('tasks') && 'text-indigo-500'
-                        }`}
+                        className={`fill-current text-slate-600 ${pathname.includes('tasks') && 'text-indigo-500'
+                          }`}
                         d='M1 1h22v23H1z'
                       />
                       <path
-                        className={`fill-current text-slate-400 ${
-                          pathname.includes('tasks') && 'text-indigo-300'
-                        }`}
+                        className={`fill-current text-slate-400 ${pathname.includes('tasks') && 'text-indigo-300'
+                          }`}
                         d='M15 10.586L16.414 12 11 17.414 7.586 14 9 12.586l2 2zM5 0h14v4H5z'
                       />
                     </svg>
@@ -261,34 +250,60 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               </li>
               {/* Calendar */}
               <li
-                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                  pathname.includes('calendar') && 'bg-slate-900'
-                }`}
+
+                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('calendar') && 'bg-slate-900'
+                  }`}
               >
                 <Link
-                  href='/'
-                  className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
-                    pathname.includes('calendar') && 'hover:text-slate-200'
-                  }`}
+                  href='/calendar'
+                  className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('calendar') && 'hover:text-slate-200'
+                    }`}
                   passHref
                 >
                   <div className='flex items-center'>
                     <svg className='shrink-0 h-6 w-6' viewBox='0 0 24 24'>
                       <path
-                        className={`fill-current text-slate-600 ${
-                          pathname.includes('calendar') && 'text-indigo-500'
-                        }`}
+                        className={`fill-current text-slate-600 ${pathname.includes('calendar') && 'text-indigo-500'
+                          }`}
                         d='M1 3h22v20H1z'
                       />
                       <path
-                        className={`fill-current text-slate-400 ${
-                          pathname.includes('calendar') && 'text-indigo-300'
-                        }`}
+                        className={`fill-current text-slate-400 ${pathname.includes('calendar') && 'text-indigo-300'
+                          }`}
                         d='M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z'
                       />
                     </svg>
                     <span className='text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200'>
                       Calendar
+                    </span>
+                  </div>
+                </Link>
+              </li>
+              {/* archive*/}
+              <li
+
+                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('archive') && 'bg-slate-900'
+                  }`}
+              >
+                <Link
+                  href='/archive'
+                  className={`block text-slate-200 hover:text-white truncate transition duration-150 ${pathname.includes('archive') && 'hover:text-slate-200'
+                    }`}
+                  passHref
+                >
+                  <div className='flex items-center'>
+                    <svg className='shrink-0 h-6 w-6' viewBox="0 0 24 24">
+                      <g>
+                        <path className={`fill-current text-slate-400 ${pathname.includes('archive') && 'text-indigo-300'
+                          }`} d="m24 5.793h-24v-4.3828c0-0.32031 0.26172-0.58203 0.58594-0.58203h22.828c0.32422 0 0.58594 0.26172 0.58594 0.58203z" />
+                        <path className={`fill-current text-slate-600 ${pathname.includes('archive') && 'text-indigo-500'
+                          }`} d="m1.2422 5.793v15.969c0 0.77734 0.63281 1.4102 1.4102 1.4102h18.695c0.77734 0 1.4102-0.63281 1.4102-1.4102v-15.969z" />
+                        <path className={`fill-current text-slate-400 ${pathname.includes('archive') && 'text-indigo-300'
+                          }`} d="m14.273 12.414h-4.5469c-0.80078 0-1.4492-0.65234-1.4492-1.4492v-0.62109c0-0.22656 0.18359-0.41406 0.41406-0.41406 0.22656 0 0.41016 0.1875 0.41016 0.41406v0.62109c0 0.34375 0.28125 0.62109 0.625 0.62109h4.5469c0.34375 0 0.625-0.27734 0.625-0.62109v-0.62109c0-0.22656 0.18359-0.41406 0.41016-0.41406 0.23047 0 0.41406 0.1875 0.41406 0.41406v0.62109c0 0.79688-0.64844 1.4492-1.4492 1.4492z" />
+                      </g>
+                    </svg>
+                    <span className='text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200'>
+                      Archive
                     </span>
                   </div>
                 </Link>
@@ -378,7 +393,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 
