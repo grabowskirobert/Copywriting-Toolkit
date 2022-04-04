@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { RiArrowDownSLine } from 'react-icons/ri'
 import { useState } from "react";
-import CustomButton from "./button";
+import CustomButton from "../CustomButton";
 import Link from "next/link";
 const Task = ({ _id, title, date_start, date_end }) => {
     const [showMore, setShowMore] = useState<boolean>(false);
@@ -15,7 +15,7 @@ const Task = ({ _id, title, date_start, date_end }) => {
                     <p>Data zakończenia: {date_end}</p>
                 </div>
                 <div className="flex justify-end gap-3">
-                    <CustomButton secondColor={true}>Usuń zadanie i przenieś do archiwum</CustomButton>
+                    <CustomButton secondColor>Usuń zadanie i przenieś do archiwum</CustomButton>
                     <CustomButton>Edytuj szczegóły zadania</CustomButton>
                     <CustomButton>
                         <Link href={`/tasks/${_id}`} >Przejdź do zadania</Link>
@@ -37,10 +37,5 @@ const Task = ({ _id, title, date_start, date_end }) => {
         </div >
     )
 }
-
-const Container = styled.div`
-    padding: .5em 1em;
-    border-bottom: 1px solid grey;
-`;
 
 export default Task;

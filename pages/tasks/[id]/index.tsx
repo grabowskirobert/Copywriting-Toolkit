@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import CustomButton from "../../../components/parts/button";
+import CustomButton from "../../../components/CustomButton";
 
 const View = () => {
     const router = useRouter()

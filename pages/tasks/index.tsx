@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import CustomCard from "../../components/cards/customCard";
-import CustomButton from "../../components/parts/button";
+import CustomCard from "../../components/CustomCard";
+import CustomButton from "../../components/CustomButton";
 import { AiOutlineClose } from 'react-icons/ai'
 import taskArray from "../../JSON/taskTemplate.json"
-import Task from "../../components/parts/task";
+import Task from "../../components/TasksComponents/Task";
 import { useState } from "react";
 
 const Index = () => {
