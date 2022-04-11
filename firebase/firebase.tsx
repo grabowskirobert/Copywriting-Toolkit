@@ -1,5 +1,5 @@
 import firebase from 'firebase/app'
-import 'firebase/auth'
+import {getAuth} from 'firebase/auth'
 
 const app = firebase.initializeApp({
   apiKey: process.env.FB_API_KEY,
@@ -11,5 +11,5 @@ const app = firebase.initializeApp({
   measurementId: process.env.FB_MEASUREMENT_ID,
 })
 
-export const auth = app.auth()
+export const auth = getAuth(app)
 export default app

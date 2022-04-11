@@ -1,7 +1,8 @@
 import '../styles/globals.css'
 import { useState } from 'react';
 import type { AppProps } from 'next/app'
-
+import { ThemeProvider } from 'styled-components'
+import { theme } from '../styles/theme';
 import Header from '../components/template/partials/Header';
 import Sidebar from '../components/template/partials/Sidebar';
 import { useRouter } from 'next/router';
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>{pathname === "/" ? "Dashboard" : pathname[1]?.toUpperCase() + pathname?.substring(2)}</title>
       </Head>
+      <ThemeProvider theme={theme}>
       <div className="flex h-screen overflow-hidden">
 
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
@@ -35,6 +37,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
         </div>
       </div>
+      </ThemeProvider>
     </>
   )
 }
