@@ -37,7 +37,7 @@ const TaskForm = ({taskForm,update = false,reload,setReload,closeWindow,taskColl
     const createTask = async (body:any) => {
         await addDoc(taskCollection, body);
         closeWindow();
-        setReload(!reload);
+        // setReload(!reload);
     }
 
     const updateTask = async (task_id:any,body:any) => {
