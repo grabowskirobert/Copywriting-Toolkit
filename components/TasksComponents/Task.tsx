@@ -3,9 +3,8 @@ import { RiArrowDownSLine } from 'react-icons/ri'
 import { useState } from "react";
 import CustomButton from "../CustomButton";
 import Link from "next/link";
-const Task = ({ _id, title, date_start, date_end }) => {
+const Task = ({ id, task_title, date_start, date_end,deleteTask,editTask }:any) => {
     const [showMore, setShowMore] = useState<boolean>(false);
-
 
     function More() {
         return (
@@ -15,10 +14,12 @@ const Task = ({ _id, title, date_start, date_end }) => {
                     <p>Data zakończenia: {date_end}</p>
                 </div>
                 <div className="flex justify-end gap-3">
-                    <CustomButton secondColor>Usuń zadanie i przenieś do archiwum</CustomButton>
-                    <CustomButton>Edytuj szczegóły zadania</CustomButton>
+                    <CustomButton secondColor customFunction={()=>deleteTask()}>Usuń zadanie i przenieś do archiwum</CustomButton>
                     <CustomButton>
-                        <Link href={`/tasks/${_id}`} >Przejdź do zadania</Link>
+                        <Link href={`/tasks/${id}/edit`}>Edytuj szczegóły zadania</Link>
+                    </CustomButton>
+                    <CustomButton>
+                        <Link href={`/tasks/${id}`} >Przejdź do zadania</Link>
                     </CustomButton>
                 </div>
             </>
@@ -28,7 +29,7 @@ const Task = ({ _id, title, date_start, date_end }) => {
     return (
         <div className="py-2 px-3.5 border-b-2">
             <div className="relative cursor-pointer" onClick={() => setShowMore(!showMore)}>
-                <p><b>{title}</b></p>
+                <p><b>{task_title}</b></p>
                 <RiArrowDownSLine className="absolute top-2 right-1" onClick={() => setShowMore(!showMore)} />
             </div>
             {

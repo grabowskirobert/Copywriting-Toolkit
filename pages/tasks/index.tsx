@@ -1,14 +1,49 @@
-import styled from "styled-components";
-import CustomCard from "../../components/CustomCard";
 import CustomButton from "../../components/CustomButton";
-import { AiOutlineClose } from 'react-icons/ai'
-import taskArray from "../../JSON/taskTemplate.json"
 import Task from "../../components/TasksComponents/Task";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {db} from '../../firebase/firebase'
+import TaskForm from "../../components/TasksComponents/TaskForm";
+import { collection, getDocs, addDoc, doc, deleteDoc } from "@firebase/firestore";
 
 const Index = () => {
 
-    const [query, setQuery] = useState<string>("")
+    const [addTask, setAddTask] = useState<boolean>(false);
+    const [reload, setReload] = useState<boolean>(false);
+    const [query, setQuery] = useState<string>("");
+    const [task,setTask] = useState<Array<any>>([]);
+    
+
+    const [taskForm,setTaskForm] = useState({
+        task_title: "",
+        date_start: "",
+        date_end: "",
+        keywords: [],
+        content: {}
+    })
+
+    const taskCollection = collection(db, "task");
+
+    const deleteTask = async (id:any) => {
+        const taskDoc = doc(db,"task", id);
+        await deleteDoc(taskDoc);
+        setReload(!reload);
+        console.log('deleted')
+    }
+
+    useEffect(()=>{
+        const getTask = async () => {
+            const data = await getDocs(taskCollection);
+            setTask(data.docs.map(doc => ({...doc.data(), id: doc.id})));
+        }
+        getTask();
+
+        return () => {
+            setTask([])
+        }
+    },[reload])
+    
+    
+
 
     return (
         <div>
@@ -33,15 +68,16 @@ const Index = () => {
                             placeholder="Wyszukaj poprzez wpisanie tematyki tekstu"
                             onChange={(e) => setQuery(e.currentTarget.value)}
                         />
-                        <CustomButton>Dodaj zadanie</CustomButton>
+                        <CustomButton customFunction={()=>{setAddTask(!addTask)}}>Dodaj zadanie</CustomButton>
                     </div>
                     {
-                        taskArray.Task
-                            .filter((el: any) => el.title.includes(query))
-                            .map(el => <Task {...el} key={el._id} />)
+                        task
+                        .filter((el: any) => el.task_title.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
+                        .map(el => <Task {...el} key={el.id} deleteTask={()=>deleteTask(el.id)}/>)
                     }
                 </div>
             </div>
+            {addTask && <TaskForm taskForm={taskForm} closeWindow={()=>{setAddTask(!addTask)}} />}
         </div>
     )
 }
