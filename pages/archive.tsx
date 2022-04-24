@@ -1,5 +1,7 @@
+import privateRoute from '../components/privateRoute';
+
 const Archive = () => {
     return <div>Archive</div>
 }
 
-export default Archive;
+export default privateRoute(Archive);

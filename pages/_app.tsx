@@ -7,6 +7,7 @@ import Header from '../components/template/partials/Header';
 import Sidebar from '../components/template/partials/Sidebar';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { AuthProvider } from '../contexts/AuthContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -16,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 
   return (
-    <>
+    <AuthProvider>
       <Head>
         <title>{pathname === "/" ? "Dashboard" : pathname[1]?.toUpperCase() + pathname?.substring(2)}</title>
       </Head>
@@ -38,7 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </div>
       </div>
       </ThemeProvider>
-    </>
+    </AuthProvider>
   )
 }
 

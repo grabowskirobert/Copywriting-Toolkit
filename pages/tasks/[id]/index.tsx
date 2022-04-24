@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import CustomButton from "../../../components/CustomButton";
+import privateRoute from '../../../components/privateRoute';
 
 const View = () => {
     const router = useRouter()
@@ -12,4 +13,4 @@ const View = () => {
     )
 }
 
-export default View;
+export default privateRoute(View);

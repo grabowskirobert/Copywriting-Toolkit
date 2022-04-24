@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react'
 import CustomCard from '../components/CustomCard'
-import CustomButton from '../components/CustomButton'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { useAuth } from '../contexts/AuthContext'
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
+import CustomButton from '../components/CustomButton'
 
 const SignupContainer = styled.div`
   max-width: 400px;
@@ -12,10 +12,11 @@ const SignupContainer = styled.div`
   margin: 0 auto;
 `
 
-function Login() {
+function SignUp() {
   const emailRef: React.MutableRefObject<any> = useRef()
   const passwordRef: React.MutableRefObject<any> = useRef()
-  const { login } = useAuth()
+  const passwordConfirmRef: React.MutableRefObject<any> = useRef()
+  const { signup } = useAuth()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -23,13 +24,17 @@ function Login() {
   async function handleSubmit(data: any): Promise<void> {
     data.preventDefault()
 
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      return setError('Password do not match')
+    }
+
     try {
       setError('')
       setLoading(true)
-      await login(emailRef.current.value, passwordRef.current.value)
+      await signup(emailRef.current.value, passwordRef.current.value)
       router.push('/')
-    } catch (e) {
-      setError('Failed to log in')
+    } catch(e) {
+      setError('Failed to create an account')
       console.log(e)
     }
     setLoading(false)
@@ -38,7 +43,7 @@ function Login() {
   return (
     <SignupContainer>
       <CustomCard>
-        <h2 className='text-center mb-4'>Log In</h2>
+        <h2 className='text-center mb-4'>Sign up</h2>
         <p>{error && error}</p>
         <form onSubmit={handleSubmit}>
           <div id='email'>
@@ -49,24 +54,23 @@ function Login() {
             <label htmlFor=''>Password</label>
             <input type='password' ref={passwordRef} required />
           </div>
+          <div id='password-confirm'>
+            <label htmlFor=''>Password Confirmation</label>
+            <input type='password' ref={passwordConfirmRef} required />
+          </div>
           <CustomButton type='submit' disabled={loading}>
-            Login
+            Sign Up
           </CustomButton>
         </form>
-        <div>
-          <Link href='/forgot-password'>
-            <a>Forgot password?</a>
-          </Link>
-        </div>
       </CustomCard>
       <div className='w-full text-center mt-2'>
-        Need an account?
-        <Link href='/signup'>
-          <a>Sign up</a>
+        Already have an account?
+        <Link href='/login'>
+          <a>Log In</a>
         </Link>
       </div>
     </SignupContainer>
   )
 }
 
-export default Login
+export default SignUp

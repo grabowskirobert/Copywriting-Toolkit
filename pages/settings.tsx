@@ -1,9 +1,10 @@
 import React from 'react'
+import privateRoute from '../components/privateRoute'
 
-function settings() {
+function Settings() {
   return (
     <div>settings</div>
   )
 }
 
-export default settings
+export default privateRoute(Settings)

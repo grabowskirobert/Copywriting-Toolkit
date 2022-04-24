@@ -1,10 +1,8 @@
 import React, { useState, useRef } from 'react'
 import CustomCard from '../components/CustomCard'
-import CustomButton from '../components/CustomButton'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { useAuth } from '../contexts/AuthContext'
-import { useRouter } from 'next/router'
 
 const SignupContainer = styled.div`
   max-width: 400px;
@@ -12,24 +10,24 @@ const SignupContainer = styled.div`
   margin: 0 auto;
 `
 
-function Login() {
+function ForgotPassword() {
   const emailRef: React.MutableRefObject<any> = useRef()
-  const passwordRef: React.MutableRefObject<any> = useRef()
-  const { login } = useAuth()
+  const { resetPassword } = useAuth()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
+  const [message, setMessage] = useState('')
 
   async function handleSubmit(data: any): Promise<void> {
     data.preventDefault()
 
     try {
+      setMessage('')
       setError('')
       setLoading(true)
-      await login(emailRef.current.value, passwordRef.current.value)
-      router.push('/')
+      await resetPassword(emailRef.current.value)
+      setMessage('Check your inbox for further instructions')
     } catch (e) {
-      setError('Failed to log in')
+      setError('Failed to reset password')
       console.log(e)
     }
     setLoading(false)
@@ -38,24 +36,21 @@ function Login() {
   return (
     <SignupContainer>
       <CustomCard>
-        <h2 className='text-center mb-4'>Log In</h2>
+        <h2 className='text-center mb-4'>Password Reset</h2>
         <p>{error && error}</p>
+        <p>{message && message}</p>
         <form onSubmit={handleSubmit}>
           <div id='email'>
             <label htmlFor=''>Email</label>
             <input type='email' ref={emailRef} required />
           </div>
-          <div id='password'>
-            <label htmlFor=''>Password</label>
-            <input type='password' ref={passwordRef} required />
-          </div>
-          <CustomButton type='submit' disabled={loading}>
-            Login
-          </CustomButton>
+          <button type='submit' disabled={loading}>
+            Reset Password
+          </button>
         </form>
         <div>
-          <Link href='/forgot-password'>
-            <a>Forgot password?</a>
+          <Link href='/login'>
+            <a>Login</a>
           </Link>
         </div>
       </CustomCard>
@@ -69,4 +64,4 @@ function Login() {
   )
 }
 
-export default Login
+export default ForgotPassword

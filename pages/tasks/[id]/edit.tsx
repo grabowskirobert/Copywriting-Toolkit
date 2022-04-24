@@ -3,9 +3,10 @@ import TaskForm from "../../../components/TasksComponents/TaskForm";
 import { db } from "../../../firebase/firebase";
 import { getDoc, doc } from "@firebase/firestore";
 import { useEffect, useState } from "react";
+import privateRoute from '../../../components/privateRoute';
 
 
-const EditTask = () => {
+const EditTask:any = () => {
 
     const router = useRouter();
     const { id } = router.query;
@@ -26,4 +27,4 @@ const EditTask = () => {
     if (form) return <TaskForm update={true} taskForm={form} taskId={id}/>
 }
 
-export default EditTask;
+export default privateRoute(EditTask);

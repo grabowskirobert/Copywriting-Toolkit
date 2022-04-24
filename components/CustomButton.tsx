@@ -3,6 +3,7 @@ interface Btn {
   secondColor?: boolean
   customFunction?: (p: any) => void
   disabled?: boolean
+  type?: string
 }
 
 const CustomButton = ({

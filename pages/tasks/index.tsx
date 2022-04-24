@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import {db} from '../../firebase/firebase'
 import TaskForm from "../../components/TasksComponents/TaskForm";
 import { collection, getDocs, addDoc, doc, deleteDoc } from "@firebase/firestore";
+import privateRoute from '../../components/privateRoute';
 
 const Index = () => {
 
@@ -84,4 +85,4 @@ const Index = () => {
 
 
 
-export default Index;
+export default privateRoute(Index);
