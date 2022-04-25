@@ -43,13 +43,13 @@ function Login() {
         <form onSubmit={handleSubmit}>
           <div id='email'>
             <label htmlFor=''>Email</label>
-            <input type='email' ref={emailRef} required />
+            <input type='email' ref={emailRef} required className='block w-4/5 mx-auto'/>
           </div>
           <div id='password'>
             <label htmlFor=''>Password</label>
-            <input type='password' ref={passwordRef} required />
+            <input type='password' ref={passwordRef} required className='block w-4/5 mx-auto'/>
           </div>
-          <CustomButton type='submit' disabled={loading}>
+          <CustomButton type='submit' disabled={loading} className='m-4'>
             Login
           </CustomButton>
         </form>
@@ -59,10 +59,10 @@ function Login() {
           </Link>
         </div>
       </CustomCard>
-      <div className='w-full text-center mt-2'>
+      <div className='w-full text-center mt-4'>
         Need an account?
         <Link href='/signup'>
-          <a>Sign up</a>
+          <a className='font-semibold ml-1'>Sign up</a>
         </Link>
       </div>
     </SignupContainer>

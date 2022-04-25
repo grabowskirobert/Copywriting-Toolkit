@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import Notifications from './header/Notifications';
 import UserMenu from './header/UserMenu';
 
+interface HeaderProps { 
+  sidebarOpen: boolean
+  setSidebarOpen: Function
+}
+
 function Header({
   sidebarOpen,
   setSidebarOpen
-}) {
+}:HeaderProps) {
 
-  const [searchModalOpen, setSearchModalOpen] = useState(false)
+  // const [searchModalOpen, setSearchModalOpen] = useState(false)
 
   return (
     <header className="sticky top-0 bg-white border-b border-slate-200 z-30">

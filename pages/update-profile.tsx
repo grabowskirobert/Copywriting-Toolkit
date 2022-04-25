@@ -12,6 +12,11 @@ const SignupContainer = styled.div`
   text-align: center;
   margin: 0 auto;
 `
+const Cell = styled.div`
+display: block;
+width: 100%;
+padding: 0.5rem;
+`
 
 function UpdateProfile() {
   const emailRef: React.MutableRefObject<any> = useRef()
@@ -54,28 +59,29 @@ function UpdateProfile() {
         <h2 className='text-center mb-4'>Update Profile</h2>
         <p>{error && error}</p>
         <form onSubmit={handleSubmit}>
-          <div id='email'>
+          <Cell id='email'>
             <label htmlFor=''>Email</label>
-            <input type='email' ref={emailRef} required defaultValue={currentUser.email}/>
-          </div>
-          <div id='password'>
+            <input type='email' ref={emailRef} required defaultValue={currentUser.email} className='block w-4/5 mx-auto'/>
+          </Cell>
+          <Cell id='password'>
             <label htmlFor=''>Password</label>
-            <input type='password' ref={passwordRef}  placeholder='Leave blank to keep the same'/>
-          </div>
-          <div id='password-confirm'>
+            <input type='password' ref={passwordRef}  placeholder='Leave blank to keep the same' className='block w-4/5 mx-auto'/>
+          </Cell>
+          <Cell id='password-confirm'>
             <label htmlFor=''>Password Confirmation</label>
-            <input type='password' ref={passwordConfirmRef}  placeholder='Leave blank to keep the same'/>
-          </div>
+            <input type='password' ref={passwordConfirmRef}  placeholder='Leave blank to keep the same' className='block w-4/5 mx-auto'/>
+          </Cell>
           <CustomButton type='submit' disabled={loading}>
             Update
           </CustomButton>
-        </form>
-      </CustomCard>
-      <div className='w-full text-center mt-2'>
+          <CustomButton className='m-4' disabled={loading}>
         <Link href='/'>
           <a>Cancel</a>
         </Link>
-      </div>
+        </CustomButton>
+        </form>
+        
+      </CustomCard>
     </SignupContainer>
   )
 }
