@@ -78,7 +78,7 @@ const Index = () => {
                     }
                 </div>
             </div>
-            {addTask && <TaskForm taskCollection={taskCollection}  taskForm={taskForm} closeWindow={()=>{setAddTask(!addTask)}} />}
+            {addTask && <TaskForm taskCollection={taskCollection} setReload={()=>setReload(!reload)}  taskForm={taskForm} closeWindow={()=>{setAddTask(!addTask)}} />}
         </div>
     )
 }

@@ -20,11 +20,12 @@ const TaskForm = ({taskForm,update = false,reload,setReload,closeWindow,taskColl
         content: taskForm.content
     });
 
+    // Powoduje blad
 
-    function Overlay({children}:any) {
-        if (!update) return <Wrapper>{children}</Wrapper>
-        else return <>{children}</>
-    }
+    // function Overlay({children}:any) {
+    //     if (!update) return <Wrapper>{children}</Wrapper>
+    //     else return <>{children}</>
+    // }
 
     function handleChange(e:any) {
         const { value, name } = e.target;
@@ -37,7 +38,7 @@ const TaskForm = ({taskForm,update = false,reload,setReload,closeWindow,taskColl
     const createTask = async (body:any) => {
         await addDoc(taskCollection, body);
         closeWindow();
-        // setReload(!reload);
+        setReload();
     }
 
     const updateTask = async (task_id:any,body:any) => {
@@ -61,7 +62,7 @@ const TaskForm = ({taskForm,update = false,reload,setReload,closeWindow,taskColl
     }
 
     return (
-      <Overlay>  
+      <>  
       {update && <CustomButton customFunction={()=>router.back()}>Return</CustomButton>}
         <Container>
             <CustomCard>
@@ -80,7 +81,7 @@ const TaskForm = ({taskForm,update = false,reload,setReload,closeWindow,taskColl
             </form>
             </CustomCard>
         </Container>
-      </Overlay>
+      </>
     )
 }
 const Wrapper = styled.div`
