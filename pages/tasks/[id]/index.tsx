@@ -1,152 +1,197 @@
 import { useRouter } from "next/router";
 import CustomButton from "../../../components/CustomButton";
 import privateRoute from '../../../components/privateRoute';
-import { createReactEditorJS } from 'react-editor-js'
-import { useRef, useState } from "react";
+import { db } from "../../../firebase/firebase";
+import { getDoc, doc, updateDoc } from "@firebase/firestore";
+import {  useEffect, useState } from "react";
+import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 
-const View = () => {
-    const router = useRouter()
-    const instanceRef = useRef(null);
-    const id = router.query.id
-    const EditorJS = createReactEditorJS()
-    const [data,setData] = useState();
+// interface WithRouterProps {
+//   router: NextRouter
+// }
+
+// interface MyEditorProps extends WithRouterProps {}
+
+// type MyState = {
+//   editorState: any;
+//   data: any;
+//   content: string;
+//   test: string;
+// }
+
+// class MyEditor extends Component<MyEditorProps, MyState> {
+//   constructor(props:any) {
+//     super(props);
+//     this.updateTask = this.updateTask.bind(this);
+//     this.handleSave = this.handleSave.bind(this);
+
+//     this.state = {
+//       content: '',
+//       data: null,
+//       editorState: EditorState.createEmpty(),
+//       test: '{"blocks":[{"key":"8srtm","text":"sdfdsf","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}'
+//     };
+//     this.handleKeyCommand = this.handleKeyCommand.bind(this);
+//   }
 
 
-    async function handleSave() {
-      const savedData = await instanceRef.current.save();
-  
-      console.log("savedData", savedData);
+//   onChange = (editorState:any) => this.setState({editorState});
+
+//   handleKeyCommand(command:any, editorState:any) {
+//     const newState = RichUtils.handleKeyCommand(editorState, command);
+
+//     if (newState) {
+//       this.onChange(newState);
+//       return 'handled';
+//     }
+
+//     return 'not-handled';
+//   }
+
+//   async handleSave() {
+//     this.setState({
+//       content: JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()))
+//     })  
+//   }
+
+//   componentDidMount() {
+//     console.log("Fetch task id: ",this.props.router.query.id)
+
+//     const fetchTask = async (task_id:any) => {
+//       const taskDoc = doc(db, "task", task_id);
+//       const data:any = await getDoc(taskDoc);
+//       const task = data.data();
+//       if(task.content) {
+//         this.setState({
+//           content: task.content
+//         })
+//         console.log(this.state.content)
+//       } else {
+//         console.log('empty content')
+//       }
+//     }
+
+//     // this?.state.content !==  '' ? EditorState.createWithContent(convertFromRaw(JSON.parse(this.state.content))): 
+
+//    const init = async () => {
+//     await fetchTask(this.props.router.query.id);
+
+//     if(this.state.content) {
+//       EditorState.createWithContent(convertFromRaw(JSON.parse(this.state.content)))
+//     }
+//    }
+
+//    init();
+//   }
+
+//   updateTask = async (task_id:any,body:any) => {
+//     console.log(body)
+//     const taskDoc = doc(db, "task", task_id);
+//     await updateDoc(taskDoc,{'content':body});
+//     console.log('update')
+
+// }
+
+//   _onBoldClick() {
+//     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
+//   }
+//   _onItalicClick() {
+//     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'));
+//   }
+//   _onUnderlineClick() {
+//     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE'));
+//   }
+
+
+//   render() {
+
+//     return (
+//       <div>
+//         <p>Editor JS </p>
+//         <CustomButton customFunction={this._onBoldClick.bind(this)}>Bold</CustomButton>
+//         <CustomButton customFunction={this._onItalicClick.bind(this)}>Italic</CustomButton>
+//         <CustomButton customFunction={this._onUnderlineClick.bind(this)}>Underline</CustomButton>
+//         <br />
+//         <Editor
+//         editorState={this.state.editorState}
+//         handleKeyCommand={this.handleKeyCommand}
+//         onChange={this.onChange}
+//       />
+//       <CustomButton customFunction={this.handleSave}>Save</CustomButton>
+//       <CustomButton customFunction={()=>this.updateTask(this.props.router.query.id,this.state.content)}>Show</CustomButton>
+//       </div>
+//     );
+//   }
+// }
+
+// const routerHOC = withRouter(MyEditor);
+
+function MyEditor() {
+  const router = useRouter();
+  const taskId = router.query.id;
+  const [editorState, setEditorState] = useState(
+    () => EditorState.createEmpty(),
+  );
+  const handleKeyCommand = (command: any, editorState: any) => {
+    const newState = RichUtils.handleKeyCommand(editorState, command);
+
+    if (newState) {
+      setEditorState(newState);
+      return 'handled';
     }
 
-    return (
-        <div>
-            <CustomButton customFunction={() => router.back()}>Return</CustomButton>
-            <p>You see task no. {id}</p>
-            <EditorJS instanceRef={(instance:any) => (instanceRef.current = instance)}value={data}/>
-            <button onClick={handleSave}>Save</button>
-        </div>
-    )
+    return 'not-handled';
+  }
+
+  const updateTask = async (task_id: any) => {
+    const taskDoc = doc(db, "task", task_id);
+    await updateDoc(taskDoc, { 'content': JSON.stringify(convertToRaw(editorState.getCurrentContent())) });
+    console.log('update')
+
+  }
+
+  useEffect(() => {
+    console.log("Fetch task id: ", taskId)
+
+    const fetchTask = async (task_id: any) => {
+      const taskDoc = doc(db, "task", task_id);
+      const data: any = await getDoc(taskDoc);
+      const task = data.data();
+      if (task.content) {
+        setEditorState(() => EditorState.createWithContent(convertFromRaw(JSON.parse(task.content))))
+      } else {
+        console.log('empty content')
+      }
+    }
+
+    fetchTask(taskId);
+  }, [])
+
+
+  const _onBoldClick = () => {
+    setEditorState(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
+  }
+  const _onItalicClick = () => {
+    setEditorState(RichUtils.toggleInlineStyle(editorState, 'ITALIC'));
+  }
+  const _onUnderlineClick = () => {
+    setEditorState(RichUtils.toggleInlineStyle(editorState, 'UNDERLINE'));
+  }
+
+
+  return <div>
+    <CustomButton customFunction={()=>router.back()}>Return</CustomButton>
+    <br />
+    <br />
+    <CustomButton customFunction={_onBoldClick}>BOLD</CustomButton>
+    <CustomButton customFunction={_onItalicClick}>ITALIC</CustomButton>
+    <CustomButton customFunction={_onUnderlineClick}>UNDERLINE</CustomButton>
+    <br />
+    <br />
+    <Editor editorState={editorState} onChange={setEditorState} handleKeyCommand={handleKeyCommand} />
+    <br />
+    <CustomButton customFunction={() => updateTask(taskId)}>Save</CustomButton>
+  </div>
 }
 
-export default privateRoute(View);
-
-
-
-{/* <EditorJs
-        instanceRef={instance => (instanceRef.current = instance)}
-        tools={EDITOR_JS_TOOLS}
-        i18n={{
-          messages: {}
-        }}
-        data={{
-          time: 1556098174501,
-          blocks: [
-            {
-              type: "header",
-              data: {
-                text: "Editor.js",
-                level: 2
-              }
-            },
-            {
-              type: "paragraph",
-              data: {
-                text:
-                  "Hey. Meet the new Editor. On this page you can see it in action — try to edit this text."
-              }
-            },
-            {
-              type: "header",
-              data: {
-                text: "Key features",
-                level: 3
-              }
-            },
-            {
-              type: "list",
-              data: {
-                style: "unordered",
-                items: [
-                  "It is a block-styled editor",
-                  "It returns clean data output in JSON",
-                  "Designed to be extendable and pluggable with a simple API"
-                ]
-              }
-            },
-            {
-              type: "header",
-              data: {
-                text: "What does it mean «block-styled editor»",
-                level: 3
-              }
-            },
-            {
-              type: "paragraph",
-              data: {
-                text:
-                  'Workspace in classic editors is made of a single contenteditable element, used to create different HTML markups. Editor.js <mark class="cdx-marker">workspace consists of separate Blocks: paragraphs, headings, images, lists, quotes, etc</mark>. Each of them is an independent contenteditable element (or more complex structure) provided by Plugin and united by Editor\'s Core.'
-              }
-            },
-            {
-              type: "paragraph",
-              data: {
-                text:
-                  'There are dozens of <a href="https://github.com/editor-js">ready-to-use Blocks</a> and the <a href="https://editorjs.io/creating-a-block-tool">simple API</a> for creation any Block you need. For example, you can implement Blocks for Tweets, Instagram posts, surveys and polls, CTA-buttons and even games.'
-              }
-            },
-            {
-              type: "header",
-              data: {
-                text: "What does it mean clean data output",
-                level: 3
-              }
-            },
-            {
-              type: "paragraph",
-              data: {
-                text:
-                  "Classic WYSIWYG-editors produce raw HTML-markup with both content data and content appearance. On the contrary, Editor.js outputs JSON object with data of each Block. You can see an example below"
-              }
-            },
-            {
-              type: "paragraph",
-              data: {
-                text:
-                  'Given data can be used as you want: render with HTML for <code class="inline-code">Web clients</code>, render natively for <code class="inline-code">mobile apps</code>, create markup for <code class="inline-code">Facebook Instant Articles</code> or <code class="inline-code">Google AMP</code>, generate an <code class="inline-code">audio version</code> and so on.'
-              }
-            },
-            {
-              type: "paragraph",
-              data: {
-                text:
-                  "Clean data is useful to sanitize, validate and process on the backend."
-              }
-            },
-            {
-              type: "delimiter",
-              data: {}
-            },
-            {
-              type: "paragraph",
-              data: {
-                text:
-                  "We have been working on this project more than three years. Several large media projects help us to test and debug the Editor, to make it's core more stable. At the same time we significantly improved the API. Now, it can be used to create any plugin for any task. Hope you enjoy. 😏"
-              }
-            },
-            {
-              type: "image",
-              data: {
-                file: {
-                  url:
-                    "https://codex.so/upload/redactor_images/o_e48549d1855c7fc1807308dd14990126.jpg"
-                },
-                caption: "",
-                withBorder: true,
-                stretched: false,
-                withBackground: false
-              }
-            }
-          ],
-          version: "2.12.4"
-        }}
-      /> */}
+export default privateRoute(MyEditor);

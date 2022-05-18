@@ -19,7 +19,7 @@ const Index = () => {
         date_start: "",
         date_end: "",
         keywords: [],
-        content: {}
+        content: ''
     })
 
     const taskCollection = collection(db, "task");
