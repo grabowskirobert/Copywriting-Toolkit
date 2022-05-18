@@ -15,7 +15,7 @@ const Dashboard: NextPage = () => {
   return (
     <div className='w-2/3 mx-auto'>
       <CustomCard>
-        <h2 className='text-center mb-4'>Profile</h2>
+        <h2 className='text-center mb-4 text-xl'>Profile</h2>
         <p>{error && error}</p>
         <div>
           <span className='font-semibold pr-1'>Email:</span>
