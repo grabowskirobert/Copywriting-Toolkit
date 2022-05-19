@@ -134,7 +134,7 @@ function MyEditor() {
   const [editorState, setEditorState] = useState(
     () => EditorState.createEmpty(),
   );
-  const handleKeyCommand = (command: any, editorState: any) => {
+  const handleKeyCommand = (command: string, editorState: any) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
 
     if (newState) {
