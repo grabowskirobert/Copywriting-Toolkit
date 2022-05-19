@@ -6,6 +6,8 @@ import TaskForm from "../../components/TasksComponents/TaskForm";
 import { collection, getDocs, addDoc, doc, deleteDoc } from "@firebase/firestore";
 import privateRoute from '../../components/privateRoute';
 import { useAuth } from '../../contexts/AuthContext'
+import { StyledInput } from '../../styles/Shared';
+
 
 const Index = () => {
     
@@ -62,7 +64,7 @@ const Index = () => {
         <div>
             <div>
                 <div className="flex flex-col w-1/4">
-                    <select>
+                    <select className='rounded'>
                         <option value="">Pokaż wszystkie</option>
                         <option value=""></option>
                         <option value=""></option>
@@ -76,7 +78,7 @@ const Index = () => {
                 <div className="w-4/5 mt-8 shadow-lg rounded" >
                     <div className="flex justify-between py-1 border-b-2">
                         <input
-                            className="w-1/2 focus:outline-none"
+                            className='w-3/5 mr-auto rounded'
                             type="text"
                             placeholder="Wyszukaj poprzez wpisanie tematyki tekstu"
                             onChange={(e) => setQuery(e.currentTarget.value)}

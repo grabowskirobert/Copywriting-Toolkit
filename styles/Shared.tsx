@@ -4,7 +4,7 @@ interface PopUpProps {
 }
 
 export const PopUpMessage = styled.div<PopUpProps>`
-  position: absolute;
+  /* position: absolute; */
   white-space: nowrap;
   font-size: 0.7rem;
   top: ${({ status200 }) => (status200 ? '-5.5rem' : '-2rem')};
@@ -29,7 +29,32 @@ export const PopUpMessage = styled.div<PopUpProps>`
     border-width: 0.5rem;
     border-radius: 0.1rem;
     border-style: solid;
-    /* border-color: ${({ status200, theme }) =>
-      status200 ? theme.colors.green : theme.colors.error}; */
+    border-color: ${({ status200, theme }) =>
+      status200 ? theme.colors.green : theme.colors.error};
   }
 `
+export const ErrorMessage = styled.div`
+  color: ${({theme})=> theme.colors.error};
+  font-weight: bold;
+`
+
+export const FormContainer = styled.div`
+  max-width: 400px;
+  text-align: center;
+  margin: 0 auto;
+`
+
+export const FormCell = styled.div`
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+`
+
+export const StyledInput = styled.input`
+  border-radius: 0.25rem;
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+`
+
+

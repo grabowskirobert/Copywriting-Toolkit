@@ -5,12 +5,7 @@ import styled from 'styled-components'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from "next/router";
 import CustomButton from '../components/CustomButton'
-
-const SignupContainer = styled.div`
-  max-width: 400px;
-  text-align: center;
-  margin: 0 auto;
-`
+import { FormContainer, FormCell, StyledInput, ErrorMessage  } from '../styles/Shared'
 
 function SignUp() {
   const emailRef: React.MutableRefObject<any> = useRef()
@@ -41,23 +36,23 @@ function SignUp() {
   }
 
   return (
-    <SignupContainer>
+    <FormContainer>
       <CustomCard>
-        <h2 className='text-center mb-4'>Sign up</h2>
-        <p>{error && error}</p>
+        <h2 className='text-center mb-4 text-lg'>Sign up</h2>
+        <ErrorMessage>{error && error}</ErrorMessage>
         <form onSubmit={handleSubmit}>
-          <div id='email'>
+          <FormCell id='email'>
             <label htmlFor=''>Email</label>
-            <input type='email' ref={emailRef} required />
-          </div>
-          <div id='password'>
+            <StyledInput type='email' ref={emailRef} required />
+          </FormCell>
+          <FormCell id='password'>
             <label htmlFor=''>Password</label>
-            <input type='password' ref={passwordRef} required />
-          </div>
-          <div id='password-confirm'>
+            <StyledInput type='password' ref={passwordRef} required />
+          </FormCell>
+          <FormCell id='password-confirm'>
             <label htmlFor=''>Password Confirmation</label>
-            <input type='password' ref={passwordConfirmRef} required />
-          </div>
+            <StyledInput type='password' ref={passwordConfirmRef} required />
+          </FormCell>
           <CustomButton type='submit' disabled={loading}>
             Sign Up
           </CustomButton>
@@ -66,10 +61,10 @@ function SignUp() {
       <div className='w-full text-center mt-2'>
         Already have an account?
         <Link href='/login'>
-          <a>Log In</a>
+          <a className='font-semibold ml-1'>Log In</a>
         </Link>
       </div>
-    </SignupContainer>
+    </FormContainer>
   )
 }
 

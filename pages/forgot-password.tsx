@@ -3,12 +3,7 @@ import CustomCard from '../components/CustomCard'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { useAuth } from '../contexts/AuthContext'
-
-const SignupContainer = styled.div`
-  max-width: 400px;
-  text-align: center;
-  margin: 0 auto;
-`
+import { FormContainer } from '../styles/Shared'
 
 function ForgotPassword() {
   const emailRef: React.MutableRefObject<any> = useRef()
@@ -34,7 +29,7 @@ function ForgotPassword() {
   }
 
   return (
-    <SignupContainer>
+    <FormContainer>
       <CustomCard>
         <h2 className='text-center mb-4'>Password Reset</h2>
         <p>{error && error}</p>
@@ -60,7 +55,7 @@ function ForgotPassword() {
           <a>Sign up</a>
         </Link>
       </div>
-    </SignupContainer>
+    </FormContainer>
   )
 }
 

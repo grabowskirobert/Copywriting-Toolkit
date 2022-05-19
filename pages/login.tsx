@@ -5,12 +5,7 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
-
-const SignupContainer = styled.div`
-  max-width: 400px;
-  text-align: center;
-  margin: 0 auto;
-`
+import { FormContainer, FormCell, StyledInput, ErrorMessage } from '../styles/Shared'
 
 function Login() {
   const emailRef: React.MutableRefObject<any> = useRef()
@@ -36,19 +31,27 @@ function Login() {
   }
 
   return (
-    <SignupContainer>
+    <FormContainer>
       <CustomCard>
-        <h2 className='text-center mb-4'>Log In</h2>
-        <p>{error && error}</p>
+        <h2 className='text-center mb-4 text-xl'>Log In</h2>
+        <ErrorMessage>{error && error}</ErrorMessage>
         <form onSubmit={handleSubmit}>
-          <div id='email'>
+          <FormCell id='email'>
             <label htmlFor=''>Email</label>
-            <input type='email' ref={emailRef} required className='block w-4/5 mx-auto'/>
-          </div>
-          <div id='password'>
+            <StyledInput
+              type='email'
+              ref={emailRef}
+              required
+            />
+          </FormCell>
+          <FormCell id='password'>
             <label htmlFor=''>Password</label>
-            <input type='password' ref={passwordRef} required className='block w-4/5 mx-auto'/>
-          </div>
+            <StyledInput
+              type='password'
+              ref={passwordRef}
+              required
+            />
+          </FormCell>
           <CustomButton type='submit' disabled={loading} className='m-4'>
             Login
           </CustomButton>
@@ -65,7 +68,7 @@ function Login() {
           <a className='font-semibold ml-1'>Sign up</a>
         </Link>
       </div>
-    </SignupContainer>
+    </FormContainer>
   )
 }
 
