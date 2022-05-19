@@ -5,22 +5,35 @@ import {db} from '../../firebase/firebase'
 import TaskForm from "../../components/TasksComponents/TaskForm";
 import { collection, getDocs, addDoc, doc, deleteDoc } from "@firebase/firestore";
 import privateRoute from '../../components/privateRoute';
+import { useAuth } from '../../contexts/AuthContext'
 import { StyledInput } from '../../styles/Shared';
 
-const Index = () => {
 
+const Index = () => {
+    
     const [addTask, setAddTask] = useState<boolean>(false);
     const [reload, setReload] = useState<boolean>(false);
     const [query, setQuery] = useState<string>("");
     const [task,setTask] = useState<Array<any>>([]);
-    
+    const { currentUser } = useAuth()
 
+    interface task {
+        userUID: string;
+        task_title: string;
+        date_start: string;
+        date_end: string;
+        keywords: Array<string>;
+        content: string;
+        
+    }
+    
     const [taskForm,setTaskForm] = useState({
+        userUID: currentUser?.uid,
         task_title: "",
         date_start: "",
         date_end: "",
         keywords: [],
-        content: {}
+        content: ''
     })
 
     const taskCollection = collection(db, "task");
@@ -74,6 +87,7 @@ const Index = () => {
                     </div>
                     {
                         task
+                        .filter((taskUser:any) => taskUser.userUID?.includes(currentUser?.uid))
                         .filter((el: any) => el.task_title.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
                         .map(el => <Task {...el} key={el.id} deleteTask={()=>deleteTask(el.id)}/>)
                     }

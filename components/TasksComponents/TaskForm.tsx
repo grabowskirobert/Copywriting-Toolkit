@@ -13,19 +13,13 @@ const TaskForm = ({taskForm,update = false,reload,setReload,closeWindow,taskColl
     const router = useRouter();
 
     const [form,setForm] = useState({
+        userUID: taskForm.userUID,
         task_title: taskForm.task_title,
         date_start: taskForm.date_start,
         date_end: taskForm.date_end,
         keywords: taskForm.keywords,
         content: taskForm.content
     });
-
-    // Powoduje blad
-
-    // function Overlay({children}:any) {
-    //     if (!update) return <Wrapper>{children}</Wrapper>
-    //     else return <>{children}</>
-    // }
 
     function handleChange(e:any) {
         const { value, name } = e.target;
@@ -84,15 +78,6 @@ const TaskForm = ({taskForm,update = false,reload,setReload,closeWindow,taskColl
       </>
     )
 }
-const Wrapper = styled.div`
-position:absolute;
-z-index:0;
-top:0;
-left:0;
-background-color: rgba(0, 0, 0, 0.3);
-    width:100vw;
-    height:100vh;
-`;
 const Container = styled.div`
 
 position: absolute;
