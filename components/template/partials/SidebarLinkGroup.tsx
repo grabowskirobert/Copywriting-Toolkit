@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 
 
-function SidebarLinkGroup({ children, activecondition, }:any) {
+function SidebarLinkGroup({ children, activecondition, }) {
 
   const [open, setOpen] = useState(activecondition);
 

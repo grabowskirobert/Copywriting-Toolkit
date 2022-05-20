@@ -61,7 +61,7 @@ function Notifications() {
           onBlur={() => setDropdownOpen(false)}
         >
           <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4">Notifications</div>
-          {/* <ul>
+          <ul>
             <li className="border-b border-slate-200 last:border-0">
               <Link
                 className="block py-2 px-4 hover:bg-slate-50"
@@ -97,7 +97,7 @@ function Notifications() {
                 </>
               </Link>
             </li>
-          </ul> */}
+          </ul>
         </div>
       </Transition>
     </div>

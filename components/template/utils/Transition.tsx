@@ -7,7 +7,7 @@ const TransitionContext = React.createContext({
 })
 
 function useIsInitialRender() {
-  const isInitialRender:any = useRef(true)
+  const isInitialRender = useRef(true)
   useEffect(() => {
     isInitialRender.current = false
   }, [])
@@ -43,24 +43,24 @@ function CSSTransition({
   children,
   ...rest
 }: Props) {
-  const enterClasses = enter.split(' ').filter((s:any) => s.length)
-  const enterStartClasses = enterStart.split(' ').filter((s:any) => s.length)
-  const enterEndClasses = enterEnd.split(' ').filter((s:any) => s.length)
-  const leaveClasses = leave.split(' ').filter((s:any) => s.length)
-  const leaveStartClasses = leaveStart.split(' ').filter((s:any) => s.length)
-  const leaveEndClasses = leaveEnd.split(' ').filter((s:any) => s.length)
+  const enterClasses = enter.split(' ').filter((s) => s.length)
+  const enterStartClasses = enterStart.split(' ').filter((s) => s.length)
+  const enterEndClasses = enterEnd.split(' ').filter((s) => s.length)
+  const leaveClasses = leave.split(' ').filter((s) => s.length)
+  const leaveStartClasses = leaveStart.split(' ').filter((s) => s.length)
+  const leaveEndClasses = leaveEnd.split(' ').filter((s) => s.length)
   const removeFromDom = unmountOnExit
 
-  function addClasses(node:any, classes:any) {
+  function addClasses(node, classes) {
     classes.length && node.classList.add(...classes)
   }
 
-  function removeClasses(node:any, classes:any) {
+  function removeClasses(node, classes) {
     classes.length && node.classList.remove(...classes)
   }
 
-  const nodeRef:any = React.useRef(null)
-  const Component:any = styled.div``
+  const nodeRef = React.useRef(null)
+  const Component = styled.div``
 
   return (
     <ReactCSSTransition
@@ -68,7 +68,7 @@ function CSSTransition({
       nodeRef={nodeRef}
       unmountOnExit={removeFromDom}
       in={show}
-      addEndListener={(done:any) => {
+      addEndListener={(done) => {
         nodeRef.current.addEventListener('transitionend', done, false)
       }}
       onEnter={() => {
