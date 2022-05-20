@@ -8,8 +8,8 @@ function UserMenu() {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const { currentUser, logout } = useAuth()
   const [error, setError] = useState('')
-  const trigger = useRef(null)
-  const dropdown = useRef(null)
+  const trigger:any = useRef(null)
+  const dropdown:any = useRef(null)
   const router = useRouter()
 
   async function handleLogout() {
@@ -25,7 +25,7 @@ function UserMenu() {
   
   // close on click outside
   useEffect(() => {
-    const clickHandler = ({ target }) => {
+    const clickHandler = ({ target }:any) => {
       if (
         !dropdownOpen ||
         dropdown.current.contains(target) ||
@@ -40,7 +40,7 @@ function UserMenu() {
 
   // close if the esc key is pressed
   useEffect(() => {
-    const keyHandler = ({ keyCode }) => {
+    const keyHandler = ({ keyCode }:any) => {
       if (!dropdownOpen || keyCode !== 27) return
       setDropdownOpen(false)
     }

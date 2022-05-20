@@ -4,11 +4,11 @@ import React, { useState, useEffect, useRef } from 'react'
 
 // import SidebarLinkGroup from './SidebarLinkGroup'
 
-function Sidebar({ sidebarOpen, setSidebarOpen }) {
+function Sidebar({ sidebarOpen, setSidebarOpen }:any) {
   const router = useRouter()
   const { pathname } = router
-  const trigger = useRef(null)
-  const sidebar = useRef(null)
+  const trigger:any = useRef(null)
+  const sidebar:any = useRef(null)
   const storedSidebarExpanded = null
 
   const [sidebarExpanded, setSidebarExpanded] = useState(
@@ -17,7 +17,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   // close on click outside
   useEffect(() => {
-    const clickHandler = ({ target }) => {
+    const clickHandler = ({ target }:any) => {
       if (!sidebar.current || !trigger.current) return
       if (
         !sidebarOpen ||
@@ -33,7 +33,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   // close if the esc key is pressed
   useEffect(() => {
-    const keyHandler = ({ keyCode }) => {
+    const keyHandler = ({ keyCode }:any) => {
       if (!sidebarOpen || keyCode !== 27) return
       setSidebarOpen(false)
     }
@@ -44,9 +44,9 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
   useEffect(() => {
     localStorage.setItem('sidebar-expanded', sidebarExpanded.toString())
     if (sidebarExpanded) {
-      document.querySelector('body').classList.add('sidebar-expanded')
+      document.querySelector('body')?.classList.add('sidebar-expanded')
     } else {
-      document.querySelector('body').classList.remove('sidebar-expanded')
+      document.querySelector('body')?.classList.remove('sidebar-expanded')
     }
   }, [sidebarExpanded])
 

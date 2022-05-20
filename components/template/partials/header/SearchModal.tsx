@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import React, { useRef, useEffect } from 'react'
 import Transition from '../../utils/Transition'
-function SearchModal({ id, searchId, modalOpen, setModalOpen }) {
-  const modalContent = useRef(null)
-  const searchInput = useRef(null)
+function SearchModal({ id, searchId, modalOpen, setModalOpen }:any) {
+  const modalContent:any = useRef(null)
+  const searchInput:any = useRef(null)
 
   // close on click outside
   useEffect(() => {
-    const clickHandler = ({ target }) => {
+    const clickHandler = ({ target }:any) => {
       if (!modalOpen || modalContent.current.contains(target)) return
       setModalOpen(false)
     }
@@ -17,7 +17,7 @@ function SearchModal({ id, searchId, modalOpen, setModalOpen }) {
 
   // close if the esc key is pressed
   useEffect(() => {
-    const keyHandler = ({ keyCode }) => {
+    const keyHandler = ({ keyCode }:any) => {
       if (!modalOpen || keyCode !== 27) return
       setModalOpen(false)
     }

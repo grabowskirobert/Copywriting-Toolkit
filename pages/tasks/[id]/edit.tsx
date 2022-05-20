@@ -7,13 +7,12 @@ import privateRoute from '../../../components/privateRoute';
 
 
 const EditTask:any = () => {
-
     const router = useRouter();
     const { id } = router.query;
-
     const [form,setForm] = useState<any>()
 
     useEffect(()=>{
+
         const fetchTask = async (task_id:any) => {
             const taskDoc = doc(db, "task", task_id);
             const data = await getDoc(taskDoc);
