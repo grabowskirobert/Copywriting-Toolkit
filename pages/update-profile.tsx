@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import CustomButton from '../components/CustomButton'
 import privateRoute from '../components/privateRoute'
 import { FormContainer, FormCell, StyledInput } from '../styles/Shared'
+import Layout from '../components/Layout'
 
 function UpdateProfile() {
   const emailRef: React.MutableRefObject<any> = useRef()
@@ -47,6 +48,7 @@ function UpdateProfile() {
   }
 
   return (
+    <Layout>
     <FormContainer>
       <CustomCard>
         <h2 className='text-center mb-4 text-xl'>Update Profile</h2>
@@ -88,6 +90,7 @@ function UpdateProfile() {
         </form>
       </CustomCard>
     </FormContainer>
+    </Layout>
   )
 }
 

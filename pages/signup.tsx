@@ -3,9 +3,15 @@ import CustomCard from '../components/CustomCard'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { useAuth } from '../contexts/AuthContext'
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router'
 import CustomButton from '../components/CustomButton'
-import { FormContainer, FormCell, StyledInput, ErrorMessage  } from '../styles/Shared'
+import {
+  FormContainer,
+  FormCell,
+  StyledInput,
+  ErrorMessage,
+  CenterScreen,
+} from '../styles/Shared'
 
 function SignUp() {
   const emailRef: React.MutableRefObject<any> = useRef()
@@ -28,7 +34,7 @@ function SignUp() {
       setLoading(true)
       await signup(emailRef.current.value, passwordRef.current.value)
       router.push('/')
-    } catch(e) {
+    } catch (e) {
       setError('Failed to create an account')
       console.log(e)
     }
@@ -36,35 +42,37 @@ function SignUp() {
   }
 
   return (
-    <FormContainer>
-      <CustomCard>
-        <h2 className='text-center mb-4 text-lg'>Sign up</h2>
-        <ErrorMessage>{error && error}</ErrorMessage>
-        <form onSubmit={handleSubmit}>
-          <FormCell id='email'>
-            <label htmlFor=''>Email</label>
-            <StyledInput type='email' ref={emailRef} required />
-          </FormCell>
-          <FormCell id='password'>
-            <label htmlFor=''>Password</label>
-            <StyledInput type='password' ref={passwordRef} required />
-          </FormCell>
-          <FormCell id='password-confirm'>
-            <label htmlFor=''>Password Confirmation</label>
-            <StyledInput type='password' ref={passwordConfirmRef} required />
-          </FormCell>
-          <CustomButton type='submit' disabled={loading}>
-            Sign Up
-          </CustomButton>
-        </form>
-      </CustomCard>
-      <div className='w-full text-center mt-2'>
-        Already have an account?
-        <Link href='/login'>
-          <a className='font-semibold ml-1'>Log In</a>
-        </Link>
-      </div>
-    </FormContainer>
+    <CenterScreen>
+      <FormContainer>
+        <CustomCard>
+          <h2 className='text-center mb-4 text-lg'>Sign up</h2>
+          <ErrorMessage>{error && error}</ErrorMessage>
+          <form onSubmit={handleSubmit}>
+            <FormCell id='email'>
+              <label htmlFor=''>Email</label>
+              <StyledInput type='email' ref={emailRef} required />
+            </FormCell>
+            <FormCell id='password'>
+              <label htmlFor=''>Password</label>
+              <StyledInput type='password' ref={passwordRef} required />
+            </FormCell>
+            <FormCell id='password-confirm'>
+              <label htmlFor=''>Password Confirmation</label>
+              <StyledInput type='password' ref={passwordConfirmRef} required />
+            </FormCell>
+            <CustomButton type='submit' disabled={loading}>
+              Sign Up
+            </CustomButton>
+          </form>
+        </CustomCard>
+        <div className='w-full text-center mt-2'>
+          Already have an account?
+          <Link href='/login'>
+            <a className='font-semibold ml-1'>Log In</a>
+          </Link>
+        </div>
+      </FormContainer>
+    </CenterScreen>
   )
 }
 

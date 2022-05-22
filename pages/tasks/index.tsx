@@ -7,7 +7,7 @@ import { collection, getDocs, addDoc, doc, deleteDoc } from "@firebase/firestore
 import privateRoute from '../../components/privateRoute';
 import { useAuth } from '../../contexts/AuthContext'
 import { StyledInput } from '../../styles/Shared';
-
+import Layout from '../../components/Layout';
 
 const Index = () => {
     
@@ -61,6 +61,7 @@ const Index = () => {
 
 
     return (
+        <Layout>
         <div>
             <div>
                 <div className="flex flex-col w-1/4">
@@ -95,6 +96,7 @@ const Index = () => {
             </div>
             {addTask && <TaskForm taskCollection={taskCollection} setReload={()=>setReload(!reload)}  taskForm={taskForm} closeWindow={()=>{setAddTask(!addTask)}} />}
         </div>
+        </Layout>
     )
 }
 

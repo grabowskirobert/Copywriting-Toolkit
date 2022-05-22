@@ -5,7 +5,7 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
-import { FormContainer, FormCell, StyledInput, ErrorMessage } from '../styles/Shared'
+import { FormContainer, FormCell, StyledInput, ErrorMessage, CenterScreen } from '../styles/Shared'
 
 function Login() {
   const emailRef: React.MutableRefObject<any> = useRef()
@@ -31,6 +31,7 @@ function Login() {
   }
 
   return (
+    <CenterScreen>
     <FormContainer>
       <CustomCard>
         <h2 className='text-center mb-4 text-xl'>Log In</h2>
@@ -69,6 +70,7 @@ function Login() {
         </Link>
       </div>
     </FormContainer>
+    </CenterScreen>
   )
 }
 

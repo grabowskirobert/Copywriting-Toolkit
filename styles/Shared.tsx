@@ -34,12 +34,13 @@ export const PopUpMessage = styled.div<PopUpProps>`
   }
 `
 export const ErrorMessage = styled.div`
-  color: ${({theme})=> theme.colors.error};
+  color: ${({ theme }) => theme.colors.error};
   font-weight: bold;
 `
 
 export const FormContainer = styled.div`
-  max-width: 400px;
+  max-width: 375px;
+  min-width: 375px;
   text-align: center;
   margin: 0 auto;
 `
@@ -57,4 +58,10 @@ export const StyledInput = styled.input`
   margin: 0 auto;
 `
 
-
+export const CenterScreen = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+`

@@ -4,6 +4,7 @@ import { db } from "../../../firebase/firebase";
 import { getDoc, doc } from "@firebase/firestore";
 import { useEffect, useState } from "react";
 import privateRoute from '../../../components/privateRoute';
+import Layout from '../../../components/Layout';
 
 
 const EditTask:any = () => {
@@ -23,7 +24,7 @@ const EditTask:any = () => {
     },[])
 
     if(!form) return <p>Loading...</p>
-    if (form) return <TaskForm update={true} taskForm={form} taskId={id}/>
+    if (form) return <Layout><TaskForm update={true} taskForm={form} taskId={id}/></Layout>
 }
 
 export default privateRoute(EditTask);

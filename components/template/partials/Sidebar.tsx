@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useState, useEffect, useRef } from 'react'
 
+
 // import SidebarLinkGroup from './SidebarLinkGroup'
 
 function Sidebar({ sidebarOpen, setSidebarOpen }:any) {
@@ -188,7 +189,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }:any) {
                 </Link>
               </li>
               {/* Analytics */}
-              <li
+              {/* <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0  ${
                   pathname.includes('analytics') && 'bg-slate-900'
                 }`}
@@ -220,7 +221,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }:any) {
                     </div>
                   </a>
                 </Link>
-              </li>
+              </li> */}
               {/* Tasks */}
               <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0  ${
@@ -262,7 +263,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }:any) {
                 </Link>
               </li>
               {/* Calendar */}
-              <li
+              {/* <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0  ${
                   pathname.includes('calendar') && 'bg-slate-900'
                 }`}
@@ -294,9 +295,9 @@ function Sidebar({ sidebarOpen, setSidebarOpen }:any) {
                     </div>
                   </a>
                 </Link>
-              </li>
+              </li> */}
               {/* archive*/}
-              <li
+              {/* <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0  ${
                   pathname.includes('archive') && 'bg-slate-900'
                 }`}
@@ -336,7 +337,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }:any) {
                     </div>
                   </a>
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

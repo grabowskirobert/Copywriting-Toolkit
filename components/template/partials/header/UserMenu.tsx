@@ -101,7 +101,7 @@ function UserMenu() {
                 </a>
               </Link>
             </li> */}
-            <li>
+            {/* <li>
               <Link href='/settings'>
                 <a
                   className='font-medium text-sm text-indigo-500 hover:text-indigo-600 flex items-center py-1 px-3'
@@ -110,7 +110,7 @@ function UserMenu() {
                   Settings
                 </a>
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link href='/signup'>
                 <a
