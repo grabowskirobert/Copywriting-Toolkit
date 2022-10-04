@@ -5,7 +5,12 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
-import { FormContainer, FormCell, StyledInput, ErrorMessage, CenterScreen } from '../styles/Shared'
+import { FormContainer } from '../components/atoms/FormContainer'
+import { FormCell } from '../components/atoms/FormCell'
+import { StyledInput } from '../components/atoms/StyledInput'
+import { ErrorMessage } from '../components/atoms/ErrorMessage'
+import { CenterScreen } from '../components/atoms/CenterScreen'
+
 
 function Login() {
   const emailRef: React.MutableRefObject<any> = useRef()

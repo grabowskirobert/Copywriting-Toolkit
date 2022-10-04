@@ -6,7 +6,7 @@ import TaskForm from "../../components/TasksComponents/TaskForm";
 import { collection, getDocs, addDoc, doc, deleteDoc } from "@firebase/firestore";
 import privateRoute from '../../components/privateRoute';
 import { useAuth } from '../../contexts/AuthContext'
-import { StyledInput } from '../../styles/Shared';
+// import { StyledInput } from '../../styles/Shared';
 import Layout from '../../layouts/Layout';
 
 const Index = () => {
@@ -27,7 +27,7 @@ const Index = () => {
         
     }
     
-    const [taskForm,setTaskForm] = useState({
+    const [taskForm,setTaskForm] = useState<task>({
         userUID: currentUser?.uid,
         task_title: "",
         date_start: "",
@@ -66,10 +66,9 @@ const Index = () => {
             <div>
                 <div className="flex flex-col w-1/4">
                     <select className='rounded'>
-                        <option value="">Pokaż wszystkie</option>
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value=""></option>
+                        <option value="all">Pokaż wszystkie</option>
+                        <option value="unfinished">Nieukończone</option>
+                        <option value="finished">Ukończone</option>
                     </select>
                     <p>Filtr zadań</p>
                     <CustomButton>Resetuj wybór filtru</CustomButton>

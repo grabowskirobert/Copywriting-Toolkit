@@ -62,13 +62,13 @@ const TaskForm = ({taskForm,update = false,reload,setReload,closeWindow,taskColl
             <CustomCard>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="task_title">Task title</label>
-                <input type="text" value={form.task_title} onChange={handleChange} name="task_title"/>
+                <input type="text" value={form.task_title} onChange={handleChange} required name="task_title"/>
                 <label htmlFor="date_start">Date start</label>
-                <input type="date" value={form.date_start} onChange={handleChange} name="date_start"/>
+                <input type="date" value={form.date_start} onChange={handleChange} required name="date_start"/>
                 <label htmlFor="date_end">Date end</label>
-                <input type="date" value={form.date_end} onChange={handleChange} name="date_end"/>
+                <input type="date" value={form.date_end} onChange={handleChange} required name="date_end"/>
                 <label htmlFor="keywords">Keywords</label>
-                <input type="text" value={form.keywords} onChange={handleChange} name="keywords"/>
+                <input type="text" value={form.keywords} onChange={handleChange} required name="keywords"/>
 
                 <input type="submit" value={update ? "Update" : "Create"} />
                 {!update && <CustomButton customFunction={()=>closeWindow()}>Close</CustomButton>}
