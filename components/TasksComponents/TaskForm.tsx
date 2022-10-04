@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { db } from "../../firebase/firebase";
 import {  addDoc, doc, updateDoc } from "@firebase/firestore";
 import { useRouter } from "next/router";
-import CustomButton from "../CustomButton";
-import CustomCard from "../CustomCard";
+import CustomButton from "../atoms/CustomButton";
+import CustomCard from "../atoms/CustomCard";
 
 
 

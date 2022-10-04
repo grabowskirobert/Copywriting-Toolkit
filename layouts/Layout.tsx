@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import Header from './template/partials/Header'
-import Sidebar from './template/partials/Sidebar'
+import Header from '../components/template/partials/Header'
+import Sidebar from '../components/template/partials/Sidebar'
 
 export default function Layout({ children }: any) {
   const [sidebarOpen, setSidebarOpen] = useState(false)

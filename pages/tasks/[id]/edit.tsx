@@ -4,7 +4,7 @@ import { db } from "../../../firebase/firebase";
 import { getDoc, doc } from "@firebase/firestore";
 import { useEffect, useState } from "react";
 import privateRoute from '../../../components/privateRoute';
-import Layout from '../../../components/Layout';
+import Layout from '../../../layouts/Layout';
 
 
 const EditTask:any = () => {

@@ -1,4 +1,4 @@
-import CustomButton from "../../components/CustomButton";
+import CustomButton from "../../components/atoms/CustomButton";
 import Task from "../../components/TasksComponents/Task";
 import { useEffect, useState } from "react";
 import {db} from '../../firebase/firebase'
@@ -7,7 +7,7 @@ import { collection, getDocs, addDoc, doc, deleteDoc } from "@firebase/firestore
 import privateRoute from '../../components/privateRoute';
 import { useAuth } from '../../contexts/AuthContext'
 import { StyledInput } from '../../styles/Shared';
-import Layout from '../../components/Layout';
+import Layout from '../../layouts/Layout';
 
 const Index = () => {
     

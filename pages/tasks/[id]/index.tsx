@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import CustomButton from '../../../components/CustomButton'
+import CustomButton from '../../../components/atoms/CustomButton'
 import privateRoute from '../../../components/privateRoute'
 import { db } from '../../../firebase/firebase'
 import { getDoc, doc, updateDoc } from '@firebase/firestore'
@@ -8,7 +8,7 @@ import { EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js'
 import { EditorProps } from 'react-draft-wysiwyg'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
-import Layout from '../../../components/Layout'
+import Layout from '../../../layouts/Layout'
 
 const Editor = dynamic<EditorProps>(
   () => import('react-draft-wysiwyg').then((mod) => mod.Editor),

@@ -1,13 +1,13 @@
 import React, { useState, useRef } from 'react'
-import CustomCard from '../components/CustomCard'
+import CustomCard from '../components/atoms/CustomCard'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
-import CustomButton from '../components/CustomButton'
+import CustomButton from '../components/atoms/CustomButton'
 import privateRoute from '../components/privateRoute'
 import { FormContainer, FormCell, StyledInput } from '../styles/Shared'
-import Layout from '../components/Layout'
+import Layout from '../layouts/Layout'
 
 function UpdateProfile() {
   const emailRef: React.MutableRefObject<any> = useRef()

@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react'
-import CustomCard from '../components/CustomCard'
+import CustomCard from '../components/atoms/CustomCard'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { useAuth } from '../contexts/AuthContext'
-import { FormContainer } from '../styles/Shared'
+import { FormContainer } from '../components/atoms/FormContainer';
 
 function ForgotPassword() {
   const emailRef: React.MutableRefObject<any> = useRef()

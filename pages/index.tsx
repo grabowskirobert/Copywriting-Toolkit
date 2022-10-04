@@ -1,12 +1,12 @@
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import CustomCard from '../components/CustomCard'
-import CustomButton from '../components/CustomButton'
+import CustomCard from '../components/atoms/CustomCard'
+import CustomButton from '../components/atoms/CustomButton'
 import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
 import privateRoute from '../components/privateRoute'
-import Layout from '../components/Layout'
+import Layout from '../layouts/Layout'
 
 const Dashboard: NextPage = () => {
   const [error, setError] = useState('')

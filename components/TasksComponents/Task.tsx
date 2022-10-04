@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { RiArrowDownSLine } from 'react-icons/ri'
 import { useState } from "react";
-import CustomButton from "../CustomButton";
+import CustomButton from "../atoms/CustomButton";
 import Link from "next/link";
 const Task = ({ id, task_title, date_start, date_end,deleteTask,editTask }:any) => {
     const [showMore, setShowMore] = useState<boolean>(false);

@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react'
-import CustomCard from '../components/CustomCard'
+import CustomCard from '../components/atoms/CustomCard'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
-import CustomButton from '../components/CustomButton'
+import CustomButton from '../components/atoms/CustomButton'
 import {
   FormContainer,
   FormCell,

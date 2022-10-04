@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
-import CustomCard from '../components/CustomCard'
-import CustomButton from '../components/CustomButton'
+import CustomCard from '../components/atoms/CustomCard'
+import CustomButton from '../components/atoms/CustomButton'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { useAuth } from '../contexts/AuthContext'
