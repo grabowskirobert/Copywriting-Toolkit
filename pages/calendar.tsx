@@ -1,4 +1,4 @@
-import privateRoute from '../components/privateRoute';
+import privateRoute from '../layouts/PrivateRoute';
 
 const Calendar = () => {
     return <div>Calendar</div>

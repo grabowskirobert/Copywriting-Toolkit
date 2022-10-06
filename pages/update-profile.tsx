@@ -5,9 +5,11 @@ import styled from 'styled-components'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
 import CustomButton from '../components/atoms/CustomButton'
-import privateRoute from '../components/privateRoute'
-import { FormContainer, FormCell, StyledInput } from '../styles/Shared'
+import privateRoute from '../layouts/PrivateRoute'
 import Layout from '../layouts/Layout'
+import { FormContainer } from '../components/atoms/FormContainer';
+import { FormCell } from '../components/atoms/FormCell';
+import { StyledInput } from '../components/atoms/StyledInput';
 
 function UpdateProfile() {
   const emailRef: React.MutableRefObject<any> = useRef()

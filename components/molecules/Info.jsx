@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Transition from './Transition';
+import Transition from '../../layouts/Transition';
 
 function Info({
   children,

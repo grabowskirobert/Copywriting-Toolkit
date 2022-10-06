@@ -1,5 +1,5 @@
 import React from 'react'
-import privateRoute from '../components/privateRoute'
+import privateRoute from '../layouts/PrivateRoute'
 
 function Settings() {
   return (

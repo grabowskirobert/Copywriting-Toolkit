@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import {db} from '../../firebase/firebase'
 import TaskForm from "../../components/TasksComponents/TaskForm";
 import { collection, getDocs, addDoc, doc, deleteDoc } from "@firebase/firestore";
-import privateRoute from '../../components/privateRoute';
+import privateRoute from '../../layouts/PrivateRoute';
 import { useAuth } from '../../contexts/AuthContext'
 // import { StyledInput } from '../../styles/Shared';
 import Layout from '../../layouts/Layout';

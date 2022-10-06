@@ -3,7 +3,7 @@ import TaskForm from "../../../components/TasksComponents/TaskForm";
 import { db } from "../../../firebase/firebase";
 import { getDoc, doc } from "@firebase/firestore";
 import { useEffect, useState } from "react";
-import privateRoute from '../../../components/privateRoute';
+import privateRoute from '../../../layouts/PrivateRoute';
 import Layout from '../../../layouts/Layout';
 
 

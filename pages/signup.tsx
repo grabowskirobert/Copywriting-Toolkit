@@ -1,44 +1,42 @@
-import React, { useState, useRef } from 'react'
-import CustomCard from '../components/atoms/CustomCard'
-import Link from 'next/link'
-import styled from 'styled-components'
-import { useAuth } from '../contexts/AuthContext'
-import { useRouter } from 'next/router'
-import CustomButton from '../components/atoms/CustomButton'
-import {
-  FormContainer,
-  FormCell,
-  StyledInput,
-  ErrorMessage,
-  CenterScreen,
-} from '../styles/Shared'
+import React, { useState, useRef } from 'react';
+import CustomCard from '../components/atoms/CustomCard';
+import Link from 'next/link';
+import styled from 'styled-components';
+import { useAuth } from '../contexts/AuthContext';
+import { useRouter } from 'next/router';
+import CustomButton from '../components/atoms/CustomButton';
+import { CenterScreen } from '../components/atoms/CenterScreen';
+import { FormContainer } from '../components/atoms/FormContainer';
+import { ErrorMessage } from '../components/atoms/ErrorMessage';
+import { FormCell } from '../components/atoms/FormCell';
+import { StyledInput } from '../components/atoms/StyledInput';
 
 function SignUp() {
-  const emailRef: React.MutableRefObject<any> = useRef()
-  const passwordRef: React.MutableRefObject<any> = useRef()
-  const passwordConfirmRef: React.MutableRefObject<any> = useRef()
-  const { signup } = useAuth()
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const router = useRouter()
+  const emailRef: React.MutableRefObject<any> = useRef();
+  const passwordRef: React.MutableRefObject<any> = useRef();
+  const passwordConfirmRef: React.MutableRefObject<any> = useRef();
+  const { signup } = useAuth();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   async function handleSubmit(data: any): Promise<void> {
-    data.preventDefault()
+    data.preventDefault();
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError('Password do not match')
+      return setError('Password do not match');
     }
 
     try {
-      setError('')
-      setLoading(true)
-      await signup(emailRef.current.value, passwordRef.current.value)
-      router.push('/')
+      setError('');
+      setLoading(true);
+      await signup(emailRef.current.value, passwordRef.current.value);
+      router.push('/');
     } catch (e) {
-      setError('Failed to create an account')
-      console.log(e)
+      setError('Failed to create an account');
+      console.log(e);
     }
-    setLoading(false)
+    setLoading(false);
   }
 
   return (
@@ -73,7 +71,7 @@ function SignUp() {
         </div>
       </FormContainer>
     </CenterScreen>
-  )
+  );
 }
 
-export default SignUp
+export default SignUp;

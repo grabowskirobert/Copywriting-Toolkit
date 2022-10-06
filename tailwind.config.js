@@ -1,9 +1,10 @@
-const plugin = require('tailwindcss/plugin')
+const plugin = require('tailwindcss/plugin');
 
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
+    './layouts/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -69,8 +70,8 @@ module.exports = {
             `.sidebar-expanded .${e(
               `sidebar-expanded${separator}${className}`
             )}`
-        )
-      })
+        );
+      });
     }),
   ],
-}
+};

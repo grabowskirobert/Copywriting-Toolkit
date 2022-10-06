@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import CustomButton from '../../../components/atoms/CustomButton'
-import privateRoute from '../../../components/privateRoute'
+import privateRoute from '../../../layouts/PrivateRoute'
 import { db } from '../../../firebase/firebase'
 import { getDoc, doc, updateDoc } from '@firebase/firestore'
 import { useEffect, useState } from 'react'

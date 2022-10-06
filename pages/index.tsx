@@ -5,7 +5,7 @@ import CustomButton from '../components/atoms/CustomButton'
 import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
-import privateRoute from '../components/privateRoute'
+import privateRoute from '../layouts/PrivateRoute'
 import Layout from '../layouts/Layout'
 
 const Dashboard: NextPage = () => {
