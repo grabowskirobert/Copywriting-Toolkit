@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Transition from '../../../layouts/Transition';
+import Transition from '../../layouts/Transition';
 
 function EditMenu({
   children,

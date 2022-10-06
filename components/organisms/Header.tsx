@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Notifications from './header/Notifications';
-import UserMenu from './header/UserMenu';
+import Notifications from '../molecules/Notifications';
+import UserMenu from '../molecules/UserMenu';
 
 interface HeaderProps { 
   sidebarOpen: boolean

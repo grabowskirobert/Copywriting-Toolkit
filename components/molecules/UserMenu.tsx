@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React, { useState, useRef, useEffect } from 'react'
-import Transition from '../../../../layouts/Transition'
-import { useAuth } from '../../../../contexts/AuthContext'
+import Transition from '../../layouts/Transition'
+import { useAuth } from '../../contexts/AuthContext'
 import { useRouter } from 'next/router'
 
 function UserMenu() {

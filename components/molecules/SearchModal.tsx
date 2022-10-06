@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { useRef, useEffect } from 'react'
-import Transition from '../../../../layouts/Transition'
+import Transition from '../../layouts/Transition'
 function SearchModal({ id, searchId, modalOpen, setModalOpen }:any) {
   const modalContent:any = useRef(null)
   const searchInput:any = useRef(null)
