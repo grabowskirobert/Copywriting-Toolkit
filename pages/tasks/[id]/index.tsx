@@ -6,7 +6,6 @@ import { getDoc, doc, updateDoc } from '@firebase/firestore'
 import { useEffect, useState } from 'react'
 import { EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js'
 import { EditorProps } from 'react-draft-wysiwyg'
-import draftToHtml from 'draftjs-to-html';
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import Layout from '../../../layouts/Layout'
@@ -92,19 +91,6 @@ function MyEditor() {
     })
   }
 
-  function generatePDF() {
-    console.log('generate...')
-    const pdfContainer = document.querySelector("#pdfmake");
-    const rawContent = convertToRaw(editorState.getCurrentContent())
-    console.log(rawContent)
-
-    const markup = draftToHtml(
-        rawContent,
-    );
-
-    console.log(markup)
-    setHtml(markup);
-  }
 
   return (
     <Layout>
@@ -142,11 +128,6 @@ function MyEditor() {
         <CustomButton customFunction={() => updateTask(taskId)}>
           Save
         </CustomButton>
-        <CustomButton customFunction={generatePDF}>Save to PDF</CustomButton>
-
-        {
-            html && <div id="pdfmake" dangerouslySetInnerHTML={{__html: html}}></div>
-        }
       </div>
     </Layout>
   )

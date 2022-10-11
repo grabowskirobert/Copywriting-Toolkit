@@ -1,8 +1,8 @@
 import CustomButton from "../../components/atoms/CustomButton";
-import Task from "../../components/TasksComponents/Task";
+import Task from "../../components/organisms/Task";
 import { useEffect, useState } from "react";
 import {db} from '../../firebase/firebase'
-import TaskForm from "../../components/TasksComponents/TaskForm";
+import TaskForm from "../../components/organisms/TaskForm";
 import { collection, getDocs, addDoc, doc, deleteDoc } from "@firebase/firestore";
 import privateRoute from '../../layouts/PrivateRoute';
 import { useAuth } from '../../contexts/AuthContext'

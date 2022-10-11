@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import TaskForm from "../../../components/TasksComponents/TaskForm";
+import TaskForm from "../../../components/organisms/TaskForm";
 import { db } from "../../../firebase/firebase";
 import { getDoc, doc } from "@firebase/firestore";
 import { useEffect, useState } from "react";
