@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { RiArrowDownSLine } from 'react-icons/ri'
 import { useState } from "react";
 import CustomButton from "../atoms/CustomButton";
@@ -19,7 +18,7 @@ const Task = ({ id, task_title, date_start, date_end,deleteTask,editTask }:any) 
                         <Link href={`/tasks/${id}/edit`}>Edytuj szczegóły zadania</Link>
                     </CustomButton>
                     <CustomButton>
-                        <Link href={`/tasks/${id}`} >Przejdź do zadania</Link>
+                        <Link href={`/tasks/${id}/index2`} >Przejdź do zadania</Link>
                     </CustomButton>
                 </div>
             </>
