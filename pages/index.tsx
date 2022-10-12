@@ -1,14 +1,14 @@
-import type { NextPage } from 'next'
+import type { NextComponentType } from 'next'
 import Link from 'next/link'
 import CustomCard from '../components/atoms/CustomCard'
 import CustomButton from '../components/atoms/CustomButton'
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
 import privateRoute from '../layouts/PrivateRoute'
 import Layout from '../layouts/Layout'
 
-const Dashboard: NextPage = () => {
+const Dashboard: NextComponentType<{children?: ReactNode}> = () => {
   const [error, setError] = useState('')
   const { currentUser, logout } = useAuth()
   const router = useRouter()
