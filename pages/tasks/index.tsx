@@ -17,7 +17,7 @@ const Index = () => {
     const [task,setTask] = useState<Array<any>>([]);
     const { currentUser } = useAuth()
 
-    interface task {
+    interface TaskProps {
         userUID: string;
         task_title: string;
         date_start: string;
@@ -27,7 +27,7 @@ const Index = () => {
         
     }
     
-    const [taskForm,setTaskForm] = useState<task>({
+    const [taskForm,setTaskForm] = useState<TaskProps>({
         userUID: currentUser?.uid,
         task_title: "",
         date_start: "",

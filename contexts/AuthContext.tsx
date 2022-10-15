@@ -1,72 +1,92 @@
 import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-  signOut,
-  updateEmail,
-  updatePassword
-} from 'firebase/auth'
-import React, { useContext, useState } from 'react'
-import { useEffect } from 'react'
-import { auth } from '../firebase/firebase'
+	createUserWithEmailAndPassword,
+	onAuthStateChanged,
+	sendPasswordResetEmail,
+	signInWithEmailAndPassword,
+	signOut,
+	updateEmail,
+	updatePassword,
+	User,
+	UserCredential,
+} from 'firebase/auth';
+import React, { useContext, useState } from 'react';
+import { useEffect } from 'react';
+import { auth, db } from '../firebase/firebase';
+import {
+	collection,
+	addDoc,
+} from '@firebase/firestore';
 
-const AuthContext = React.createContext('')
+interface ValueProps {
+	currentUser: User | undefined | null;
+	login: (email: string, password: string) => Promise<UserCredential>;
+	signup: (email: string, password: string) => void;
+	logout: () => Promise<void>;
+	resetPassword: (email: string) => Promise<void>;
+	updateEmailAuth: (email: string) => Promise<void>;
+	updatePasswordAuth: (password: string) => Promise<void>;
+}
+
+const AuthContext = React.createContext('');
+const users = collection(db, 'users');
 
 export function useAuth(): any {
-  return useContext(AuthContext)
+	return useContext(AuthContext);
 }
 
 export function AuthProvider({ children }: JSX.ElementChildrenAttribute) {
-  const [currentUser, setCurrentUser] = useState<any>()
-  const [loading, setLoading] = useState<boolean>(true)
+	const [currentUser, setCurrentUser] = useState<any>();
+	const [loading, setLoading] = useState<boolean>(true);
 
-  function signup(email: string, password: string) {
-    return createUserWithEmailAndPassword(auth, email, password)
-  }
+	function signup(email: string, password: string) {
+		createUserWithEmailAndPassword(auth, email, password).then((newUser) =>
+			addDoc(users, { email, userUID: newUser.user.uid })
+		);
+	}
 
-  function login(email: string, password: string) {
-    return signInWithEmailAndPassword(auth, email, password)
-  }
+	function login(email: string, password: string) {
+		return signInWithEmailAndPassword(auth, email, password);
+	}
 
-  function logout() { 
-   return signOut(auth)
-  }
+	function logout() {
+		return signOut(auth);
+	}
 
-  function resetPassword(email:string) { 
-    return sendPasswordResetEmail(auth,email)
-  }
+	function resetPassword(email: string) {
+		return sendPasswordResetEmail(auth, email);
+	}
 
-  function updateEmailAuth(email:string){
-    return updateEmail(auth.currentUser!,email)
-  }
+	function updateEmailAuth(email: string) {
+		return updateEmail(auth.currentUser!, email);
+	}
 
-  function updatePasswordAuth(password:string){
-    return updatePassword(auth.currentUser!,password)
-  }
+	function updatePasswordAuth(password: string) {
+		return updatePassword(auth.currentUser!, password);
+	}
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user)
-      setLoading(false)
-    })
+	useEffect(() => {
+		const unsubscribe = onAuthStateChanged(auth, (user) => {
+			setCurrentUser(user);
+			setLoading(false);
+		});
 
-    return unsubscribe
-  }, [])
+		return unsubscribe;
+	}, []);
 
-  const value: any = {
-    currentUser,
-    login,
-    signup,
-    logout,
-    resetPassword,
-    updateEmailAuth,
-    updatePasswordAuth
-  }
+	const value: ValueProps = {
+		currentUser,
+		login,
+		signup,
+		logout,
+		resetPassword,
+		updateEmailAuth,
+		updatePasswordAuth,
+	};
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  )
+	// value.toString() buguje aplikacje
+	return (
+		<AuthContext.Provider value={value}>
+			{!loading && children}
+		</AuthContext.Provider>
+	);
 }
