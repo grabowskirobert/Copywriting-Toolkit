@@ -12,22 +12,20 @@ import {
 import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import { auth, db } from '../firebase/firebase';
-import {
-	collection,
-	addDoc,
-} from '@firebase/firestore';
+import { collection, addDoc, getDocs } from '@firebase/firestore';
 
 interface ValueProps {
 	currentUser: User | undefined | null;
 	login: (email: string, password: string) => Promise<UserCredential>;
 	signup: (email: string, password: string) => void;
+	loggedUser: () => void;
 	logout: () => Promise<void>;
 	resetPassword: (email: string) => Promise<void>;
 	updateEmailAuth: (email: string) => Promise<void>;
 	updatePasswordAuth: (password: string) => Promise<void>;
 }
 
-const AuthContext = React.createContext('');
+const AuthContext = React.createContext<ValueProps | null>(null);
 const users = collection(db, 'users');
 
 export function useAuth(): any {
@@ -36,11 +34,44 @@ export function useAuth(): any {
 
 export function AuthProvider({ children }: JSX.ElementChildrenAttribute) {
 	const [currentUser, setCurrentUser] = useState<any>();
+	const [loggedUser, setLoggedUser] = useState<any>();
 	const [loading, setLoading] = useState<boolean>(true);
+
+	useEffect(() => {
+		const unsubscribe = onAuthStateChanged(auth, (user) => {
+			setCurrentUser(user);
+			setLoading(false);
+		});
+
+		return unsubscribe;
+	}, []);
+
+	useEffect(() => {
+		const getUser = () => {
+			getDocs(collection(db, 'users')).then((snapshot) => {
+				const usersUID = snapshot.docs.map((doc) => ({
+					...doc.data(),
+				}));
+				if(currentUser){
+					const loggedUserInfo = usersUID.find(
+						(element) => element.userUID === currentUser.uid
+					);
+					setLoggedUser(loggedUserInfo);
+				}
+			});
+		};
+
+		return getUser();
+	}, [currentUser]);
 
 	function signup(email: string, password: string) {
 		createUserWithEmailAndPassword(auth, email, password).then((newUser) =>
-			addDoc(users, { email, userUID: newUser.user.uid })
+			addDoc(users, {
+				email,
+				userUID: newUser.user.uid,
+				role: 'Admin',
+				team: '',
+			})
 		);
 	}
 
@@ -64,26 +95,17 @@ export function AuthProvider({ children }: JSX.ElementChildrenAttribute) {
 		return updatePassword(auth.currentUser!, password);
 	}
 
-	useEffect(() => {
-		const unsubscribe = onAuthStateChanged(auth, (user) => {
-			setCurrentUser(user);
-			setLoading(false);
-		});
-
-		return unsubscribe;
-	}, []);
-
 	const value: ValueProps = {
 		currentUser,
 		login,
 		signup,
+		loggedUser,
 		logout,
 		resetPassword,
 		updateEmailAuth,
 		updatePasswordAuth,
 	};
 
-	// value.toString() buguje aplikacje
 	return (
 		<AuthContext.Provider value={value}>
 			{!loading && children}

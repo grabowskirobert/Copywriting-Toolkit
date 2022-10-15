@@ -4,15 +4,15 @@ import CustomCard from '../components/atoms/CustomCard'
 import CustomButton from '../components/atoms/CustomButton'
 import { ReactNode, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
-import { useRouter } from 'next/router'
 import privateRoute from '../layouts/PrivateRoute'
 import Layout from '../layouts/Layout'
 
 const Dashboard: NextComponentType<{children?: ReactNode}> = () => {
   const [error, setError] = useState('')
-  const { currentUser, logout } = useAuth()
-  const router = useRouter()
+  const { currentUser, loggedUser } = useAuth()
 
+  console.log(loggedUser)
+  
   return (
     <Layout>
       <div className='w-2/3 mx-auto'>
