@@ -15,7 +15,7 @@ const EditTask:any = () => {
     useEffect(()=>{
 
         const fetchTask = async (task_id:any) => {
-            const taskDoc = doc(db, "task", task_id);
+            const taskDoc = doc(db, "tasks", task_id);
             const data = await getDoc(taskDoc);
             const task = data.data()
             setForm(task)

@@ -41,7 +41,7 @@ const TaskForm = ({
 	};
 
 	const updateTask = async (task_id: any, body: any) => {
-		const taskDoc = doc(db, 'task', task_id);
+		const taskDoc = doc(db, 'tasks', task_id);
 		await updateDoc(taskDoc, body);
 		router.back();
 	};

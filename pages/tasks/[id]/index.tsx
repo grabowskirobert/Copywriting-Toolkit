@@ -35,7 +35,7 @@ function MyEditor() {
   const [html,setHtml] = useState<string>();
 
   const updateTask = async (task_id: string) => {
-    const taskDoc = doc(db, 'task', task_id)
+    const taskDoc = doc(db, 'tasks', task_id)
     await updateDoc(taskDoc, {
       content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
     })
@@ -46,7 +46,7 @@ function MyEditor() {
     console.log('Fetch task id: ', taskId)
 
     const fetchTask = async (task_id: string) => {
-      const taskDoc = doc(db, 'task', task_id)
+      const taskDoc = doc(db, 'tasks', task_id)
       const data: any = await getDoc(taskDoc)
       const task = data.data()
       if (task.content) {

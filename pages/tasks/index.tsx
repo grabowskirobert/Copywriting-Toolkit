@@ -34,10 +34,10 @@ const Index = () => {
 		content: '',
 	});
 
-	const taskCollection = collection(db, 'task');
+	const taskCollection = collection(db, 'tasks');
 
 	const deleteTask = async (id: any) => {
-		const taskDoc = doc(db, 'task', id);
+		const taskDoc = doc(db, 'tasks', id);
 		await deleteDoc(taskDoc);
 		setReload(!reload);
 		console.log('deleted');
