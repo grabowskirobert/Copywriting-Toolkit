@@ -15,10 +15,9 @@ import { auth, db } from '../firebase/firebase';
 import { collection, addDoc, getDocs } from '@firebase/firestore';
 
 interface ValueProps {
-	currentUser: User | undefined | null;
 	login: (email: string, password: string) => Promise<UserCredential>;
 	signup: (email: string, password: string) => void;
-	loggedUser: () => void;
+	user: () => void;
 	logout: () => Promise<void>;
 	resetPassword: (email: string) => Promise<void>;
 	updateEmailAuth: (email: string) => Promise<void>;
@@ -33,8 +32,8 @@ export function useAuth(): any {
 }
 
 export function AuthProvider({ children }: JSX.ElementChildrenAttribute) {
-	const [currentUser, setCurrentUser] = useState<any>();
-	const [loggedUser, setLoggedUser] = useState<any>();
+	const [currentUser, setCurrentUser] = useState<User | null>();
+	const [user, setUser] = useState<any>();
 	const [loading, setLoading] = useState<boolean>(true);
 
 	useEffect(() => {
@@ -52,11 +51,11 @@ export function AuthProvider({ children }: JSX.ElementChildrenAttribute) {
 				const usersUID = snapshot.docs.map((doc) => ({
 					...doc.data(),
 				}));
-				if(currentUser){
-					const loggedUserInfo = usersUID.find(
-						(element) => element.userUID === currentUser.uid
+				if (currentUser) {
+					const userInfo = usersUID.find(
+						(element) => element.uid === currentUser.uid
 					);
-					setLoggedUser(loggedUserInfo);
+					setUser(userInfo);
 				}
 			});
 		};
@@ -68,7 +67,7 @@ export function AuthProvider({ children }: JSX.ElementChildrenAttribute) {
 		createUserWithEmailAndPassword(auth, email, password).then((newUser) =>
 			addDoc(users, {
 				email,
-				userUID: newUser.user.uid,
+				uid: newUser.user.uid,
 				role: 'Admin',
 				team: '',
 			})
@@ -96,10 +95,9 @@ export function AuthProvider({ children }: JSX.ElementChildrenAttribute) {
 	}
 
 	const value: ValueProps = {
-		currentUser,
 		login,
 		signup,
-		loggedUser,
+		user,
 		logout,
 		resetPassword,
 		updateEmailAuth,

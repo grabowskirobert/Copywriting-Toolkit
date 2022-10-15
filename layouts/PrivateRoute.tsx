@@ -7,9 +7,9 @@ function privateRoute<
   T extends JSX.IntrinsicAttributes & { children?: React.ReactNode }
 >(Component: NextComponentType<T>) {
   const Route = (props: T) => {
-    const { currentUser } = useAuth();
+    const { user } = useAuth();
 
-    if (!currentUser) {
+    if (!user) {
       return <Login />;
     }
 

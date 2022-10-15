@@ -15,7 +15,7 @@ function UpdateProfile() {
   const emailRef: React.MutableRefObject<any> = useRef()
   const passwordRef: React.MutableRefObject<any> = useRef()
   const passwordConfirmRef: React.MutableRefObject<any> = useRef()
-  const { currentUser, updatePasswordAuth, updateEmailAuth } = useAuth()
+  const { user, updatePasswordAuth, updateEmailAuth } = useAuth()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -30,7 +30,7 @@ function UpdateProfile() {
     const promises = []
     setLoading(true)
     setError('')
-    if (emailRef.current.value !== currentUser.email) {
+    if (emailRef.current.value !== user.email) {
       promises.push(updateEmailAuth(emailRef.current.value))
     }
     if (passwordRef.current.value) {
@@ -62,7 +62,7 @@ function UpdateProfile() {
               type='email'
               ref={emailRef}
               required
-              defaultValue={currentUser.email}
+              defaultValue={user.email}
             />
           </FormCell>
           <FormCell id='password'>
