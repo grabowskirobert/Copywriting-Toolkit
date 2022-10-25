@@ -4,6 +4,7 @@ interface Btn {
   customFunction?: (p: any) => void
   disabled?: boolean
   type?: string
+  hidden?: boolean
   className?: string
 }
 
@@ -12,7 +13,8 @@ const CustomButton = ({
   secondColor,
   customFunction,
   disabled,
-  className
+  hidden,
+  className,
 }: Btn) => {
   return (
     <button
@@ -23,6 +25,7 @@ const CustomButton = ({
           : 'bg-indigo-500 hover:bg-indigo-600'
       }
       ${disabled ? 'opacity-70 cursor-not-allowed' : ''}
+      ${hidden ? 'hidden' : ''}
       ${className} 
       `}
     >

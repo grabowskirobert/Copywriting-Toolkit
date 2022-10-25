@@ -10,12 +10,12 @@ import { FormCell } from '../components/atoms/FormCell'
 import { StyledInput } from '../components/atoms/StyledInput'
 import { ErrorMessage } from '../components/atoms/ErrorMessage'
 import { CenterScreen } from '../components/atoms/CenterScreen'
-
+import LoaderSpinner from '../components/atoms/LoaderSpinner'
 
 function Login() {
   const emailRef: React.MutableRefObject<any> = useRef()
   const passwordRef: React.MutableRefObject<any> = useRef()
-  const { login } = useAuth()
+  const { login, user } = useAuth()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -27,7 +27,7 @@ function Login() {
       setError('')
       setLoading(true)
       await login(emailRef.current.value, passwordRef.current.value)
-      router.push('/')
+      user && router.push('/')
     } catch (e) {
       setError('Failed to log in')
       console.log(e)
@@ -37,44 +37,40 @@ function Login() {
 
   return (
     <CenterScreen>
-    <FormContainer>
-      <CustomCard>
-        <h2 className='text-center mb-4 text-xl'>Log In</h2>
-        <ErrorMessage>{error && error}</ErrorMessage>
-        <form onSubmit={handleSubmit}>
-          <FormCell id='email'>
-            <label htmlFor=''>Email</label>
-            <StyledInput
-              type='email'
-              ref={emailRef}
-              required
+      <FormContainer>
+        <CustomCard>
+          <h2 className='text-center mb-4 text-xl'>Log In</h2>
+          <ErrorMessage>{error && error}</ErrorMessage>
+          <form onSubmit={handleSubmit}>
+            <FormCell id='email'>
+              <label htmlFor=''>Email</label>
+              <StyledInput type='email' ref={emailRef} required />
+            </FormCell>
+            <FormCell id='password'>
+              <label htmlFor=''>Password</label>
+              <StyledInput type='password' ref={passwordRef} required />
+            </FormCell>
+            <LoaderSpinner
+              visible={loading}
+              wrapperClasses='flex justify-center my-4'
             />
-          </FormCell>
-          <FormCell id='password'>
-            <label htmlFor=''>Password</label>
-            <StyledInput
-              type='password'
-              ref={passwordRef}
-              required
-            />
-          </FormCell>
-          <CustomButton type='submit' disabled={loading} className='m-4'>
-            Login
-          </CustomButton>
-        </form>
-        <div>
-          <Link href='/forgot-password'>
-            <a>Forgot password?</a>
+            <CustomButton type='submit' hidden={loading} className='m-4'>
+              Login
+            </CustomButton>
+          </form>
+          <div>
+            <Link href='/forgot-password'>
+              <a>Forgot password?</a>
+            </Link>
+          </div>
+        </CustomCard>
+        <div className='w-full text-center mt-4'>
+          Need an account?
+          <Link href='/signup'>
+            <a className='font-semibold ml-1'>Sign up</a>
           </Link>
         </div>
-      </CustomCard>
-      <div className='w-full text-center mt-4'>
-        Need an account?
-        <Link href='/signup'>
-          <a className='font-semibold ml-1'>Sign up</a>
-        </Link>
-      </div>
-    </FormContainer>
+      </FormContainer>
     </CenterScreen>
   )
 }
