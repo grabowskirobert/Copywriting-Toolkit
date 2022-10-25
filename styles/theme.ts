@@ -3,6 +3,7 @@ export const theme = {
     white: '#fff',
     error: 'rgba(247,18,18,0.99)',
     green: 'rgba(26,183,155,0.99)',
+    purple: '#4F46E5',
   },
   shadow: '0px 14px 33px rgba(15, 72, 129, 0.1)',
   scrollBar: `&::-webkit-scrollbar {
