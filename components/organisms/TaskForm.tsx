@@ -1,20 +1,39 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { db } from '../../firebase/firebase';
-import { addDoc, doc, updateDoc } from '@firebase/firestore';
+import {addDoc, doc, updateDoc} from '@firebase/firestore';
 import { useRouter } from 'next/router';
 import CustomButton from '../atoms/CustomButton';
 import CustomCard from '../atoms/CustomCard';
 
+interface TaskProps {
+	uid: string;
+	task_title: string;
+	date_start: string;
+	date_end: string;
+	keywords: Array<string>;
+	content: string;
+	team: string;
+	status: string;
+}
+
+interface FormProps {
+	taskForm: TaskProps;
+	update?: boolean;
+	setReload?: () => void;
+	closeWindow?: () => void;
+	taskCollection?: any;
+	taskId?: string | string[] | undefined;
+}
+
 const TaskForm = ({
 	taskForm,
 	update = false,
-	reload,
 	setReload,
 	closeWindow,
 	taskCollection,
 	taskId,
-}: any) => {
+}: FormProps) => {
 	const router = useRouter();
 
 	const [form, setForm] = useState({
@@ -24,10 +43,14 @@ const TaskForm = ({
 		date_end: taskForm.date_end,
 		keywords: taskForm.keywords,
 		content: taskForm.content,
+		team: taskForm.team,
+		status: update ? taskForm.status : 'active'
 	});
 
 	function handleChange(e: any) {
 		const { value, name } = e.target;
+
+		console.log(name,value);
 		setForm((prevState: any) => ({
 			...prevState,
 			[name]: value,
@@ -36,8 +59,12 @@ const TaskForm = ({
 
 	const createTask = async (body: any) => {
 		await addDoc(taskCollection, body);
-		closeWindow();
-		setReload();
+		if(closeWindow !== undefined) {
+			closeWindow();
+		}
+		if (setReload) {
+			setReload();
+		}
 	};
 
 	const updateTask = async (task_id: any, body: any) => {
@@ -49,10 +76,10 @@ const TaskForm = ({
 		e.preventDefault();
 		if (update) {
 			console.log('update');
-			updateTask(taskId, form);
+			await updateTask(taskId, form);
 		} else if (!update) {
 			console.log('create');
-			createTask(form);
+			await createTask(form);
 		} else {
 			console.error('Submit error');
 		}
@@ -100,13 +127,23 @@ const TaskForm = ({
 							required
 							name='keywords'
 						/>
+						<label htmlFor='team'>Assing to</label>
+						<select onChange={handleChange} name='team' value={form.team}>
+							<option value=''>Select team</option>
+							<option value='copywriters.com'>copywriters.com</option>
+						</select>
 
 						<input
 							type='submit'
 							value={update ? 'Update' : 'Create'}
 						/>
 						{!update && (
-							<CustomButton customFunction={() => closeWindow()}>
+							<CustomButton customFunction={() => {
+								if(closeWindow !== undefined) {
+									closeWindow();
+								}
+							}
+							}>
 								Close
 							</CustomButton>
 						)}

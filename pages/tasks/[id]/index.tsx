@@ -32,7 +32,7 @@ function MyEditor() {
     return 'not-handled'
   }
 
-  const [html,setHtml] = useState<string>();
+  // const [html,setHtml] = useState<string>();
 
   const updateTask = async (task_id: string) => {
     const taskDoc = doc(db, 'tasks', task_id)
@@ -61,7 +61,7 @@ function MyEditor() {
     }
 
     fetchTask(taskId.toString())
-  }, [])
+  }, [taskId])
 
   // const _onBoldClick = () => {
   //   setEditorState(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
@@ -90,6 +90,7 @@ function MyEditor() {
       })
     })
   }
+
 
 
   return (
@@ -128,6 +129,9 @@ function MyEditor() {
         <CustomButton customFunction={() => updateTask(taskId)}>
           Save
         </CustomButton>
+
+         {/*<SaveTaskAlert />*/}
+
       </div>
     </Layout>
   )

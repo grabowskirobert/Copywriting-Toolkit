@@ -13,6 +13,7 @@ const Index = () => {
 	const [addTask, setAddTask] = useState<boolean>(false);
 	const [reload, setReload] = useState<boolean>(false);
 	const [query, setQuery] = useState<string>('');
+		const [statusFilter, setStatusFilter] = useState<string>('');
 	const [task, setTask] = useState<Array<any>>([]);
 	const { user } = useAuth();
 
@@ -23,16 +24,20 @@ const Index = () => {
 		date_end: string;
 		keywords: Array<string>;
 		content: string;
+		team: string;
+		status: string;
 	}
 
-	const [taskForm, setTaskForm] = useState<TaskProps>({
+	const taskForm:TaskProps = {
 		uid: user?.uid,
 		task_title: '',
 		date_start: '',
 		date_end: '',
 		keywords: [],
 		content: '',
-	});
+		team: '',
+		status: ''
+	};
 
 	const taskCollection = collection(db, 'tasks');
 
@@ -60,13 +65,13 @@ const Index = () => {
 			<div>
 				<div>
 					<div className='flex flex-col w-1/4'>
-						<select className='rounded'>
-							<option value='all'>Pokaż wszystkie</option>
-							<option value='unfinished'>Nieukończone</option>
-							<option value='finished'>Ukończone</option>
+						<select className='rounded' onChange={(e) => setStatusFilter(e.target.value)}>
+							<option value=''>Show all</option>
+							<option value='unfinished'>Finished</option>
+							<option value='active'>Active</option>
+							<option value='inactive'>Inactive</option>
 						</select>
-						<p>Filtr zadań</p>
-						<CustomButton>Resetuj wybór filtru</CustomButton>
+						{/*<CustomButton>Resetuj wybór filtru</CustomButton>*/}
 					</div>
 				</div>
 				<div className='flex justify-center '>
@@ -75,7 +80,7 @@ const Index = () => {
 							<input
 								className='w-3/5 mr-auto rounded'
 								type='text'
-								placeholder='Wyszukaj poprzez wpisanie tematyki tekstu'
+								placeholder='Search for a task'
 								onChange={(e) =>
 									setQuery(e.currentTarget.value)
 								}
@@ -85,12 +90,15 @@ const Index = () => {
 									setAddTask(!addTask);
 								}}
 							>
-								Dodaj zadanie
+								Add task
 							</CustomButton>
 						</div>
 						{task
 							.filter((taskUser: any) =>
 								taskUser.uid?.includes(user?.uid)
+							)
+							.filter((taskUser: any) =>
+								statusFilter === "" ? (taskUser.status.includes(statusFilter) ) : (taskUser.status === statusFilter)
 							)
 							.filter((el: any) =>
 								el.task_title

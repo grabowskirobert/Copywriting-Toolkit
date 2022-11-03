@@ -16,16 +16,16 @@ export default function TaskDetails(props:Props) {
     return (
         <>
             <div className="my-5">
-                <p>Data rozpoczęcia: {date_start}</p>
-                <p>Data zakończenia: {date_end}</p>
+                <p>Date of start: {date_start}</p>
+                <p>Date of end: {date_end}</p>
             </div>
             <div className="flex justify-end gap-3">
-                <CustomButton secondColor customFunction={()=>deleteTask()}>Usuń zadanie i przenieś do archiwum</CustomButton>
+                <CustomButton secondColor customFunction={()=>deleteTask()}>Delete task and move to archive</CustomButton>
                 <CustomButton>
-                    <Link href={`/tasks/${id}/edit`}>Edytuj szczegóły zadania</Link>
+                    <Link href={`/tasks/${id}/edit`}>Edit details</Link>
                 </CustomButton>
                 <CustomButton>
-                    <Link href={`/tasks/${id}`} >Przejdź do zadania</Link>
+                    <Link href={`/tasks/${id}`} >Go to the task</Link>
                 </CustomButton>
             </div>
         </>
