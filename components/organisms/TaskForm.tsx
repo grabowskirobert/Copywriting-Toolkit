@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import CustomButton from '../atoms/CustomButton';
 import CustomCard from '../atoms/CustomCard';
 import {useAuth} from "../../contexts/AuthContext";
+import {useTeamMembers} from "../../hooks/useTeamMembers";
 
 interface TaskProps {
 	uid: string;
@@ -27,16 +28,6 @@ interface FormProps {
 	taskId?: string | string[] | undefined;
 }
 
-interface membersProps {
-	user?: {
-		email?: string,
-		role?: string,
-		tasks?: Array<string>,
-		team?: string,
-		uid?: string,
-	},
-	id?: string
-}
 
 const TaskForm = ({
 	taskForm,
@@ -46,10 +37,8 @@ const TaskForm = ({
 	taskCollection,
 	taskId,
 }: FormProps) => {
-	const {user} = useAuth()
 	const router = useRouter();
-	const [members,setMembers] = useState<Array<membersProps>>([]);
-
+	const members = useTeamMembers();
 	const [form, setForm] = useState({
 		uid: taskForm.uid,
 		task_title: taskForm.task_title,
@@ -98,27 +87,6 @@ const TaskForm = ({
 			console.error('Submit error');
 		}
 	}
-
-	function teamMembers() {
-		getDocs(collection(db, 'users')).then((snapshot) => {
-			const usersUID = snapshot.docs.map((doc) => {
-				return {user: doc.data(),id: doc.id}
-			});
-			return usersUID
-		})
-			.then(users => {
-				return users.filter(member => {
-					if(member.user.role !== 'Admin' && member.user.team === user.team) return member.user
-				})
-			})
-			.then((member:({[p:string]:any})[]) => setMembers(member))
-
-	};
-
-	useEffect(()=>{
-		teamMembers();
-	},[])
-
 
 	return (
 		<>

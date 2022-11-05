@@ -5,22 +5,12 @@ import {useEffect, useState} from "react";
 import CustomCard from "../atoms/CustomCard";
 import {collection, getDocs} from "@firebase/firestore";
 import {db} from "../../firebase/firebase";
-
-interface membersProps {
-    user?: {
-        email?: string,
-        role?: string,
-        tasks?: Array<string>,
-        team?: string,
-        uid?: string,
-    },
-    id?: string
-}
+import {useTeamMembers} from "../../hooks/useTeamMembers";
 
 function AdminTeamMenu() {
     const {user,signup} = useAuth();
     const [show,setShow] = useState<boolean>(false)
-    const [members,setMembers] = useState<Array<membersProps>>([]);
+    const members = useTeamMembers();
 
     function CreateUser() {
 
@@ -53,26 +43,6 @@ function AdminTeamMenu() {
         </CustomCard>
 
     }
-
-
-
-
-    useEffect(()=>{
-        function teamMembers() {
-            getDocs(collection(db, 'users')).then((snapshot) => {
-                const usersUID = snapshot.docs.map((doc) => {
-                    return {user: doc.data(),id: doc.id}
-                });
-                return usersUID.filter(member => {
-                    if(member.user.role !== 'Admin' && member.user.team === user.team) return member.user
-                })
-            }).then((member:({[p:string]:any})[]) => setMembers(member))
-
-        }
-       return teamMembers();
-    },[])
-
-
 
     return <>
         <p>Team: {user.team}</p>

@@ -13,6 +13,7 @@ import AdminTeamMenu from "../components/organisms/adminTeamMenu";
 const Team = () => {
     const [show,setShow] = useState(false);
     // const [teamProps,setTeamProps] = useState<object | undefined>({});
+
   const { user } = useAuth()
 
     // useEffect(()=> {
