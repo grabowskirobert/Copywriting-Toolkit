@@ -22,6 +22,7 @@ interface ValueProps {
 	resetPassword: (email: string) => Promise<void>;
 	updateEmailAuth: (email: string) => Promise<void>;
 	updatePasswordAuth: (password: string) => Promise<void>;
+	userID: string | undefined;
 }
 
 const AuthContext = React.createContext<ValueProps | null>(null);
@@ -34,6 +35,7 @@ export function useAuth(): any {
 export function AuthProvider({ children }: JSX.ElementChildrenAttribute) {
 	const [currentUser, setCurrentUser] = useState<User | null>();
 	const [user, setUser] = useState<any>();
+	const [userID, setUserID] = useState<string | undefined>('');
 	const [loading, setLoading] = useState<boolean>(true);
 
 	useEffect(() => {
@@ -48,28 +50,29 @@ export function AuthProvider({ children }: JSX.ElementChildrenAttribute) {
 	useEffect(() => {
 		const getUser = () => {
 			getDocs(collection(db, 'users')).then((snapshot) => {
-				const usersUID = snapshot.docs.map((doc) => ({
-					...doc.data(),
-				}));
+				const usersUID = snapshot.docs.map((doc) => {
+					return {user: doc.data(),id: doc.id}
+				});
 				if (currentUser) {
 					const userInfo = usersUID.find(
-						(element) => element.uid === currentUser.uid
+						(element) => element.user.uid === currentUser.uid
 					);
-					setUser(userInfo);
+					setUser(userInfo?.user);
+					setUserID(userInfo?.id);
 				}
 			});
 		};
-
 		return getUser();
 	}, [currentUser]);
 
-	function signup(email: string, password: string) {
+	function signup(email: string, password: string, role: string = 'Admin',team: string = '') {
 		createUserWithEmailAndPassword(auth, email, password).then((newUser) =>
 			addDoc(users, {
 				email,
 				uid: newUser.user.uid,
-				role: 'Admin',
-				team: '',
+				role: role,
+				team: team,
+				tasks: []
 			})
 		);
 	}
@@ -98,6 +101,7 @@ export function AuthProvider({ children }: JSX.ElementChildrenAttribute) {
 		login,
 		signup,
 		user,
+		userID,
 		logout,
 		resetPassword,
 		updateEmailAuth,

@@ -16,13 +16,10 @@ export default function StatusDiode({status}:Props) {
     return <Diode color={diodeColor} title={status}></Diode>
 }
 
-const Diode = styled.div`
-    position: absolute;
-  top: 0;
-  left: 0;
+const Diode = styled.p`
     background-color: ${props => props.color};
     padding: .3em;
-  border-radius: 0 25% 50% 25%;
+  border-radius: 50%;
   box-shadow: 0 0 3px ${props => props.color};
   width: 1px;
   height: 1px;

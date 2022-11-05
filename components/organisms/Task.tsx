@@ -4,15 +4,17 @@ import TaskDetails from "../molecules/taskDetails";
 import StatusDiode from "../atoms/statusDiode";
 
 
-const Task = ({ id, task_title, date_start, date_end,deleteTask, status, team }:any) => {
+const Task = ({ id, task_title, date_start, date_end,deleteTask, status, user }:any) => {
     const [showMore, setShowMore] = useState<boolean>(false);
 
     return (
         <div className="py-2 px-3.5 border-b-2 relative">
-            <StatusDiode status={status} />
             <div className="relative cursor-pointer" onClick={() => setShowMore(!showMore)}>
-                <p><b>{task_title}</b></p>
-                <p>Team: {team}</p>
+                <p className="flex items-center gap-1">
+                    <StatusDiode status={status} />
+                    <b>{task_title}</b>
+                </p>
+                <p>Member: {user}</p>
                 <RiArrowDownSLine className="absolute top-2 right-1" onClick={() => setShowMore(!showMore)} />
             </div>
             {

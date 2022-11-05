@@ -71,7 +71,6 @@ const Index = () => {
 							<option value='active'>Active</option>
 							<option value='inactive'>Inactive</option>
 						</select>
-						{/*<CustomButton>Resetuj wybór filtru</CustomButton>*/}
 					</div>
 				</div>
 				<div className='flex justify-center '>
@@ -85,17 +84,19 @@ const Index = () => {
 									setQuery(e.currentTarget.value)
 								}
 							/>
-							<CustomButton
-								customFunction={() => {
-									setAddTask(!addTask);
-								}}
-							>
-								Add task
-							</CustomButton>
+							{
+								user.role === 'Admin' && <CustomButton
+									customFunction={() => {
+										setAddTask(!addTask);
+									}}
+								>
+									Add task
+								</CustomButton>
+							}
 						</div>
 						{task
 							.filter((taskUser: any) =>
-								taskUser.uid?.includes(user?.uid)
+								user.role === 'Admin' ? taskUser.uid?.includes(user?.uid) : taskUser.user?.includes(user?.uid)
 							)
 							.filter((taskUser: any) =>
 								statusFilter === "" ? (taskUser.status.includes(statusFilter) ) : (taskUser.status === statusFilter)

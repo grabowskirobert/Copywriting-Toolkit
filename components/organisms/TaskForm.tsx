@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { db } from '../../firebase/firebase';
-import {addDoc, doc, updateDoc} from '@firebase/firestore';
+import {addDoc, collection, doc, getDocs, updateDoc} from '@firebase/firestore';
 import { useRouter } from 'next/router';
 import CustomButton from '../atoms/CustomButton';
 import CustomCard from '../atoms/CustomCard';
+import {useAuth} from "../../contexts/AuthContext";
 
 interface TaskProps {
 	uid: string;
@@ -26,6 +27,17 @@ interface FormProps {
 	taskId?: string | string[] | undefined;
 }
 
+interface membersProps {
+	user?: {
+		email?: string,
+		role?: string,
+		tasks?: Array<string>,
+		team?: string,
+		uid?: string,
+	},
+	id?: string
+}
+
 const TaskForm = ({
 	taskForm,
 	update = false,
@@ -34,7 +46,9 @@ const TaskForm = ({
 	taskCollection,
 	taskId,
 }: FormProps) => {
+	const {user} = useAuth()
 	const router = useRouter();
+	const [members,setMembers] = useState<Array<membersProps>>([]);
 
 	const [form, setForm] = useState({
 		uid: taskForm.uid,
@@ -43,7 +57,7 @@ const TaskForm = ({
 		date_end: taskForm.date_end,
 		keywords: taskForm.keywords,
 		content: taskForm.content,
-		team: taskForm.team,
+		user: taskForm.team,
 		status: update ? taskForm.status : 'active'
 	});
 
@@ -84,6 +98,27 @@ const TaskForm = ({
 			console.error('Submit error');
 		}
 	}
+
+	function teamMembers() {
+		getDocs(collection(db, 'users')).then((snapshot) => {
+			const usersUID = snapshot.docs.map((doc) => {
+				return {user: doc.data(),id: doc.id}
+			});
+			return usersUID
+		})
+			.then(users => {
+				return users.filter(member => {
+					if(member.user.role !== 'Admin' && member.user.team === user.team) return member.user
+				})
+			})
+			.then((member:({[p:string]:any})[]) => setMembers(member))
+
+	};
+
+	useEffect(()=>{
+		teamMembers();
+	},[])
+
 
 	return (
 		<>
@@ -127,10 +162,14 @@ const TaskForm = ({
 							required
 							name='keywords'
 						/>
-						<label htmlFor='team'>Assing to</label>
-						<select onChange={handleChange} name='team' value={form.team}>
-							<option value=''>Select team</option>
-							<option value='copywriters.com'>copywriters.com</option>
+						<label htmlFor='user'>Assing to</label>
+						<select onChange={handleChange} name='user' value={form.user}>
+							<option value=''>Select user</option>
+							{
+								members?.map((el,index) => {
+									return <option key={index} value={el?.user?.uid} >{el?.user?.email}</option>
+								})
+							}
 						</select>
 
 						<input
