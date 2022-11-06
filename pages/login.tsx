@@ -30,7 +30,6 @@ function Login() {
       user && router.push('/')
     } catch (e) {
       setError('Failed to log in')
-      console.log(e)
     }
     setLoading(false)
   }

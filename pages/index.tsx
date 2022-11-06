@@ -12,8 +12,6 @@ const Dashboard: NextComponentType<{ children?: ReactNode }> = () => {
   const [error, setError] = useState('')
   const { user } = useAuth()
 
-  console.log(user)
-
   const userTeam = () => {
     if (user.team === '' && user.role === 'Admin') {
       return (

@@ -34,7 +34,6 @@ function SignUp() {
       user && router.push('/') // TODO: Fix bug where during sign-up user data is remembered from last logged person
     } catch (e) {
       setError('Failed to create an account')
-      console.log(e)
     }
     setLoading(false)
   }

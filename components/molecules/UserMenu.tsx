@@ -16,8 +16,9 @@ function UserMenu() {
     setError('')
 
     try {
-      await logout()
-      !user && router.push('/login')
+      await logout().then(() => { 
+        router.push('/login')
+      })
     } catch {
       setError('Failed to log out')
     }

@@ -3,11 +3,11 @@ import {db} from "../../firebase/firebase";
 import {useAuth} from "../../contexts/AuthContext";
 import { updateDoc,setDoc ,doc} from "@firebase/firestore";
 
-export default function TeamForm({setShow}) {
+export default function TeamForm({setShow}: any) {
 
     const {userID} = useAuth();
 
-    async function createTeam(e) {
+    async function createTeam(e: any) {
 
         e.preventDefault();
         const target = e.target;

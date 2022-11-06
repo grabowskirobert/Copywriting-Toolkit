@@ -23,7 +23,6 @@ function ForgotPassword() {
       setMessage('Check your inbox for further instructions')
     } catch (e) {
       setError('Failed to reset password')
-      console.log(e)
     }
     setLoading(false)
   }

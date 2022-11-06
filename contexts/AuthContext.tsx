@@ -82,7 +82,7 @@ export function AuthProvider({ children }: JSX.ElementChildrenAttribute) {
 	}
 
 	function logout() {
-		return signOut(auth);
+		return signOut(auth)
 	}
 
 	function resetPassword(email: string) {

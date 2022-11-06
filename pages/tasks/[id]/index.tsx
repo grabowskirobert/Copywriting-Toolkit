@@ -39,12 +39,9 @@ function MyEditor() {
     await updateDoc(taskDoc, {
       content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
     })
-    console.log('update')
   }
 
   useEffect(() => {
-    console.log('Fetch task id: ', taskId)
-
     const fetchTask = async (task_id: string) => {
       const taskDoc = doc(db, 'tasks', task_id)
       const data: any = await getDoc(taskDoc)
@@ -56,22 +53,12 @@ function MyEditor() {
           )
         )
       } else {
-        console.log('empty content')
       }
     }
 
     fetchTask(taskId.toString())
   }, [taskId])
 
-  // const _onBoldClick = () => {
-  //   setEditorState(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
-  // }
-  // const _onItalicClick = () => {
-  //   setEditorState(RichUtils.toggleInlineStyle(editorState, 'ITALIC'));
-  // }
-  // const _onUnderlineClick = () => {
-  //   setEditorState(RichUtils.toggleInlineStyle(editorState, 'UNDERLINE'));
-  // }
   function uploadImageCallBack(file: string) {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
@@ -104,9 +91,6 @@ function MyEditor() {
         </Head>
         <CustomButton customFunction={() => router.back()}>Return</CustomButton>
         <br />
-        {/* <CustomButton customFunction={_onBoldClick}>BOLD</CustomButton>
-    <CustomButton customFunction={_onItalicClick}>ITALIC</CustomButton>
-    <CustomButton customFunction={_onUnderlineClick}>UNDERLINE</CustomButton> */}
         <br />
         <br />
         <Editor
