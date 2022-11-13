@@ -15,8 +15,7 @@ interface membersProps {
 }
 
 export function useTeamMembers() {
-  const { user } = useAuth()
-  const [admin, setAdmin] = useState<Array<membersProps>>([])
+  const [admins, setAdmins] = useState<Array<membersProps>>([])
   const [masters, setMasters] = useState<Array<membersProps>>([])
   const [copywriters, setCopywriters] = useState<Array<membersProps>>([])
 
@@ -29,25 +28,25 @@ export function useTeamMembers() {
 
       const copywriters = data.filter(
         (member) =>
-          member.user.team === user.team && member.user.role === 'Copywriter'
+          member.user.role === 'Copywriter'
       )
 
-      const admin = data.filter(
+      const admins = data.filter(
         (member) =>
-          member.user.team === user.team && member.user.role === 'Admin'
+          member.user.role === 'Admin'
       )
 
       const masters = data.filter(
         (member) =>
-          member.user.team === user.team && member.user.role === 'Master'
+          member.user.role === 'Master'
       )
 
       setCopywriters(copywriters)
-      setAdmin(admin)
+      setAdmins(admins)
       setMasters(masters)
     }
     fetchMember()
   }, [])
 
-  return { admin, masters, copywriters }
+  return { admins, masters, copywriters }
 }

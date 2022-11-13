@@ -12,19 +12,6 @@ const Dashboard: NextComponentType<{ children?: ReactNode }> = () => {
   const [error, setError] = useState('')
   const { user } = useAuth()
 
-  const userTeam = () => {
-    if (user.team === '' && user.role === 'Admin') {
-      return (
-        <span>
-          You don&apos;t own any team yet,{' '}
-          <StyledLink href='/team'>create one here! </StyledLink>
-        </span>
-      )
-    } else if (user.team !== '') {
-      return user.team
-    }
-  }
-
   return (
     <Layout>
       <div className='w-2/3 mx-auto'>
@@ -38,10 +25,6 @@ const Dashboard: NextComponentType<{ children?: ReactNode }> = () => {
           <div>
             <span className='font-semibold pr-1'>Role:</span>
             {user.role}
-          </div>
-          <div>
-            <span className='font-semibold pr-1'>Team:</span>
-            {userTeam()}
           </div>
           <div className='mx-auto mt-4'>
             <CustomButton>

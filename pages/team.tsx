@@ -1,92 +1,65 @@
-import React, { useState } from 'react'
-import CustomCard from '../components/atoms/CustomCard'
-import { useAuth } from '../contexts/AuthContext'
-import Layout from '../layouts/Layout'
-import privateRoute from '../layouts/PrivateRoute'
-import TeamForm from '../components/molecules/TeamForm'
-import CreateUser from '../components/organisms/CreateUser'
-import { useTeamMembers } from '../hooks/useTeamMembers'
-import Divider from '../components/atoms/Divider'
-import CustomButton from '../components/atoms/CustomButton'
+import React from "react";
+import CustomCard from "../components/atoms/CustomCard";
+import Layout from "../layouts/Layout";
+import privateRoute from "../layouts/PrivateRoute";
+import { useTeamMembers } from "../hooks/useTeamMembers";
+import Divider from "../components/atoms/Divider";
+import { MdEdit } from "react-icons/Md";
 
 const Team = () => {
-  const [showTeamForm, setShowTeamForm] = useState<boolean>(false)
-  const [showUserCreation, setShowUserCreation] = useState<boolean>(false)
-  const { user } = useAuth()
-  const { admin, copywriters, masters } = useTeamMembers()
-
-  const TeamComponent = () => {
-    if (user.role === 'Admin' && user.team === '') {
-      return (
-        <>
-          <h2 className='text-center mb-4 text-xl'>Create your team</h2>
-          <div className='mx-auto mt-4'>
-            <CustomButton customFunction={() => setShowTeamForm(!showTeamForm)}>
-              Create Team
-            </CustomButton>
-          </div>
-        </>
-      )
-    } else
-      return (
-        <>
-          <h2 className='text-center mb-4 text-xl'>{user.team}</h2>
-          <div>
-            <span className='font-semibold pr-1'>Admin: </span>
-            <br />
-            {admin[0]?.user?.email}
-            <Divider />
-          </div>
-          <div>
-            <span className='font-semibold pr-1'>Masters: </span>
-            {masters?.map((el, index) => {
-              return (
-                <div key={index}>
-                  <p>
-                    {el?.user?.email}
-                    <Divider />
-                  </p>
-                </div>
-              )
-            })}
-          </div>
-          <div>
-            <span className='font-semibold pr-1'>Copywriters: </span>
-            {copywriters?.map((el, index) => {
-              return (
-                <div key={index}>
-                  <p>
-                    {el?.user?.email}
-                    <Divider />
-                  </p>
-                </div>
-              )
-            })}
-          </div>
-          <div className='mx-auto mt-4'></div>
-        </>
-      )
-  }
+  const { admins, copywriters, masters } = useTeamMembers();
 
   return (
     <Layout>
-      <div className='w-2/3 mx-auto'>
+      <div className="w-2/3 mx-auto">
         <CustomCard>
-          {TeamComponent()}
-          {showTeamForm && <TeamForm setShow={setShowTeamForm} />}
-          {user.role === 'Admin' && user.team !== '' && !showUserCreation && (
-            <CustomButton
-              customFunction={() => setShowUserCreation(!showUserCreation)}
-              className="w-1/4 ml-auto"
-            >
-              Create user
-            </CustomButton>
-          )}
-          {showUserCreation && <CreateUser setShowUserCreation={setShowUserCreation} />}
+          <h2 className="text-center mb-4 text-xl">Your team</h2>
+          <div>
+            <span className="font-semibold pr-1">Admins: </span>
+            <br />
+            {admins?.map((el, index) => {
+              return (
+                <div key={index} className="flex">
+                  <p>{el?.user?.email}</p>
+                </div>
+              );
+            })}
+          </div>
+          <div>
+            <Divider />
+
+            <span className="font-semibold pr-1">Masters: </span>
+            {masters?.map((el, index) => {
+              return (
+                <div key={index} className="flex">
+                  <p>{el?.user?.email}</p>
+                  <div className="ml-4 mt-1 pointer">
+                    <MdEdit />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <Divider />
+
+          <div>
+            <span className="font-semibold pr-1">Copywriters: </span>
+            {copywriters?.map((el, index) => {
+              return (
+                <div key={index} className="flex">
+                  <p>{el?.user?.email}</p>
+                  <div className="ml-4 mt-1 pointer">
+                    <MdEdit />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mx-auto mt-4"></div>
         </CustomCard>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default privateRoute(Team)
+export default privateRoute(Team);

@@ -65,13 +65,12 @@ export function AuthProvider({ children }: JSX.ElementChildrenAttribute) {
 		return getUser();
 	}, [currentUser]);
 
-	function signup(email: string, password: string, role: string = 'Admin',team: string = '') {
+	function signup(email: string, password: string, role: string = 'Copywriter') {
 		createUserWithEmailAndPassword(auth, email, password).then((newUser) =>
 			addDoc(users, {
 				email,
 				uid: newUser.user.uid,
 				role: role,
-				team: team,
 				tasks: []
 			})
 		);
