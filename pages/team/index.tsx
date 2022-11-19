@@ -1,10 +1,10 @@
 import React from 'react'
-import CustomCard from '../components/atoms/Card'
-import Layout from '../layouts/Layout'
-import privateRoute from '../layouts/PrivateRoute'
-import { useTeamMembers } from '../hooks/useTeamMembers'
-import Divider from '../components/atoms/Divider'
 import { MdEdit } from 'react-icons/Md'
+import Card from '../../components/atoms/Card'
+import Divider from '../../components/atoms/Divider'
+import { useTeamMembers } from '../../hooks/useTeamMembers'
+import Layout from '../../layouts/Layout'
+import privateRoute from '../../layouts/PrivateRoute'
 
 const Team = () => {
   const { admins, copywriters, masters } = useTeamMembers()
@@ -12,7 +12,7 @@ const Team = () => {
   return (
     <Layout>
       <div className='w-2/5 mx-auto'>
-        <CustomCard>
+        <Card>
           <h2 className='text-center mb-4 text-xl'>Your team</h2>
           <div>
             <span className='font-semibold pr-1'>Admins: </span>
@@ -65,7 +65,7 @@ const Team = () => {
             })}
           </div>
           <div className='mx-auto mt-4'></div>
-        </CustomCard>
+        </Card>
       </div>
     </Layout>
   )

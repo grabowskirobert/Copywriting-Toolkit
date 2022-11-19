@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import CustomButton from '../../../components/atoms/Button'
+import Button from '../../../components/atoms/Button'
 import privateRoute from '../../../layouts/PrivateRoute'
 import { db } from '../../../firebase/firebase'
 import { getDoc, doc, updateDoc } from '@firebase/firestore'
@@ -83,11 +83,11 @@ function MyEditor() {
       <div>
         <Head>
           <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/react-draft-wysiwyg@1.12.3/dist/react-draft-wysiwyg.css"
+            rel='stylesheet'
+            href='https://cdn.jsdelivr.net/npm/react-draft-wysiwyg@1.12.3/dist/react-draft-wysiwyg.css'
           />
         </Head>
-        <CustomButton customFunction={() => router.back()}>Return</CustomButton>
+        <Button onClick={() => router.back()}>Return</Button>
         <br />
         <br />
         <br />
@@ -108,9 +108,7 @@ function MyEditor() {
           }}
         />
         <br />
-        <CustomButton customFunction={() => updateTask(taskId)}>
-          Save
-        </CustomButton>
+        <Button onClick={() => updateTask(taskId)}>Save</Button>
 
         {/*<SaveTaskAlert />*/}
       </div>

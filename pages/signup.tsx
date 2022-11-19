@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react'
-import CustomCard from '../components/atoms/Card'
+import Card from '../components/atoms/Card'
 import Link from 'next/link'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
-import CustomButton from '../components/atoms/Button'
+import Button from '../components/atoms/Button'
 import LoaderSpinner from '../components/atoms/LoaderSpinner'
 import CenterScreen from '../components/atoms/CenterScreen'
 import FormContainer from '../components/atoms/FormContainer'
@@ -41,7 +41,7 @@ function SignUp() {
   return (
     <CenterScreen>
       <FormContainer>
-        <CustomCard>
+        <Card>
           <h2 className='text-center mb-4 text-lg'>Sign up</h2>
           <ErrorMessage>{error && error}</ErrorMessage>
           <form onSubmit={handleSubmit}>
@@ -73,14 +73,14 @@ function SignUp() {
               visible={loading}
               wrapperClasses='flex justify-center my-4'
             />
-            <CustomButton
+            <Button
               type='submit'
               hidden={loading}
             >
               Sign Up
-            </CustomButton>
+            </Button>
           </form>
-        </CustomCard>
+        </Card>
         <div className='w-full text-center mt-2'>
           Already have an account?
           <Link href='/login'>

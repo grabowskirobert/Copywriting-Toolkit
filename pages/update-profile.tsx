@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react'
-import CustomCard from '../components/atoms/Card'
+import Card from '../components/atoms/Card'
 import Link from 'next/link'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
-import CustomButton from '../components/atoms/Button'
+import Button from '../components/atoms/Button'
 import privateRoute from '../layouts/PrivateRoute'
 import Layout from '../layouts/Layout'
 import FormContainer from '../components/atoms/FormContainer'
@@ -51,7 +51,7 @@ function UpdateProfile() {
   return (
     <Layout>
       <FormContainer className='w-1/3'>
-        <CustomCard>
+        <Card>
           <h2 className='text-center mb-4 text-xl'>Update Profile</h2>
           <p>{error && error}</p>
           <form onSubmit={handleSubmit}>
@@ -80,22 +80,22 @@ function UpdateProfile() {
                 placeholder='Leave blank to keep the same'
               />
             </FormCell>
-            <CustomButton
+            <Button
               type='submit'
               disabled={loading}
             >
               Update
-            </CustomButton>
-            <CustomButton
+            </Button>
+            <Button
               className='m-4'
               disabled={loading}
             >
               <Link href='/'>
                 <a>Cancel</a>
               </Link>
-            </CustomButton>
+            </Button>
           </form>
-        </CustomCard>
+        </Card>
       </FormContainer>
     </Layout>
   )

@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { db } from '../../firebase/firebase'
 import { addDoc, doc, updateDoc } from '@firebase/firestore'
 import { useRouter } from 'next/router'
-import CustomButton from '../atoms/Button'
-import CustomCard from '../atoms/Card'
+import Button from '../atoms/Button'
+import Card from '../atoms/Card'
 import { useTeamMembers } from '../../hooks/useTeamMembers'
 import Container from '../atoms/Container'
 
@@ -84,11 +84,9 @@ const TaskForm = ({
 
   return (
     <>
-      {update && (
-        <CustomButton onClick={() => router.back()}>Return</CustomButton>
-      )}
+      {update && <Button onClick={() => router.back()}>Return</Button>}
       <Container>
-        <CustomCard>
+        <Card>
           <form
             onSubmit={handleSubmit}
             className='flex flex-col gap-1'
@@ -149,14 +147,14 @@ const TaskForm = ({
               })}
             </select>
 
-            <CustomButton className='w-1/4 mx-auto'>
+            <Button className='w-1/4 mx-auto'>
               <input
                 type='submit'
                 value={update ? 'Update' : 'Create'}
               />
-            </CustomButton>
+            </Button>
             {!update && (
-              <CustomButton
+              <Button
                 className='w-1/4 mx-auto'
                 onClick={() => {
                   if (closeWindow !== undefined) {
@@ -165,10 +163,10 @@ const TaskForm = ({
                 }}
               >
                 Close
-              </CustomButton>
+              </Button>
             )}
           </form>
-        </CustomCard>
+        </Card>
       </Container>
     </>
   )

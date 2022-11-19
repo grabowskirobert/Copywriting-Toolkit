@@ -1,7 +1,7 @@
 import type { NextComponentType } from 'next'
 import Link from 'next/link'
-import CustomCard from '../components/atoms/Card'
-import CustomButton from '../components/atoms/Button'
+import Card from '../components/atoms/Card'
+import Button from '../components/atoms/Button'
 import { ReactNode } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import privateRoute from '../layouts/PrivateRoute'
@@ -13,7 +13,7 @@ const Dashboard: NextComponentType<{ children?: ReactNode }> = () => {
   return (
     <Layout>
       <div className='w-2/5 mx-auto'>
-        <CustomCard>
+        <Card>
           <h2 className='text-center mb-4 text-xl'>Profile</h2>
           <div>
             <span className='font-semibold pr-1'>Email:</span>
@@ -24,11 +24,11 @@ const Dashboard: NextComponentType<{ children?: ReactNode }> = () => {
             {user.role}
           </div>
           <div className='mx-auto mt-4'>
-            <CustomButton>
+            <Button>
               <Link href='/update-profile'>Update Profile</Link>
-            </CustomButton>
+            </Button>
           </div>
-        </CustomCard>
+        </Card>
       </div>
     </Layout>
   )

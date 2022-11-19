@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
-import CustomCard from '../components/atoms/Card'
-import CustomButton from '../components/atoms/Button'
+import Card from '../components/atoms/Card'
+import Button from '../components/atoms/Button'
 import Link from 'next/link'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
@@ -36,7 +36,7 @@ function Login() {
   return (
     <CenterScreen>
       <FormContainer>
-        <CustomCard>
+        <Card>
           <h2 className='text-center mb-4 text-xl'>Log In</h2>
           <ErrorMessage>{error && error}</ErrorMessage>
           <form onSubmit={handleSubmit}>
@@ -60,20 +60,20 @@ function Login() {
               visible={loading}
               wrapperClasses='flex justify-center my-4'
             />
-            <CustomButton
+            <Button
               type='submit'
               hidden={loading}
               className='m-4'
             >
               Login
-            </CustomButton>
+            </Button>
           </form>
           <div>
             <Link href='/forgot-password'>
               <a>Forgot password?</a>
             </Link>
           </div>
-        </CustomCard>
+        </Card>
         <div className='w-full text-center mt-4'>
           Need an account?
           <Link href='/signup'>

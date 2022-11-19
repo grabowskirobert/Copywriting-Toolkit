@@ -1,4 +1,4 @@
-import CustomButton from '../../components/atoms/Button'
+import Button from '../../components/atoms/Button'
 import Task from '../../components/organisms/Task'
 import { useEffect, useState } from 'react'
 import { db } from '../../firebase/firebase'
@@ -89,13 +89,13 @@ const Index = () => {
               onChange={(e) => setQuery(e.currentTarget.value)}
             />
             {(user.role === 'Admin' || user.role === 'Master') && (
-              <CustomButton
+              <Button
                 onClick={() => {
                   setAddTask(!addTask)
                 }}
               >
                 Add task
-              </CustomButton>
+              </Button>
             )}
           </div>
           {task

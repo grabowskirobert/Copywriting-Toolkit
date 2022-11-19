@@ -1,4 +1,4 @@
-import CustomButton from '../atoms/Button'
+import Button from '../atoms/Button'
 import Link from 'next/link'
 import { useAuth } from '../../contexts/AuthContext'
 
@@ -22,20 +22,20 @@ export default function TaskDetails(props: Props) {
       <div className='flex justify-end gap-3'>
         {(user.role === 'Admin' || user.role === 'Master') && (
           <>
-            <CustomButton
+            <Button
               secondColor
               onClick={() => deleteTask()}
             >
               Delete task
-            </CustomButton>
-            <CustomButton>
+            </Button>
+            <Button>
               <Link href={`/tasks/${id}/edit`}>Edit details</Link>
-            </CustomButton>
+            </Button>
           </>
         )}
-        <CustomButton>
+        <Button>
           <Link href={`/tasks/${id}`}>Go to the task</Link>
-        </CustomButton>
+        </Button>
       </div>
     </>
   )

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import CustomCard from '../components/atoms/Card'
+import Card from '../components/atoms/Card'
 import Link from 'next/link'
 import { useAuth } from '../contexts/AuthContext'
 import FormContainer from '../components/atoms/FormContainer'
@@ -28,7 +28,7 @@ function ForgotPassword() {
 
   return (
     <FormContainer>
-      <CustomCard>
+      <Card>
         <h2 className='text-center mb-4'>Password Reset</h2>
         <p>{error && error}</p>
         <p>{message && message}</p>
@@ -53,7 +53,7 @@ function ForgotPassword() {
             <a>Login</a>
           </Link>
         </div>
-      </CustomCard>
+      </Card>
       <div className='w-full text-center mt-2'>
         Need an account?
         <Link href='/signup'>

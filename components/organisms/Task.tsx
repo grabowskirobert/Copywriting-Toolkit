@@ -20,10 +20,10 @@ const Task = ({
         className='relative cursor-pointer'
         onClick={() => setShowMore(!showMore)}
       >
-        <p className='flex items-center gap-1'>
+        <div className='flex items-center gap-1'>
           <StatusDiode status={status} />
           <b>{task_title}</b>
-        </p>
+        </div>
         <p>Member: {user}</p>
         <RiArrowDownSLine
           className='absolute top-2 right-1'
