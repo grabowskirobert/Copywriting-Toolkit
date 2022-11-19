@@ -1,13 +1,13 @@
-import React from "react";
-import CustomCard from "../components/atoms/CustomCard";
-import Layout from "../layouts/Layout";
-import privateRoute from "../layouts/PrivateRoute";
-import { useTeamMembers } from "../hooks/useTeamMembers";
-import Divider from "../components/atoms/Divider";
-import { MdEdit } from "react-icons/Md";
+import React from 'react'
+import CustomCard from '../components/atoms/Card'
+import Layout from '../layouts/Layout'
+import privateRoute from '../layouts/PrivateRoute'
+import { useTeamMembers } from '../hooks/useTeamMembers'
+import Divider from '../components/atoms/Divider'
+import { MdEdit } from 'react-icons/Md'
 
 const Team = () => {
-  const { admins, copywriters, masters } = useTeamMembers();
+  const { admins, copywriters, masters } = useTeamMembers()
 
   return (
     <Layout>
@@ -22,7 +22,7 @@ const Team = () => {
                 <div key={index} className="flex">
                   <p>{el?.user?.email}</p>
                 </div>
-              );
+              )
             })}
           </div>
           <div>
@@ -37,7 +37,7 @@ const Team = () => {
                     <MdEdit />
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
           <Divider />
@@ -52,14 +52,14 @@ const Team = () => {
                     <MdEdit />
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
           <div className="mx-auto mt-4"></div>
         </CustomCard>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default privateRoute(Team);
+export default privateRoute(Team)

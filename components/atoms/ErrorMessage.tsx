@@ -1,6 +1,15 @@
-import styled from 'styled-components';
+import React from 'react'
+import clsx from 'clsx'
 
-export const ErrorMessage = styled.div`
-  color: ${({ theme }) => theme.colors.error};
-  font-weight: bold;
-`;
+interface ErrorMessageProps {
+  children: React.ReactNode
+  className?: string
+}
+
+const ErrorMessage = ({ children, className }: ErrorMessageProps) => {
+  const classes = clsx(['error font-bold'], className)
+
+  return <p className={classes}>{children}</p>
+}
+
+export default ErrorMessage

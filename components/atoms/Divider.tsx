@@ -1,12 +1,13 @@
 import React from 'react'
-import styled from 'styled-components'
+import clsx from 'clsx'
 
-const Line = styled.div`
-  border-bottom: 1px solid lightgrey;
-`
+interface DividerProps {
+  className?: string
+}
 
-const Divider = () => {
-  return <Line />
+const Divider = ({ className }: DividerProps) => {
+  const classes = clsx(['border-b border-gray-300', className])
+  return <div className={classes} />
 }
 
 export default Divider

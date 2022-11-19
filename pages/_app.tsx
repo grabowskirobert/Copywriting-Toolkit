@@ -1,7 +1,5 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { ThemeProvider } from 'styled-components'
-import { theme } from '../styles/theme'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { AuthProvider } from '../contexts/AuthContext'
@@ -21,9 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               ' | Copywriter Toolkit'}
         </title>
       </Head>
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <Component {...pageProps} />
     </AuthProvider>
   )
 }

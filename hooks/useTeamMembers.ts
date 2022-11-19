@@ -1,7 +1,6 @@
 import { collection, getDocs } from '@firebase/firestore'
 import { db } from '../firebase/firebase'
 import { useEffect, useState } from 'react'
-import { useAuth } from '../contexts/AuthContext'
 
 interface membersProps {
   user?: {
@@ -27,19 +26,12 @@ export function useTeamMembers() {
       })
 
       const copywriters = data.filter(
-        (member) =>
-          member.user.role === 'Copywriter'
+        (member) => member.user.role === 'Copywriter'
       )
 
-      const admins = data.filter(
-        (member) =>
-          member.user.role === 'Admin'
-      )
+      const admins = data.filter((member) => member.user.role === 'Admin')
 
-      const masters = data.filter(
-        (member) =>
-          member.user.role === 'Master'
-      )
+      const masters = data.filter((member) => member.user.role === 'Master')
 
       setCopywriters(copywriters)
       setAdmins(admins)

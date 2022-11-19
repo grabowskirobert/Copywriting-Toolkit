@@ -1,21 +1,21 @@
 import React, { useState, useRef } from 'react'
-import CustomCard from '../components/atoms/CustomCard'
+import CustomCard from '../components/atoms/Card'
 import Link from 'next/link'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
-import CustomButton from '../components/atoms/CustomButton'
-import { CenterScreen } from '../components/atoms/CenterScreen'
-import { FormContainer } from '../components/atoms/FormContainer'
-import { ErrorMessage } from '../components/atoms/ErrorMessage'
-import { FormCell } from '../components/atoms/FormCell'
-import { StyledInput } from '../components/atoms/StyledInput'
+import CustomButton from '../components/atoms/Button'
 import LoaderSpinner from '../components/atoms/LoaderSpinner'
+import CenterScreen from '../components/atoms/CenterScreen'
+import FormContainer from '../components/atoms/FormContainer'
+import FormCell from '../components/atoms/FormCell'
+import ErrorMessage from '../components/atoms/ErrorMessage'
+import Input from '../components/atoms/Input'
 
 function SignUp() {
   const emailRef: React.MutableRefObject<any> = useRef()
   const passwordRef: React.MutableRefObject<any> = useRef()
   const passwordConfirmRef: React.MutableRefObject<any> = useRef()
-  const { signup, user, logout } = useAuth()
+  const { signup, user } = useAuth()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -42,34 +42,34 @@ function SignUp() {
     <CenterScreen>
       <FormContainer>
         <CustomCard>
-          <h2 className='text-center mb-4 text-lg'>Sign up</h2>
+          <h2 className="text-center mb-4 text-lg">Sign up</h2>
           <ErrorMessage>{error && error}</ErrorMessage>
           <form onSubmit={handleSubmit}>
-            <FormCell id='email'>
-              <label htmlFor=''>Email</label>
-              <StyledInput type='email' ref={emailRef} required />
+            <FormCell id="email">
+              <label htmlFor="">Email</label>
+              <Input type="email" ref={emailRef} required />
             </FormCell>
-            <FormCell id='password'>
-              <label htmlFor=''>Password</label>
-              <StyledInput type='password' ref={passwordRef} required />
+            <FormCell id="password">
+              <label htmlFor="">Password</label>
+              <Input type="password" ref={passwordRef} required />
             </FormCell>
-            <FormCell id='password-confirm'>
-              <label htmlFor=''>Password Confirmation</label>
-              <StyledInput type='password' ref={passwordConfirmRef} required />
+            <FormCell id="password-confirm">
+              <label htmlFor="">Password Confirmation</label>
+              <Input type="password" ref={passwordConfirmRef} required />
             </FormCell>
             <LoaderSpinner
               visible={loading}
-              wrapperClasses='flex justify-center my-4'
+              wrapperClasses="flex justify-center my-4"
             />
-            <CustomButton type='submit' hidden={loading}>
+            <CustomButton type="submit" hidden={loading}>
               Sign Up
             </CustomButton>
           </form>
         </CustomCard>
-        <div className='w-full text-center mt-2'>
+        <div className="w-full text-center mt-2">
           Already have an account?
-          <Link href='/login'>
-            <a className='font-semibold ml-1'>Log In</a>
+          <Link href="/login">
+            <a className="font-semibold ml-1">Log In</a>
           </Link>
         </div>
       </FormContainer>

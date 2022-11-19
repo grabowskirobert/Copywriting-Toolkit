@@ -1,10 +1,10 @@
-import CustomButton from '../atoms/CustomButton'
+import CustomButton from '../atoms/Button'
 import Link from 'next/link'
 import { useAuth } from '../../contexts/AuthContext'
 
 interface Props {
   id: string
-  deleteTask: () => {}
+  deleteTask: () => any
   date_start: string
   date_end: string
 }
@@ -15,14 +15,14 @@ export default function TaskDetails(props: Props) {
 
   return (
     <>
-      <div className='my-5'>
+      <div className="my-5">
         <p>Date of start: {date_start}</p>
         <p>Date of end: {date_end}</p>
       </div>
-      <div className='flex justify-end gap-3'>
+      <div className="flex justify-end gap-3">
         {(user.role === 'Admin' || user.role === 'Master') && (
           <>
-            <CustomButton secondColor customFunction={() => deleteTask()}>
+            <CustomButton secondColor onClick={() => deleteTask()}>
               Delete task
             </CustomButton>
             <CustomButton>

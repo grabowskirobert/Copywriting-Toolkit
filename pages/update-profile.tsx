@@ -1,15 +1,14 @@
 import React, { useState, useRef } from 'react'
-import CustomCard from '../components/atoms/CustomCard'
+import CustomCard from '../components/atoms/Card'
 import Link from 'next/link'
-import styled from 'styled-components'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
-import CustomButton from '../components/atoms/CustomButton'
+import CustomButton from '../components/atoms/Button'
 import privateRoute from '../layouts/PrivateRoute'
 import Layout from '../layouts/Layout'
-import { FormContainer } from '../components/atoms/FormContainer';
-import { FormCell } from '../components/atoms/FormCell';
-import { StyledInput } from '../components/atoms/StyledInput';
+import FormContainer from '../components/atoms/FormContainer'
+import FormCell from '../components/atoms/FormCell'
+import Input from '../components/atoms/Input'
 
 function UpdateProfile() {
   const emailRef: React.MutableRefObject<any> = useRef()
@@ -51,47 +50,47 @@ function UpdateProfile() {
 
   return (
     <Layout>
-    <FormContainer>
-      <CustomCard>
-        <h2 className='text-center mb-4 text-xl'>Update Profile</h2>
-        <p>{error && error}</p>
-        <form onSubmit={handleSubmit}>
-          <FormCell id='email'>
-            <label htmlFor=''>Email</label>
-            <StyledInput
-              type='email'
-              ref={emailRef}
-              required
-              defaultValue={user.email}
-            />
-          </FormCell>
-          <FormCell id='password'>
-            <label htmlFor=''>Password</label>
-            <StyledInput
-              type='password'
-              ref={passwordRef}
-              placeholder='Leave blank to keep the same'
-            />
-          </FormCell>
-          <FormCell id='password-confirm'>
-            <label htmlFor=''>Password Confirmation</label>
-            <StyledInput
-              type='password'
-              ref={passwordConfirmRef}
-              placeholder='Leave blank to keep the same'
-            />
-          </FormCell>
-          <CustomButton type='submit' disabled={loading}>
-            Update
-          </CustomButton>
-          <CustomButton className='m-4' disabled={loading}>
-            <Link href='/'>
-              <a>Cancel</a>
-            </Link>
-          </CustomButton>
-        </form>
-      </CustomCard>
-    </FormContainer>
+      <FormContainer>
+        <CustomCard>
+          <h2 className="text-center mb-4 text-xl">Update Profile</h2>
+          <p>{error && error}</p>
+          <form onSubmit={handleSubmit}>
+            <FormCell id="email">
+              <label htmlFor="">Email</label>
+              <Input
+                type="email"
+                ref={emailRef}
+                required
+                defaultValue={user.email}
+              />
+            </FormCell>
+            <FormCell id="password">
+              <label htmlFor="">Password</label>
+              <Input
+                type="password"
+                ref={passwordRef}
+                placeholder="Leave blank to keep the same"
+              />
+            </FormCell>
+            <FormCell id="password-confirm">
+              <label htmlFor="">Password Confirmation</label>
+              <Input
+                type="password"
+                ref={passwordConfirmRef}
+                placeholder="Leave blank to keep the same"
+              />
+            </FormCell>
+            <CustomButton type="submit" disabled={loading}>
+              Update
+            </CustomButton>
+            <CustomButton className="m-4" disabled={loading}>
+              <Link href="/">
+                <a>Cancel</a>
+              </Link>
+            </CustomButton>
+          </form>
+        </CustomCard>
+      </FormContainer>
     </Layout>
   )
 }

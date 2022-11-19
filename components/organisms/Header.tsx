@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
-import Notifications from '../molecules/Notifications';
-import UserMenu from '../molecules/UserMenu';
+import React from 'react'
+import Notifications from '../molecules/Notifications'
+import UserMenu from '../molecules/UserMenu'
 
-interface HeaderProps { 
+interface HeaderProps {
   sidebarOpen: boolean
-  setSidebarOpen: Function
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function Header({
-  sidebarOpen,
-  setSidebarOpen
-}:HeaderProps) {
-
+function Header({ sidebarOpen, setSidebarOpen }: HeaderProps) {
   // const [searchModalOpen, setSearchModalOpen] = useState(false)
 
   return (
@@ -28,7 +24,11 @@ function Header({
               onClick={() => setSidebarOpen(!sidebarOpen)}
             >
               <span className="sr-only">Open sidebar</span>
-              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                className="w-6 h-6 fill-current"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <rect x="4" y="5" width="16" height="2" />
                 <rect x="4" y="11" width="16" height="2" />
                 <rect x="4" y="17" width="16" height="2" />
@@ -40,13 +40,11 @@ function Header({
             <Notifications />
             <hr className="w-px h-6 bg-slate-200 mx-3" />
             <UserMenu />
-
           </div>
-
         </div>
       </div>
     </header>
-  );
+  )
 }
 
-export default Header;
+export default Header

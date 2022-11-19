@@ -1,9 +1,18 @@
-import styled from 'styled-components';
+import React from 'react'
+import clsx from 'clsx'
 
-export const CenterScreen = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 100vh;
-`;
+interface CenterScreenProps {
+  children: React.ReactNode
+  className?: string
+}
+
+const CenterScreen = ({ children, className }: CenterScreenProps) => {
+  const classes = clsx(
+    ['flex justify-center items-center text-center min-h-screen'],
+    className
+  )
+
+  return <div className={classes}>{children}</div>
+}
+
+export default CenterScreen

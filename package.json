@@ -1,6 +1,5 @@
 {
   "name": "copywriter-toolkit",
-  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,28 +12,28 @@
     "tailwind",
     "typescript"
   ],
-  "author": "Rober Grabowski, Łukasz Cieślak",
+  "author": "Robert Grabowski, Łukasz Cieślak",
   "license": "ISC",
   "dependencies": {
     "@tailwindcss/forms": "^0.5.0",
     "@types/draft-js": "^0.11.9",
     "@types/react-transition-group": "^4.4.4",
-    "@types/styled-components": "^5.1.24",
-    "axios": "^0.26.1",
-    "classnames": "^2.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "clsx": "^1.2.1",
     "draft-convert": "^2.1.13",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
+    "eslint-config-prettier": "^8.5.0",
     "firebase": "^9.6.10",
     "html2canvas": "^1.4.1",
     "next": "12.1.0",
+    "postcss-loader": "^7.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-draft-wysiwyg": "^1.14.7",
     "react-icons": "^4.3.1",
     "react-loader-spinner": "^5.3.4",
-    "react-transition-group": "^4.4.2",
-    "styled-components": "^5.3.3"
+    "react-transition-group": "^4.4.2"
   },
   "devDependencies": {
     "@types/draftjs-to-html": "^0.8.1",

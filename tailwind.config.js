@@ -56,6 +56,11 @@ module.exports = {
       },
       zIndex: {
         60: '60',
+        100: '100',
+      },
+      colors: {
+        error: '#F71212',
+        white: '#FFF',
       },
     },
   },
@@ -70,8 +75,8 @@ module.exports = {
             `.sidebar-expanded .${e(
               `sidebar-expanded${separator}${className}`
             )}`
-        );
-      });
+        )
+      })
     }),
   ],
-};
+}

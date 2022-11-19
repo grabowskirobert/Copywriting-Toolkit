@@ -1,27 +1,20 @@
-import styled from "styled-components";
-import {useState} from "react";
+import React from 'react'
+import clsx from 'clsx'
 
-interface Props {
-    status: string;
+interface StatusDiodeProps {
+  status: 'active' | 'inactive'
 }
 
-export default function StatusDiode({status}:Props) {
+const StatusDiode = ({ status }: StatusDiodeProps) => {
+  const diodeColor = () => {
+    if (status === 'active') return 'bg-green-500 shadow-green-500'
+    else if (status === 'inactive') return 'bg-amber-500 shadow-amber-500'
+    else return 'bg-error shadow-error'
+  }
 
-    const [diodeColor,setDiodeColor] = useState(() => {
-        if(status === 'active') return 'green'
-        else if(status === 'inactive') return 'orange'
-        else return 'red'
-    })
+  const classes = clsx(['p-1 rounded-[50%] shadow-sm w-px h-px'], diodeColor())
 
-    return <Diode color={diodeColor} title={status}></Diode>
+  return <div className={classes} />
 }
 
-const Diode = styled.p`
-    background-color: ${props => props.color};
-    padding: .3em;
-  border-radius: 50%;
-  box-shadow: 0 0 3px ${props => props.color};
-  width: 1px;
-  height: 1px;
-
-`;
+export default StatusDiode

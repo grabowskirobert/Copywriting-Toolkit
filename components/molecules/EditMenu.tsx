@@ -1,41 +1,44 @@
-import React, { useState, useRef, useEffect } from 'react';
-import Transition from '../../layouts/Transition';
+import React, { useState, useRef, useEffect } from 'react'
+import Transition from '../../layouts/Transition'
 
-function EditMenu({
-  children,
-  ...rest
-}:any) {
+function EditMenu({ children, ...rest }: any) {
+  const [dropdownOpen, setDropdownOpen] = useState(false)
 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const trigger:any = useRef(null);
-  const dropdown:any = useRef(null);
+  const trigger: any = useRef(null)
+  const dropdown: any = useRef(null)
 
   // close on click outside
   useEffect(() => {
-    const clickHandler = ({ target }:any) => {
-      if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener('click', clickHandler);
-    return () => document.removeEventListener('click', clickHandler);
-  });
+    const clickHandler = ({ target }: any) => {
+      if (
+        !dropdownOpen ||
+        dropdown.current.contains(target) ||
+        trigger.current.contains(target)
+      )
+        return
+      setDropdownOpen(false)
+    }
+    document.addEventListener('click', clickHandler)
+    return () => document.removeEventListener('click', clickHandler)
+  })
 
   // close if the esc key is pressed
   useEffect(() => {
-    const keyHandler = ({ keyCode }:any) => {
-      if (!dropdownOpen || keyCode !== 27) return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener('keydown', keyHandler);
-    return () => document.removeEventListener('keydown', keyHandler);
-  });
+    const keyHandler = ({ keyCode }: any) => {
+      if (!dropdownOpen || keyCode !== 27) return
+      setDropdownOpen(false)
+    }
+    document.addEventListener('keydown', keyHandler)
+    return () => document.removeEventListener('keydown', keyHandler)
+  })
 
   return (
     <div {...rest}>
       <button
         ref={trigger}
-        className={`text-slate-400 hover:text-slate-500 rounded-full ${dropdownOpen && 'bg-slate-100 text-slate-500'}`}
+        className={`text-slate-400 hover:text-slate-500 rounded-full ${
+          dropdownOpen && 'bg-slate-100 text-slate-500'
+        }`}
         aria-haspopup="true"
         onClick={() => setDropdownOpen(!dropdownOpen)}
         aria-expanded={dropdownOpen}
@@ -67,7 +70,7 @@ function EditMenu({
         </ul>
       </Transition>
     </div>
-  );
+  )
 }
 
-export default EditMenu;
+export default EditMenu
