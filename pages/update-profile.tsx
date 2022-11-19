@@ -50,7 +50,7 @@ function UpdateProfile() {
 
   return (
     <Layout>
-      <FormContainer>
+      <FormContainer className='w-1/3'>
         <CustomCard>
           <h2 className='text-center mb-4 text-xl'>Update Profile</h2>
           <p>{error && error}</p>

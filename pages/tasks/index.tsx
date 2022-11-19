@@ -56,39 +56,41 @@ const Index = () => {
     return () => {
       setTask([])
     }
+    // eslint-disable-next-line
   }, [reload])
 
   return (
     <Layout>
-      <div className="w-4/5 mx-auto">
-        <div className="flex flex-col w-1/4 ">
+      <div className='w-3/5 mx-auto'>
+        <div className='flex flex-col w-1/4 '>
           <select
-            className="rounded"
+            className='rounded'
             onChange={(e) => setStatusFilter(e.target.value)}
           >
-            <option value="" hidden>
+            <option
+              value=''
+              hidden
+            >
               Filters
             </option>
-            <option value="active">Active</option>
-            <option value="deadline">After deadline</option>
-            <option value="check">To be checked</option>
-            <option value="finished">Finished</option>
+            <option value='active'>Active</option>
+            <option value='deadline'>After deadline</option>
+            <option value='check'>To be checked</option>
+            <option value='finished'>Finished</option>
           </select>
         </div>
-      </div>
 
-      <div className="flex justify-center">
-        <div className="w-4/5 mt-8 shadow-lg rounded">
-          <div className="flex justify-between border-b-2">
+        <div className='mt-8 shadow-lg rounded'>
+          <div className='flex justify-between border-b-2'>
             <input
-              className="w-3/5 mr-auto rounded"
-              type="text"
-              placeholder="Search for a task"
+              className='w-3/5 mr-auto rounded'
+              type='text'
+              placeholder='Search for a task'
               onChange={(e) => setQuery(e.currentTarget.value)}
             />
             {(user.role === 'Admin' || user.role === 'Master') && (
               <CustomButton
-                customFunction={() => {
+                onClick={() => {
                   setAddTask(!addTask)
                 }}
               >
@@ -113,20 +115,24 @@ const Index = () => {
                 .includes(query.toLocaleLowerCase())
             )
             .map((el) => (
-              <Task {...el} key={el.id} deleteTask={() => deleteTask(el.id)} />
+              <Task
+                {...el}
+                key={el.id}
+                deleteTask={() => deleteTask(el.id)}
+              />
             ))}
         </div>
+        {addTask && (
+          <TaskForm
+            taskCollection={taskCollection}
+            setReload={() => setReload(!reload)}
+            taskForm={taskForm}
+            closeWindow={() => {
+              setAddTask(!addTask)
+            }}
+          />
+        )}
       </div>
-      {addTask && (
-        <TaskForm
-          taskCollection={taskCollection}
-          setReload={() => setReload(!reload)}
-          taskForm={taskForm}
-          closeWindow={() => {
-            setAddTask(!addTask)
-          }}
-        />
-      )}
     </Layout>
   )
 }

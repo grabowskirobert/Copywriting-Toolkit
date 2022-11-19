@@ -11,7 +11,7 @@ const Team = () => {
 
   return (
     <Layout>
-      <div className='w-2/3 mx-auto'>
+      <div className='w-2/5 mx-auto'>
         <CustomCard>
           <h2 className='text-center mb-4 text-xl'>Your team</h2>
           <div>

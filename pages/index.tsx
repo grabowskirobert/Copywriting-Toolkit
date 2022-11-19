@@ -12,7 +12,7 @@ const Dashboard: NextComponentType<{ children?: ReactNode }> = () => {
 
   return (
     <Layout>
-      <div className='w-2/3 mx-auto'>
+      <div className='w-2/5 mx-auto'>
         <CustomCard>
           <h2 className='text-center mb-4 text-xl'>Profile</h2>
           <div>
