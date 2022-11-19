@@ -9,7 +9,7 @@ interface CustomLinkProps {
 }
 
 const CustomLink = ({ href, children, className }: CustomLinkProps) => {
-  const classes = clsx(['indigo-600 underline cursor-pointer'], className)
+  const classes = clsx(['text-indigo-600 underline cursor-pointer'], className)
 
   return (
     <Link href={href} passHref>

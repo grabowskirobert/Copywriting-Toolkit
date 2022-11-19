@@ -7,7 +7,7 @@ interface ErrorMessageProps {
 }
 
 const ErrorMessage = ({ children, className }: ErrorMessageProps) => {
-  const classes = clsx(['error font-bold'], className)
+  const classes = clsx(['text-error font-bold'], className)
 
   return <p className={classes}>{children}</p>
 }

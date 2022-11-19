@@ -1,4 +1,5 @@
 import React from 'react'
+import clsx from 'clsx'
 import { Oval } from 'react-loader-spinner'
 
 interface LoaderSpinner {
@@ -17,8 +18,13 @@ const LoaderSpinner = ({
   secondaryColor = 'grey',
   wrapperClasses = '',
 }: LoaderSpinner) => {
+  const classes = clsx([
+    !!wrapperClasses && wrapperClasses,
+    visible ? 'block' : 'hidden',
+  ])
+
   return (
-    <div className={`${wrapperClasses} ${visible ? ' block' : ' hidden'}`}>
+    <div className={classes}>
       <Oval
         height={SVG_SIZE}
         width={SVG_SIZE}
