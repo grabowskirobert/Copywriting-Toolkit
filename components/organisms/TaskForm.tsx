@@ -89,59 +89,75 @@ const TaskForm = ({
       )}
       <Container>
         <CustomCard>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-1">
-            <label htmlFor="task_title">Task title</label>
+          <form
+            onSubmit={handleSubmit}
+            className='flex flex-col gap-1'
+          >
+            <label htmlFor='task_title'>Task title</label>
             <input
-              type="text"
+              type='text'
               value={form.task_title}
               onChange={handleChange}
               required
-              name="task_title"
+              name='task_title'
             />
-            <label htmlFor="date_start">Date start</label>
+            <label htmlFor='date_start'>Date start</label>
             <input
-              type="date"
+              type='date'
               value={form.date_start}
               onChange={handleChange}
               required
-              name="date_start"
+              name='date_start'
             />
-            <label htmlFor="date_end">Date end</label>
+            <label htmlFor='date_end'>Date end</label>
             <input
-              type="date"
+              type='date'
               value={form.date_end}
               onChange={handleChange}
               required
-              name="date_end"
+              name='date_end'
             />
-            <label htmlFor="keywords">Keywords</label>
+            <label htmlFor='keywords'>Keywords</label>
             <input
-              type="text"
+              type='text'
               value={form.keywords}
               onChange={handleChange}
               required
-              name="keywords"
+              name='keywords'
             />
-            <label htmlFor="user">Copywriter</label>
-            <select onChange={handleChange} name="user" value={form.user}>
-              <option value="" hidden>
+            <label htmlFor='user'>Copywriter</label>
+            <select
+              onChange={handleChange}
+              name='user'
+              value={form.user}
+            >
+              <option
+                value=''
+                hidden
+              >
                 Select user
               </option>
               {copywriters?.map((el, index) => {
                 return (
-                  <option key={index} value={el?.user?.email}>
+                  <option
+                    key={index}
+                    value={el?.user?.email}
+                  >
                     {el?.user?.email}
                   </option>
                 )
               })}
             </select>
 
-            <CustomButton className="w-1/4 mx-auto">
-              <input type="submit" value={update ? 'Update' : 'Create'} />
+            <CustomButton className='w-1/4 mx-auto'>
+              <input
+                type='submit'
+                value={update ? 'Update' : 'Create'}
+              />
             </CustomButton>
             {!update && (
               <CustomButton
-                className="w-1/4 mx-auto"
+                className='w-1/4 mx-auto'
                 onClick={() => {
                   if (closeWindow !== undefined) {
                     closeWindow()

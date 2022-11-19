@@ -128,7 +128,11 @@ function Transition({ show, appear, ...rest }: any) {
         },
       }}
     >
-      <CSSTransition appear={appear} show={show} {...rest} />
+      <CSSTransition
+        appear={appear}
+        show={show}
+        {...rest}
+      />
     </TransitionContext.Provider>
   )
 }

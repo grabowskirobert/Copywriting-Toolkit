@@ -37,35 +37,47 @@ function Login() {
     <CenterScreen>
       <FormContainer>
         <CustomCard>
-          <h2 className="text-center mb-4 text-xl">Log In</h2>
+          <h2 className='text-center mb-4 text-xl'>Log In</h2>
           <ErrorMessage>{error && error}</ErrorMessage>
           <form onSubmit={handleSubmit}>
-            <FormCell id="email">
-              <label htmlFor="">Email</label>
-              <Input type="email" ref={emailRef} required />
+            <FormCell id='email'>
+              <label htmlFor=''>Email</label>
+              <Input
+                type='email'
+                innerRef={emailRef}
+                required
+              />
             </FormCell>
-            <FormCell id="password">
-              <label htmlFor="">Password</label>
-              <Input type="password" ref={passwordRef} required />
+            <FormCell id='password'>
+              <label htmlFor=''>Password</label>
+              <Input
+                type='password'
+                innerRef={passwordRef}
+                required
+              />
             </FormCell>
             <LoaderSpinner
               visible={loading}
-              wrapperClasses="flex justify-center my-4"
+              wrapperClasses='flex justify-center my-4'
             />
-            <CustomButton type="submit" hidden={loading} className="m-4">
+            <CustomButton
+              type='submit'
+              hidden={loading}
+              className='m-4'
+            >
               Login
             </CustomButton>
           </form>
           <div>
-            <Link href="/forgot-password">
+            <Link href='/forgot-password'>
               <a>Forgot password?</a>
             </Link>
           </div>
         </CustomCard>
-        <div className="w-full text-center mt-4">
+        <div className='w-full text-center mt-4'>
           Need an account?
-          <Link href="/signup">
-            <a className="font-semibold ml-1">Sign up</a>
+          <Link href='/signup'>
+            <a className='font-semibold ml-1'>Sign up</a>
           </Link>
         </div>
       </FormContainer>

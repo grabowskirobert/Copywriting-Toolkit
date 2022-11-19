@@ -30,7 +30,7 @@ const LoaderSpinner = ({
         width={SVG_SIZE}
         color={color}
         secondaryColor={secondaryColor}
-        ariaLabel="oval-loading"
+        ariaLabel='oval-loading'
         strokeWidth={STROKE_SIZE}
         strokeWidthSecondary={STROKE_SIZE}
       />

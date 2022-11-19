@@ -11,15 +11,18 @@ const Team = () => {
 
   return (
     <Layout>
-      <div className="w-2/3 mx-auto">
+      <div className='w-2/3 mx-auto'>
         <CustomCard>
-          <h2 className="text-center mb-4 text-xl">Your team</h2>
+          <h2 className='text-center mb-4 text-xl'>Your team</h2>
           <div>
-            <span className="font-semibold pr-1">Admins: </span>
+            <span className='font-semibold pr-1'>Admins: </span>
             <br />
             {admins?.map((el, index) => {
               return (
-                <div key={index} className="flex">
+                <div
+                  key={index}
+                  className='flex'
+                >
                   <p>{el?.user?.email}</p>
                 </div>
               )
@@ -28,12 +31,15 @@ const Team = () => {
           <div>
             <Divider />
 
-            <span className="font-semibold pr-1">Masters: </span>
+            <span className='font-semibold pr-1'>Masters: </span>
             {masters?.map((el, index) => {
               return (
-                <div key={index} className="flex">
+                <div
+                  key={index}
+                  className='flex'
+                >
                   <p>{el?.user?.email}</p>
-                  <div className="ml-4 mt-1 pointer">
+                  <div className='ml-4 mt-1 pointer'>
                     <MdEdit />
                   </div>
                 </div>
@@ -43,19 +49,22 @@ const Team = () => {
           <Divider />
 
           <div>
-            <span className="font-semibold pr-1">Copywriters: </span>
+            <span className='font-semibold pr-1'>Copywriters: </span>
             {copywriters?.map((el, index) => {
               return (
-                <div key={index} className="flex">
+                <div
+                  key={index}
+                  className='flex'
+                >
                   <p>{el?.user?.email}</p>
-                  <div className="ml-4 mt-1 pointer">
+                  <div className='ml-4 mt-1 pointer'>
                     <MdEdit />
                   </div>
                 </div>
               )
             })}
           </div>
-          <div className="mx-auto mt-4"></div>
+          <div className='mx-auto mt-4'></div>
         </CustomCard>
       </div>
     </Layout>

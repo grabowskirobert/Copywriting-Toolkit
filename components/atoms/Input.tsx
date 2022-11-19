@@ -3,7 +3,7 @@ import clsx from 'clsx'
 
 interface InputProps {
   type: string
-  ref: React.MutableRefObject<any>
+  innerRef?: React.MutableRefObject<any>
   required?: boolean
   className?: string
   placeholder?: string
@@ -14,9 +14,9 @@ const Input = ({
   className,
   type,
   required,
-  ref,
   placeholder,
   defaultValue,
+  innerRef,
 }: InputProps) => {
   const classes = clsx(['rounded block w-4/5 mx-auto'], className)
 
@@ -25,9 +25,9 @@ const Input = ({
       className={classes}
       type={type}
       required={required}
-      ref={ref}
       placeholder={placeholder}
       defaultValue={defaultValue}
+      ref={innerRef}
     />
   )
 }

@@ -12,20 +12,20 @@ const Dashboard: NextComponentType<{ children?: ReactNode }> = () => {
 
   return (
     <Layout>
-      <div className="w-2/3 mx-auto">
+      <div className='w-2/3 mx-auto'>
         <CustomCard>
-          <h2 className="text-center mb-4 text-xl">Profile</h2>
+          <h2 className='text-center mb-4 text-xl'>Profile</h2>
           <div>
-            <span className="font-semibold pr-1">Email:</span>
+            <span className='font-semibold pr-1'>Email:</span>
             {user.email}
           </div>
           <div>
-            <span className="font-semibold pr-1">Role:</span>
+            <span className='font-semibold pr-1'>Role:</span>
             {user.role}
           </div>
-          <div className="mx-auto mt-4">
+          <div className='mx-auto mt-4'>
             <CustomButton>
-              <Link href="/update-profile">Update Profile</Link>
+              <Link href='/update-profile'>Update Profile</Link>
             </CustomButton>
           </div>
         </CustomCard>

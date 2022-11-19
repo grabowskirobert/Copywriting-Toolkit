@@ -52,39 +52,45 @@ function UpdateProfile() {
     <Layout>
       <FormContainer>
         <CustomCard>
-          <h2 className="text-center mb-4 text-xl">Update Profile</h2>
+          <h2 className='text-center mb-4 text-xl'>Update Profile</h2>
           <p>{error && error}</p>
           <form onSubmit={handleSubmit}>
-            <FormCell id="email">
-              <label htmlFor="">Email</label>
+            <FormCell id='email'>
+              <label htmlFor=''>Email</label>
               <Input
-                type="email"
-                ref={emailRef}
+                type='email'
+                innerRef={emailRef}
                 required
                 defaultValue={user.email}
               />
             </FormCell>
-            <FormCell id="password">
-              <label htmlFor="">Password</label>
+            <FormCell id='password'>
+              <label htmlFor=''>Password</label>
               <Input
-                type="password"
-                ref={passwordRef}
-                placeholder="Leave blank to keep the same"
+                type='password'
+                innerRef={passwordRef}
+                placeholder='Leave blank to keep the same'
               />
             </FormCell>
-            <FormCell id="password-confirm">
-              <label htmlFor="">Password Confirmation</label>
+            <FormCell id='password-confirm'>
+              <label htmlFor=''>Password Confirmation</label>
               <Input
-                type="password"
-                ref={passwordConfirmRef}
-                placeholder="Leave blank to keep the same"
+                type='password'
+                innerRef={passwordConfirmRef}
+                placeholder='Leave blank to keep the same'
               />
             </FormCell>
-            <CustomButton type="submit" disabled={loading}>
+            <CustomButton
+              type='submit'
+              disabled={loading}
+            >
               Update
             </CustomButton>
-            <CustomButton className="m-4" disabled={loading}>
-              <Link href="/">
+            <CustomButton
+              className='m-4'
+              disabled={loading}
+            >
+              <Link href='/'>
                 <a>Cancel</a>
               </Link>
             </CustomButton>

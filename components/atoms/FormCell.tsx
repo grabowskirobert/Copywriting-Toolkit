@@ -11,7 +11,10 @@ const FormCell = ({ children, className, id }: FormCellProps) => {
   const classes = clsx(['block w-full p-2'], className)
 
   return (
-    <div className={classes} id={id}>
+    <div
+      className={classes}
+      id={id}
+    >
       {children}
     </div>
   )

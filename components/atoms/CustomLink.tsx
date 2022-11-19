@@ -12,7 +12,10 @@ const CustomLink = ({ href, children, className }: CustomLinkProps) => {
   const classes = clsx(['text-indigo-600 underline cursor-pointer'], className)
 
   return (
-    <Link href={href} passHref>
+    <Link
+      href={href}
+      passHref
+    >
       <span className={classes}>{children}</span>
     </Link>
   )

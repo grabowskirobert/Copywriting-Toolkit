@@ -15,18 +15,18 @@ const Task = ({
   const [showMore, setShowMore] = useState<boolean>(false)
 
   return (
-    <div className="py-2 px-3.5 border-b-2">
+    <div className='py-2 px-3.5 border-b-2'>
       <div
-        className="relative cursor-pointer"
+        className='relative cursor-pointer'
         onClick={() => setShowMore(!showMore)}
       >
-        <p className="flex items-center gap-1">
+        <p className='flex items-center gap-1'>
           <StatusDiode status={status} />
           <b>{task_title}</b>
         </p>
         <p>Member: {user}</p>
         <RiArrowDownSLine
-          className="absolute top-2 right-1"
+          className='absolute top-2 right-1'
           onClick={() => setShowMore(!showMore)}
         />
       </div>

@@ -15,14 +15,17 @@ export default function TaskDetails(props: Props) {
 
   return (
     <>
-      <div className="my-5">
+      <div className='my-5'>
         <p>Date of start: {date_start}</p>
         <p>Date of end: {date_end}</p>
       </div>
-      <div className="flex justify-end gap-3">
+      <div className='flex justify-end gap-3'>
         {(user.role === 'Admin' || user.role === 'Master') && (
           <>
-            <CustomButton secondColor onClick={() => deleteTask()}>
+            <CustomButton
+              secondColor
+              onClick={() => deleteTask()}
+            >
               Delete task
             </CustomButton>
             <CustomButton>
