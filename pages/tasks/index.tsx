@@ -100,7 +100,9 @@ const Index = () => {
           </div>
           {task
             .filter((taskUser: any) =>
-              user.role === 'Master' || user.role === 'Admin'
+              user.role === 'Admin'
+                ? !!taskUser
+                : user.role === 'Master'
                 ? taskUser.uid?.includes(user?.uid)
                 : taskUser.user?.includes(user?.email)
             )
