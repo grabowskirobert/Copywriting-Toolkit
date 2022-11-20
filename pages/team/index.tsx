@@ -1,5 +1,5 @@
+import Link from 'next/link'
 import React from 'react'
-import { MdEdit } from 'react-icons/Md'
 import Card from '../../components/atoms/Card'
 import Divider from '../../components/atoms/Divider'
 import { useTeamMembers } from '../../hooks/useTeamMembers'
@@ -23,7 +23,14 @@ const Team = () => {
                   key={index}
                   className='flex'
                 >
-                  <p>{el?.user?.email}</p>
+                  <Link
+                    href={`/team/${el?.user?.uid}`}
+                    passHref
+                  >
+                    <p className='cursor-pointer hover:text-indigo-600'>
+                      {el?.user?.email}
+                    </p>
+                  </Link>
                 </div>
               )
             })}
@@ -38,10 +45,14 @@ const Team = () => {
                   key={index}
                   className='flex'
                 >
-                  <p>{el?.user?.email}</p>
-                  <div className='ml-4 mt-1 pointer'>
-                    <MdEdit />
-                  </div>
+                  <Link
+                    href={`/team/${el?.user?.uid}`}
+                    passHref
+                  >
+                    <p className='cursor-pointer hover:text-indigo-600'>
+                      {el?.user?.email}
+                    </p>
+                  </Link>
                 </div>
               )
             })}
@@ -56,10 +67,14 @@ const Team = () => {
                   key={index}
                   className='flex'
                 >
-                  <p>{el?.user?.email}</p>
-                  <div className='ml-4 mt-1 pointer'>
-                    <MdEdit />
-                  </div>
+                  <Link
+                    href={`/team/${el?.user?.uid}`}
+                    passHref
+                  >
+                    <p className='cursor-pointer hover:text-indigo-600'>
+                      {el?.user?.email}
+                    </p>
+                  </Link>
                 </div>
               )
             })}

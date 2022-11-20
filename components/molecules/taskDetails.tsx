@@ -23,7 +23,7 @@ export default function TaskDetails(props: Props) {
         {(user.role === 'Admin' || user.role === 'Master') && (
           <>
             <Button
-              secondColor
+              red
               onClick={() => deleteTask()}
             >
               Delete task

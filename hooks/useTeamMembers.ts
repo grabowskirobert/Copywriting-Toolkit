@@ -17,6 +17,7 @@ export function useTeamMembers() {
   const [admins, setAdmins] = useState<Array<membersProps>>([])
   const [masters, setMasters] = useState<Array<membersProps>>([])
   const [copywriters, setCopywriters] = useState<Array<membersProps>>([])
+  const [allMembers, setAllMembers] = useState<Array<membersProps>>([])
 
   useEffect(() => {
     const fetchMember = async () => {
@@ -36,9 +37,10 @@ export function useTeamMembers() {
       setCopywriters(copywriters)
       setAdmins(admins)
       setMasters(masters)
+      setAllMembers(copywriters.concat(admins).concat(masters))
     }
     fetchMember()
   }, [])
 
-  return { admins, masters, copywriters }
+  return { admins, masters, copywriters, allMembers }
 }
