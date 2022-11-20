@@ -7,7 +7,6 @@ interface membersProps {
     email?: string
     role?: string
     tasks?: Array<string>
-    team?: string
     uid?: string
   }
   id?: string

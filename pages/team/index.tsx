@@ -17,14 +17,14 @@ const Team = () => {
           <div>
             <span className='font-semibold pr-1'>Admins: </span>
             <br />
-            {admins?.map((el, index) => {
+            {admins?.map((el, index) => {              
               return (
                 <div
                   key={index}
                   className='flex'
                 >
                   <Link
-                    href={`/team/${el?.user?.uid}`}
+                    href={`/team/${el.id}`}
                     passHref
                   >
                     <p className='cursor-pointer hover:text-indigo-600'>
@@ -46,7 +46,7 @@ const Team = () => {
                   className='flex'
                 >
                   <Link
-                    href={`/team/${el?.user?.uid}`}
+                    href={`/team/${el.id}`}
                     passHref
                   >
                     <p className='cursor-pointer hover:text-indigo-600'>
@@ -68,7 +68,7 @@ const Team = () => {
                   className='flex'
                 >
                   <Link
-                    href={`/team/${el?.user?.uid}`}
+                    href={`/team/${el.id}`}
                     passHref
                   >
                     <p className='cursor-pointer hover:text-indigo-600'>
