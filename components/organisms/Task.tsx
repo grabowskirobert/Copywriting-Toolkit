@@ -11,6 +11,7 @@ const Task = ({
   deleteTask,
   status,
   user,
+  master
 }: any) => {
   const [showMore, setShowMore] = useState<boolean>(false)
 
@@ -24,7 +25,8 @@ const Task = ({
           <StatusDiode status={status} />
           <b>{task_title}</b>
         </div>
-        <p>Member: {user}</p>
+        <p>Copywriter: {user}</p>
+        <p>Master: {master}</p>
         <RiArrowDownSLine
           className='absolute top-2 right-1'
           onClick={() => setShowMore(!showMore)}

@@ -23,8 +23,9 @@ const Index = () => {
     date_end: string
     keywords: Array<string>
     content: string
-    team: string
     status: string
+    user: string
+    master: string
   }
 
   const taskForm: TaskProps = {
@@ -34,12 +35,12 @@ const Index = () => {
     date_end: '',
     keywords: [],
     content: '',
-    team: '',
     status: '',
+    user: '',
+    master: user.email,
   }
 
   const taskCollection = collection(db, 'tasks')
-
   const deleteTask = async (id: any) => {
     const taskDoc = doc(db, 'tasks', id)
     await deleteDoc(taskDoc)
@@ -56,7 +57,6 @@ const Index = () => {
     return () => {
       setTask([])
     }
-    
   }, [reload])
 
   return (
@@ -88,7 +88,7 @@ const Index = () => {
               placeholder='Search for a task'
               onChange={(e) => setQuery(e.currentTarget.value)}
             />
-            {(user.role === 'Admin' || user.role === 'Master') && (
+            {user.role === 'Master' && (
               <Button
                 onClick={() => {
                   setAddTask(!addTask)
@@ -100,7 +100,7 @@ const Index = () => {
           </div>
           {task
             .filter((taskUser: any) =>
-              user.role === 'Admin'
+              user.role === 'Master' || user.role === 'Admin'
                 ? taskUser.uid?.includes(user?.uid)
                 : taskUser.user?.includes(user?.email)
             )

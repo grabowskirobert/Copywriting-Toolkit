@@ -14,8 +14,9 @@ interface TaskProps {
   date_end: string
   keywords: Array<string>
   content: string
-  team: string
   status: string
+  user: string
+  master: string
 }
 
 interface FormProps {
@@ -44,8 +45,9 @@ const TaskForm = ({
     date_end: taskForm.date_end,
     keywords: taskForm.keywords,
     content: taskForm.content,
-    user: taskForm.team,
     status: update ? taskForm.status : 'active',
+    user: taskForm.user,
+    master: taskForm.master
   })
   function handleChange(e: any) {
     const { value, name } = e.target
@@ -127,6 +129,7 @@ const TaskForm = ({
               onChange={handleChange}
               name='user'
               value={form.user}
+              required
             >
               <option
                 value=''
