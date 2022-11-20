@@ -56,7 +56,7 @@ const Index = () => {
     return () => {
       setTask([])
     }
-    // eslint-disable-next-line
+    
   }, [reload])
 
   return (

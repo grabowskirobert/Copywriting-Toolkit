@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import React from 'react'
 import Button from '../atoms/Button'
 import Card from '../atoms/Card'
 import FormCell from '../atoms/FormCell'
 import FormContainer from '../atoms/FormContainer'
-import { doc, updateDoc } from '@firebase/firestore'
+import { doc, updateDoc, getDoc } from '@firebase/firestore'
 import { db } from '../../firebase/firebase'
 
 interface EditMemberFormProps {
@@ -14,34 +14,50 @@ interface EditMemberFormProps {
         email?: string | undefined
         role?: string | undefined
         tasks?: string[] | undefined
-        team?: string | undefined
         uid?: string | undefined
       }
     | undefined
-  id: string | string[] | undefined
+  userDocID: string
 }
 
-const EditMemberForm = ({ member, id }: EditMemberFormProps) => {
+const EditMemberForm = ({ member, userDocID }: EditMemberFormProps) => {
   const router = useRouter()
-  const [memberData, setMemberData] = useState({})
+  const [memberData, setMemberData] = useState<EditMemberFormProps['member']>({
+    email: '',
+    role: '',
+    tasks: [],
+    uid: '',
+  })
+
+  useEffect(() => {
+    if (member !== undefined) {
+      const fetchUser = async (userDocID: string) => {
+        const userDoc = doc(db, 'users', userDocID)
+        const data = await getDoc(userDoc)
+        const userData = data.data()
+        setMemberData(userData)
+      }
+      fetchUser(userDocID)
+    }
+  }, [userDocID])
 
   const handleChange = (e: any) => {
-    const { value, role } = e.target
+    const { name, value } = e.target
     setMemberData((prevState: any) => ({
       ...prevState,
-      [role]: value,
+      [name]: value,
     }))
   }
 
-  const updateMember = async (id: any, body: any) => {
-    const usersDoc = doc(db, 'users', id)
-    await updateDoc(usersDoc, body)
+  const updateMember = async (userDocID: string, memberData: any) => {
+    const usersDoc = doc(db, 'users', userDocID)
+    await updateDoc(usersDoc, memberData)
     router.back()
   }
 
   async function handleSubmit(e: any) {
     e.preventDefault()
-    await updateMember(id, memberData)
+    await updateMember(userDocID, memberData)
   }
 
   return (
@@ -50,22 +66,25 @@ const EditMemberForm = ({ member, id }: EditMemberFormProps) => {
         <h2 className='text-center mb-4 text-xl'>Edit {member?.email}</h2>
         <form onSubmit={handleSubmit}>
           <FormCell id='role'>
-            <label htmlFor=''>Role</label>
-            <div className='flex flex-col w-full '>
-              <select className='rounded'>
+            <label htmlFor='role'>Role</label>
+            <div className='flex flex-col w-full'>
+              <select
+                className='rounded'
+                id='role'
+                name='role'
+                onChange={handleChange}
+              >
                 <option
                   value='Copywriter'
                   selected={member?.role === 'Copywriter'}
-                  onChange={handleChange}
                 >
                   Copywriter
                 </option>
                 <option
                   value='Master'
                   selected={member?.role === 'Master'}
-                  onChange={handleChange}
                 >
-                  Master of content
+                  Master
                 </option>
               </select>
             </div>

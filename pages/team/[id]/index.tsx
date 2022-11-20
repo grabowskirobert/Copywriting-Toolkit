@@ -33,16 +33,19 @@ const Member = () => {
             {!!member?.tasks ? 'Todo' : 'This user has currently no tasks.'}
           </div>
           <div className='mx-auto mt-4 flex gap-2'>
-            <Button>
-              <Link href={`/team/${id}/edit-member`}>Edit member</Link>
-            </Button>
-            {user.role === 'Admin' && (
-              <Button red>
-                <div onClick={() => console.log('todo delete')}>
-                  Delete member
-                </div>
-              </Button>
-            )}
+            {(member?.role === 'Copywriter' || member?.role === 'Master') &&
+              user.role === 'Admin' && (
+                <>
+                  <Button>
+                    <Link href={`/team/${id}/edit-member`}>Edit member</Link>
+                  </Button>
+                  <Button red>
+                    <div onClick={() => console.log('todo delete')}>
+                      Delete member
+                    </div>
+                  </Button>
+                </>
+              )}
           </div>
         </Card>
       </div>

@@ -47,7 +47,6 @@ const TaskForm = ({
     user: taskForm.team,
     status: update ? taskForm.status : 'active',
   })
-
   function handleChange(e: any) {
     const { value, name } = e.target
     setForm((prevState: any) => ({
