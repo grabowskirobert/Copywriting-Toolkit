@@ -1,4 +1,4 @@
-## Tupisz-app
+## Copywriting-toolkit
 
 ```bash
 
