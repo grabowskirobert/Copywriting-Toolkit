@@ -5,23 +5,23 @@ import Head from 'next/head'
 import { AuthProvider } from '../contexts/AuthContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter()
-  const { pathname } = router
+    const router = useRouter()
+    const { pathname } = router
 
-  return (
-    <AuthProvider>
-      <Head>
-        <title>
-          {pathname === '/'
-            ? 'Copywriter Toolkit'
-            : pathname[1]?.toUpperCase() +
-              pathname?.substring(2) +
-              ' | Copywriter Toolkit'}
-        </title>
-      </Head>
-      <Component {...pageProps} />
-    </AuthProvider>
-  )
+    return (
+        <AuthProvider>
+            <Head>
+                <title>
+                    {pathname === '/'
+                        ? 'Copywriter Toolkit'
+                        : pathname[1]?.toUpperCase() +
+                          pathname?.substring(2) +
+                          ' | Copywriter Toolkit'}
+                </title>
+            </Head>
+            <Component {...pageProps} />
+        </AuthProvider>
+    )
 }
 
 export default MyApp
