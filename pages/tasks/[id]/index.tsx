@@ -9,6 +9,7 @@ import { EditorProps } from 'react-draft-wysiwyg'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import Layout from '../../../layouts/Layout'
+import clsx from 'clsx'
 
 const Editor = dynamic<EditorProps>(
     () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
@@ -21,6 +22,7 @@ function MyEditor() {
     const [editorState, setEditorState] = useState<any>(() =>
         EditorState.createEmpty()
     )
+    const [task, setTask] = useState<any>()
     const handleKeyCommand = (command: string, editorState: any) => {
         const newState = RichUtils.handleKeyCommand(editorState, command)
 
@@ -34,12 +36,33 @@ function MyEditor() {
 
     // const [html,setHtml] = useState<string>();
 
+    const currentRawContent = JSON.stringify(
+        convertToRaw(editorState.getCurrentContent())
+    )
+
+    const keywords = task?.keywords
+        .split(' ')
+        .filter((keyword: string) => keyword !== '')
+
+    const currentText: () => string = () => {
+        return editorState.getCurrentContent().getPlainText()
+    }
+
+    const currentCharacters = () => {
+        return currentText().length
+    }
+
+    const keywordChecker = (keyword: string) => {
+        if (currentText().includes(keyword)) {
+            return true
+        }
+        return false
+    }
+
     const updateTask = async (task_id: string) => {
         const taskDoc = doc(db, 'tasks', task_id)
         await updateDoc(taskDoc, {
-            content: JSON.stringify(
-                convertToRaw(editorState.getCurrentContent())
-            ),
+            content: currentRawContent,
         })
     }
 
@@ -48,6 +71,7 @@ function MyEditor() {
             const taskDoc = doc(db, 'tasks', task_id)
             const data: any = await getDoc(taskDoc)
             const task = data.data()
+            setTask(task)
             if (task.content) {
                 setEditorState(() =>
                     EditorState.createWithContent(
@@ -82,38 +106,57 @@ function MyEditor() {
 
     return (
         <Layout>
-            <div>
+            <Button onClick={() => router.back()}>Return</Button>
+            <div className='my-10'>
                 <Head>
                     <link
                         rel='stylesheet'
                         href='https://cdn.jsdelivr.net/npm/react-draft-wysiwyg@1.12.3/dist/react-draft-wysiwyg.css'
                     />
                 </Head>
-                <Button onClick={() => router.back()}>Return</Button>
-                <br />
-                <br />
-                <br />
-                <Editor
-                    editorState={editorState}
-                    onEditorStateChange={setEditorState}
-                    handleKeyCommand={handleKeyCommand}
-                    toolbar={{
-                        inline: { inDropdown: true },
-                        list: { inDropdown: true },
-                        textAlign: { inDropdown: true },
-                        link: { inDropdown: true },
-                        history: { inDropdown: true },
-                        image: {
-                            uploadCallback: uploadImageCallBack,
-                            alt: { present: true, mandatory: true },
-                        },
-                    }}
-                />
-                <br />
-                <Button onClick={() => updateTask(taskId)}>Save</Button>
 
-                {/*<SaveTaskAlert />*/}
+                <div className='border rounded'>
+                    <Editor
+                        editorState={editorState}
+                        onEditorStateChange={setEditorState}
+                        handleKeyCommand={handleKeyCommand}
+                        toolbar={{
+                            inline: { inDropdown: true },
+                            list: { inDropdown: true },
+                            textAlign: { inDropdown: true },
+                            link: { inDropdown: true },
+                            history: { inDropdown: true },
+                            image: {
+                                uploadCallback: uploadImageCallBack,
+                                alt: { present: true, mandatory: true },
+                            },
+                        }}
+                    />
+                </div>
             </div>
+            <div className='border rounded mt-4 w-1/4 p-3'>
+                <p>Characters with spaces: {currentCharacters()}</p>
+                <ol>
+                    <p>Słowa kluczowe: </p>
+                    {keywords?.map(
+                        (keyword: string | undefined, index: number) => {
+                            return (
+                                <p key={index}>
+                                    <li
+                                        className={clsx([
+                                            keywordChecker(keyword!) &&
+                                                'line-through',
+                                        ])}
+                                    >
+                                        {index + 1}. {keyword}
+                                    </li>
+                                </p>
+                            )
+                        }
+                    )}
+                </ol>
+            </div>
+            <Button onClick={() => updateTask(taskId)}>Save</Button>
         </Layout>
     )
 }
