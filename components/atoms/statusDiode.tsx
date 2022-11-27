@@ -2,15 +2,14 @@ import React from 'react'
 import clsx from 'clsx'
 
 interface StatusDiodeProps {
-    status: 'active' | 'deadline' | 'check' | 'finished'
+    status: 'active' | 'check' | 'finished'
 }
 
 const StatusDiode = ({ status }: StatusDiodeProps) => {
     const diodeColor = () => {
         if (status === 'active') return 'bg-green-500 shadow-green-500'
-        else if (status === 'finished') return 'bg-amber-500 shadow-amber-500'
-        else if (status === 'deadline') return 'bg-indigo-600 shadow-indigo-600'
-        else if (status === 'check') return 'bg-error shadow-error'
+        if (status === 'finished') return 'bg-amber-500 shadow-amber-500'
+        if (status === 'check') return 'bg-indigo-600 shadow-indigo-600'
     }
 
     const classes = clsx(

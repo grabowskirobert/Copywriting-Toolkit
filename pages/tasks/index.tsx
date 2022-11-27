@@ -67,14 +67,8 @@ const Index = () => {
                         className='rounded'
                         onChange={(e) => setStatusFilter(e.target.value)}
                     >
-                        <option
-                            value=''
-                            hidden
-                        >
-                            Filters
-                        </option>
+                        <option value=''>No filters</option>
                         <option value='active'>Active</option>
-                        <option value='deadline'>After deadline</option>
                         <option value='check'>To be checked</option>
                         <option value='finished'>Finished</option>
                     </select>

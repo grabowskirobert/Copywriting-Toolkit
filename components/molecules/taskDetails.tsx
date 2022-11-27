@@ -18,8 +18,14 @@ export default function TaskDetails(props: Props) {
     return (
         <>
             <div className='my-5'>
-                <p>Date of start: {date_start}</p>
-                <p>Date of end: {date_end}</p>
+                <p className='font-semibold'>
+                    Date of start:
+                    <span className='font-normal ml-1'>{date_start}</span>
+                </p>
+                <p className='font-semibold'>
+                    Date of end:{' '}
+                    <span className='font-normal ml-1'>{date_end}</span>
+                </p>
             </div>
             <div className='flex justify-end gap-3'>
                 {(user.role === 'Admin' || user.role === 'Master') && (

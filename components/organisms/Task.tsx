@@ -25,8 +25,14 @@ const Task = ({
                     <StatusDiode status={status} />
                     <b>{task_title}</b>
                 </div>
-                <p>Copywriter: {user}</p>
-                <p>Master: {master}</p>
+                <p className='font-semibold'>
+                    Copywriter: <span className='font-normal'>{user}</span>
+                </p>
+
+                <p className='font-semibold'>
+                    Master: <span className='font-normal'>{master}</span>
+                </p>
+
                 <RiArrowDownSLine
                     className='absolute top-2 right-1'
                     onClick={() => setShowMore(!showMore)}

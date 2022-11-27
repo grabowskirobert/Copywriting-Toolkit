@@ -11,6 +11,7 @@ import Layout from '../../../layouts/Layout'
 import clsx from 'clsx'
 import LoaderSpinner from '../../../components/atoms/LoaderSpinner'
 import { MdDone } from 'react-icons/md'
+import { useAuth } from '../../../contexts/AuthContext'
 
 const Editor = dynamic<EditorProps>(
     () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
@@ -34,9 +35,23 @@ function MyEditor() {
 
         return 'not-handled'
     }
-    const [loadingElement, setLoadingElement] = useState<JSX.Element>(
+    const [saveButtonElement, setSaveButtonElement] = useState<JSX.Element>(
         <span>Save</span>
     )
+    const [readyToCheckElement, setReadyToCheckElement] = useState<JSX.Element>(
+        <span>Ready to check</span>
+    )
+    const [notReadyToCheckElement, setNotReadyToCheckElement] =
+        useState<JSX.Element>(<span>Not ready to check</span>)
+    const [activeButtonElement, setActiveButtonElement] = useState<JSX.Element>(
+        <span>Mark as active</span>
+    )
+    const [finishedButtonElement, setFinishedButtonElement] =
+        useState<JSX.Element>(<span>Mark as finished</span>)
+    const [revertButtonElement, setRevertButtonElement] = useState<JSX.Element>(
+        <span>Revert to check state</span>
+    )
+    const { user } = useAuth()
 
     // const [html,setHtml] = useState<string>();
 
@@ -63,9 +78,9 @@ function MyEditor() {
         return false
     }
 
-    const updateTask = async (task_id: string) => {
+    const saveText = async (task_id: string) => {
         const taskDoc = doc(db, 'tasks', task_id)
-        setLoadingElement(
+        setSaveButtonElement(
             <LoaderSpinner
                 visible
                 wrapperClasses='w-7'
@@ -76,14 +91,57 @@ function MyEditor() {
                 content: currentRawContent,
             })
         } catch (err) {
-            setLoadingElement(<span>Try again</span>)
+            setSaveButtonElement(<span>Try again</span>)
             console.log(err)
         }
 
-        setLoadingElement(<MdDone className='w-7' />)
+        setSaveButtonElement(<MdDone className='w-7' />)
         setTimeout(() => {
-            setLoadingElement(<span>Save</span>)
+            setSaveButtonElement(<span>Save</span>)
         }, 2000)
+    }
+
+    const changeStatus = async (task_id: string, newStatus: string) => {
+        const taskDoc = doc(db, 'tasks', task_id)
+        const Loader = (
+            <LoaderSpinner
+                visible
+                wrapperClasses='w-7'
+            />
+        )
+        const DoneIcon = <MdDone className='w-7' />
+
+        if (newStatus === 'check') {
+            user?.role === 'Copywriter' && setReadyToCheckElement(Loader)
+            user?.role === 'Master' && setRevertButtonElement(Loader)
+        }
+        if (newStatus === 'active') {
+            user?.role === 'Copywriter' && setNotReadyToCheckElement(Loader)
+            user?.role === 'Master' && setActiveButtonElement(Loader)
+        }
+        if (newStatus === 'finished') {
+            setFinishedButtonElement(Loader)
+        }
+
+        try {
+            await updateDoc(taskDoc, {
+                status: newStatus,
+            })
+        } catch (err) {
+            console.log(err)
+        }
+
+        if (newStatus === 'check') {
+            user?.role === 'Copywriter' && setReadyToCheckElement(DoneIcon)
+            user?.role === 'Master' && setRevertButtonElement(DoneIcon)
+        }
+        if (newStatus === 'active') {
+            user?.role === 'Copywriter' && setNotReadyToCheckElement(DoneIcon)
+            user?.role === 'Master' && setActiveButtonElement(DoneIcon)
+        }
+        if (newStatus === 'finished') {
+            setFinishedButtonElement(DoneIcon)
+        }
     }
 
     useEffect(() => {
@@ -144,13 +202,19 @@ function MyEditor() {
                                 alt: { present: true, mandatory: true },
                             },
                         }}
+                        editorClassName='p-3'
                     />
                 </div>
             </div>
             <div className='border rounded mt-4 w-1/4 p-3'>
-                <p>Characters with spaces: {currentCharacters()}</p>
+                <p className='font-semibold'>
+                    Characters with spaces:
+                    <span className='font-normal ml-1'>
+                        {currentCharacters()}
+                    </span>
+                </p>
                 <ol>
-                    <p>Keywords: </p>
+                    <p className='font-semibold'>Keywords: </p>
                     {keywords?.map(
                         (keyword: string | undefined, index: number) => {
                             return (
@@ -161,7 +225,9 @@ function MyEditor() {
                                                 'line-through',
                                         ])}
                                     >
-                                        {index + 1}. {keyword}
+                                        <span>
+                                            {index + 1}. {keyword}
+                                        </span>
                                     </li>
                                 </p>
                             )
@@ -170,19 +236,54 @@ function MyEditor() {
                 </ol>
             </div>
             <div className='flex gap-2'>
-                <Button
-                    onClick={() => updateTask(taskId)}
-                    className='w-14 h-10 flex justify-center items-center'
-                >
-                    {loadingElement}
-                </Button>
-                <Button
-                    onClick={() => {
-                        console.log('Set task status to be checked')
-                    }}
-                >
-                    Send to master
-                </Button>
+                {(task?.status === 'active' || task?.status === 'check') && (
+                    <Button
+                        onClick={() => saveText(taskId)}
+                        className='w-14 h-10 flex justify-center items-center'
+                    >
+                        {saveButtonElement}
+                    </Button>
+                )}
+                {task?.status === 'active' && user?.role === 'Copywriter' && (
+                    <Button
+                        onClick={() => changeStatus(taskId, 'check')}
+                        className='w-36 h-10 flex justify-center items-center'
+                    >
+                        {readyToCheckElement}
+                    </Button>
+                )}
+                {task?.status === 'check' && user?.role === 'Copywriter' && (
+                    <Button
+                        onClick={() => changeStatus(taskId, 'active')}
+                        className='w-44 h-10 bg-green-500 hover:bg-green-700 flex justify-center items-center'
+                    >
+                        {notReadyToCheckElement}
+                    </Button>
+                )}
+                {task?.status === 'check' && user?.role === 'Master' && (
+                    <>
+                        <Button
+                            onClick={() => changeStatus(taskId, 'active')}
+                            className='bg-green-500 hover:bg-green-700 w-52 h-10 flex justify-center items-center'
+                        >
+                            {activeButtonElement}
+                        </Button>
+                        <Button
+                            onClick={() => changeStatus(taskId, 'finished')}
+                            className='bg-amber-500 hover:bg-amber-700  w-40 h-10 flex justify-center items-center'
+                        >
+                            {finishedButtonElement}
+                        </Button>
+                    </>
+                )}
+                {task?.status === 'finished' && user?.role === 'Master' && (
+                    <Button
+                        onClick={() => changeStatus(taskId, 'check')}
+                        className='w-48 h-10 flex justify-center items-center'
+                    >
+                        {revertButtonElement}
+                    </Button>
+                )}
             </div>
         </Layout>
     )
