@@ -56,19 +56,19 @@ const Member = () => {
                                         </Link>
                                     </Button>
                                     <Button red>
-                                        {deleteUserConfirm ? (
-                                            <div
-                                                onClick={() => deleteMember(id)}
-                                            >
-                                                Are you sure?
-                                            </div>
-                                        ) : (
+                                        {!deleteUserConfirm ? (
                                             <div
                                                 onClick={() =>
                                                     setDeleteUserConfirm(true)
                                                 }
                                             >
                                                 Delete member
+                                            </div>
+                                        ) : (
+                                            <div
+                                                onClick={() => deleteMember(id)}
+                                            >
+                                                Are you sure?
                                             </div>
                                         )}
                                     </Button>

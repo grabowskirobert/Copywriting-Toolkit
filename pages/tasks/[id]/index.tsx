@@ -150,7 +150,7 @@ function MyEditor() {
             <div className='border rounded mt-4 w-1/4 p-3'>
                 <p>Characters with spaces: {currentCharacters()}</p>
                 <ol>
-                    <p>Słowa kluczowe: </p>
+                    <p>Keywords: </p>
                     {keywords?.map(
                         (keyword: string | undefined, index: number) => {
                             return (
@@ -169,12 +169,21 @@ function MyEditor() {
                     )}
                 </ol>
             </div>
-            <Button
-                onClick={() => updateTask(taskId)}
-                className='w-14 h-10 flex justify-center items-center'
-            >
-                {loadingElement}
-            </Button>
+            <div className='flex gap-2'>
+                <Button
+                    onClick={() => updateTask(taskId)}
+                    className='w-14 h-10 flex justify-center items-center'
+                >
+                    {loadingElement}
+                </Button>
+                <Button
+                    onClick={() => {
+                        console.log('Set task status to be checked')
+                    }}
+                >
+                    Send to master
+                </Button>
+            </div>
         </Layout>
     )
 }

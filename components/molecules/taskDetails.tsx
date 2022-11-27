@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import Button from '../atoms/Button'
 import Link from 'next/link'
 import { useAuth } from '../../contexts/AuthContext'
@@ -12,6 +13,7 @@ interface Props {
 export default function TaskDetails(props: Props) {
     const { user } = useAuth()
     const { id, deleteTask, date_start, date_end } = props
+    const [deleteTaskConfirm, setDeleteTaskConfirm] = useState<boolean>(false)
 
     return (
         <>
@@ -22,12 +24,21 @@ export default function TaskDetails(props: Props) {
             <div className='flex justify-end gap-3'>
                 {(user.role === 'Admin' || user.role === 'Master') && (
                     <>
-                        <Button
-                            red
-                            onClick={() => deleteTask()}
-                        >
-                            Delete task
-                        </Button>
+                        {!deleteTaskConfirm ? (
+                            <Button
+                                red
+                                onClick={() => setDeleteTaskConfirm(true)}
+                            >
+                                Delete task
+                            </Button>
+                        ) : (
+                            <Button
+                                red
+                                onClick={() => deleteTask()}
+                            >
+                                Are you sure?
+                            </Button>
+                        )}
                         <Button>
                             <Link href={`/tasks/${id}/edit`}>Edit details</Link>
                         </Button>

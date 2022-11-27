@@ -116,7 +116,9 @@ const TaskForm = ({
                             required
                             name='date_end'
                         />
-                        <label htmlFor='keywords'>Keywords</label>
+                        <label htmlFor='keywords'>
+                            Keywords (seperated by spaces)
+                        </label>
                         <input
                             type='text'
                             value={form.keywords}
