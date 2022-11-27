@@ -9,6 +9,8 @@ import { EditorProps } from 'react-draft-wysiwyg'
 import dynamic from 'next/dynamic'
 import Layout from '../../../layouts/Layout'
 import clsx from 'clsx'
+import LoaderSpinner from '../../../components/atoms/LoaderSpinner'
+import { MdDone } from 'react-icons/md'
 
 const Editor = dynamic<EditorProps>(
     () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
@@ -32,6 +34,9 @@ function MyEditor() {
 
         return 'not-handled'
     }
+    const [loadingElement, setLoadingElement] = useState<JSX.Element>(
+        <span>Save</span>
+    )
 
     // const [html,setHtml] = useState<string>();
 
@@ -60,9 +65,25 @@ function MyEditor() {
 
     const updateTask = async (task_id: string) => {
         const taskDoc = doc(db, 'tasks', task_id)
-        await updateDoc(taskDoc, {
-            content: currentRawContent,
-        })
+        setLoadingElement(
+            <LoaderSpinner
+                visible
+                wrapperClasses='w-7'
+            />
+        )
+        try {
+            await updateDoc(taskDoc, {
+                content: currentRawContent,
+            })
+        } catch (err) {
+            setLoadingElement(<span>Try again</span>)
+            console.log(err)
+        }
+
+        setLoadingElement(<MdDone className='w-7' />)
+        setTimeout(() => {
+            setLoadingElement(<span>Save</span>)
+        }, 2000)
     }
 
     useEffect(() => {
@@ -148,7 +169,12 @@ function MyEditor() {
                     )}
                 </ol>
             </div>
-            <Button onClick={() => updateTask(taskId)}>Save</Button>
+            <Button
+                onClick={() => updateTask(taskId)}
+                className='w-14 h-10 flex justify-center items-center'
+            >
+                {loadingElement}
+            </Button>
         </Layout>
     )
 }
