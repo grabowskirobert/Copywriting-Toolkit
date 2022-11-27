@@ -6,7 +6,6 @@ import { getDoc, doc, updateDoc } from '@firebase/firestore'
 import { useEffect, useState } from 'react'
 import { EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js'
 import { EditorProps } from 'react-draft-wysiwyg'
-import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import Layout from '../../../layouts/Layout'
 import clsx from 'clsx'
@@ -108,13 +107,6 @@ function MyEditor() {
         <Layout>
             <Button onClick={() => router.back()}>Return</Button>
             <div className='my-10'>
-                <Head>
-                    <link
-                        rel='stylesheet'
-                        href='https://cdn.jsdelivr.net/npm/react-draft-wysiwyg@1.12.3/dist/react-draft-wysiwyg.css'
-                    />
-                </Head>
-
                 <div className='border rounded'>
                     <Editor
                         editorState={editorState}
