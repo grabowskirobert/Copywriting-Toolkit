@@ -11,10 +11,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         <AuthProvider>
             <Head>
-                <link
-                    rel='stylesheet'
-                    href='https://cdn.jsdelivr.net/npm/react-draft-wysiwyg@1.12.3/dist/react-draft-wysiwyg.css'
-                />
                 <title>
                     {pathname === '/'
                         ? 'Copywriter Toolkit'
