@@ -17,6 +17,7 @@ interface TaskProps {
     status: string
     user: string
     master: string
+    archival: boolean
 }
 
 interface FormProps {
@@ -48,6 +49,7 @@ const TaskForm = ({
         status: update ? taskForm.status : 'active',
         user: taskForm.user,
         master: taskForm.master,
+        archival: taskForm.archival
     })
     function handleChange(e: any) {
         const { value, name } = e.target

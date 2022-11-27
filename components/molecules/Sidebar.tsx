@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useState, useEffect, useRef } from 'react'
+import { useAuth } from '../../contexts/AuthContext'
 
 // import SidebarLinkGroup from './SidebarLinkGroup'
 
@@ -10,7 +11,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }: any) {
     const trigger: any = useRef(null)
     const sidebar: any = useRef(null)
     const storedSidebarExpanded = null
-
+    const { user } = useAuth()
     const [sidebarExpanded, setSidebarExpanded] = useState(
         storedSidebarExpanded === null
             ? false
@@ -397,47 +398,68 @@ function Sidebar({ sidebarOpen, setSidebarOpen }: any) {
                 </Link>
               </li> */}
                             {/* archive*/}
-                            {/* <li
-                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0  ${
-                  pathname.includes('archive') && 'bg-slate-900'
-                }`}
-              >
-                <Link href='/archive' passHref>
-                  <a
-                    className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
-                      pathname.includes('archive') && 'hover:text-slate-200'
-                    }`}
-                  >
-                    <div className='flex items-center'>
-                      <svg className='shrink-0 h-6 w-6' viewBox='0 0 24 24'>
-                        <g>
-                          <path
-                            className={`fill-current text-slate-400 ${
-                              pathname.includes('archive') && 'text-indigo-300'
-                            }`}
-                            d='m24 5.793h-24v-4.3828c0-0.32031 0.26172-0.58203 0.58594-0.58203h22.828c0.32422 0 0.58594 0.26172 0.58594 0.58203z'
-                          />
-                          <path
-                            className={`fill-current text-slate-600 ${
-                              pathname.includes('archive') && 'text-indigo-500'
-                            }`}
-                            d='m1.2422 5.793v15.969c0 0.77734 0.63281 1.4102 1.4102 1.4102h18.695c0.77734 0 1.4102-0.63281 1.4102-1.4102v-15.969z'
-                          />
-                          <path
-                            className={`fill-current text-slate-400 ${
-                              pathname.includes('archive') && 'text-indigo-300'
-                            }`}
-                            d='m14.273 12.414h-4.5469c-0.80078 0-1.4492-0.65234-1.4492-1.4492v-0.62109c0-0.22656 0.18359-0.41406 0.41406-0.41406 0.22656 0 0.41016 0.1875 0.41016 0.41406v0.62109c0 0.34375 0.28125 0.62109 0.625 0.62109h4.5469c0.34375 0 0.625-0.27734 0.625-0.62109v-0.62109c0-0.22656 0.18359-0.41406 0.41016-0.41406 0.23047 0 0.41406 0.1875 0.41406 0.41406v0.62109c0 0.79688-0.64844 1.4492-1.4492 1.4492z'
-                          />
-                        </g>
-                      </svg>
-                      <span className='text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200'>
-                        Archive
-                      </span>
-                    </div>
-                  </a>
-                </Link>
-              </li> */}
+                            {user?.role === 'Admin' ||
+                                (user?.role === 'Master' && (
+                                    <li
+                                        className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0  ${
+                                            pathname.includes('archive') &&
+                                            'bg-slate-900'
+                                        }`}
+                                    >
+                                        <Link
+                                            href='/archive'
+                                            passHref
+                                        >
+                                            <a
+                                                className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
+                                                    pathname.includes(
+                                                        'archive'
+                                                    ) && 'hover:text-slate-200'
+                                                }`}
+                                            >
+                                                <div className='flex items-center'>
+                                                    <svg
+                                                        className='shrink-0 h-6 w-6'
+                                                        viewBox='0 0 24 24'
+                                                    >
+                                                        <g>
+                                                            <path
+                                                                className={`fill-current text-slate-400 ${
+                                                                    pathname.includes(
+                                                                        'archive'
+                                                                    ) &&
+                                                                    'text-indigo-300'
+                                                                }`}
+                                                                d='m24 5.793h-24v-4.3828c0-0.32031 0.26172-0.58203 0.58594-0.58203h22.828c0.32422 0 0.58594 0.26172 0.58594 0.58203z'
+                                                            />
+                                                            <path
+                                                                className={`fill-current text-slate-600 ${
+                                                                    pathname.includes(
+                                                                        'archive'
+                                                                    ) &&
+                                                                    'text-indigo-500'
+                                                                }`}
+                                                                d='m1.2422 5.793v15.969c0 0.77734 0.63281 1.4102 1.4102 1.4102h18.695c0.77734 0 1.4102-0.63281 1.4102-1.4102v-15.969z'
+                                                            />
+                                                            <path
+                                                                className={`fill-current text-slate-400 ${
+                                                                    pathname.includes(
+                                                                        'archive'
+                                                                    ) &&
+                                                                    'text-indigo-300'
+                                                                }`}
+                                                                d='m14.273 12.414h-4.5469c-0.80078 0-1.4492-0.65234-1.4492-1.4492v-0.62109c0-0.22656 0.18359-0.41406 0.41406-0.41406 0.22656 0 0.41016 0.1875 0.41016 0.41406v0.62109c0 0.34375 0.28125 0.62109 0.625 0.62109h4.5469c0.34375 0 0.625-0.27734 0.625-0.62109v-0.62109c0-0.22656 0.18359-0.41406 0.41016-0.41406 0.23047 0 0.41406 0.1875 0.41406 0.41406v0.62109c0 0.79688-0.64844 1.4492-1.4492 1.4492z'
+                                                            />
+                                                        </g>
+                                                    </svg>
+                                                    <span className='text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200'>
+                                                        Archive
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </Link>
+                                    </li>
+                                ))}
                         </ul>
                     </div>
                 </div>

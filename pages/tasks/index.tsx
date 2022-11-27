@@ -3,7 +3,7 @@ import Task from '../../components/organisms/Task'
 import { useEffect, useState } from 'react'
 import { db } from '../../firebase/firebase'
 import TaskForm from '../../components/organisms/TaskForm'
-import { collection, getDocs, doc, deleteDoc } from '@firebase/firestore'
+import { collection, getDocs, doc, updateDoc } from '@firebase/firestore'
 import privateRoute from '../../layouts/PrivateRoute'
 import { useAuth } from '../../contexts/AuthContext'
 import Layout from '../../layouts/Layout'
@@ -13,7 +13,7 @@ const Index = () => {
     const [reload, setReload] = useState<boolean>(false)
     const [query, setQuery] = useState<string>('')
     const [statusFilter, setStatusFilter] = useState<string>('')
-    const [task, setTask] = useState<Array<any>>([])
+    const [tasks, setTasks] = useState<Array<any>>([])
     const { user } = useAuth()
 
     interface TaskProps {
@@ -26,6 +26,7 @@ const Index = () => {
         status: string
         user: string
         master: string
+        archival: boolean
     }
 
     const taskForm: TaskProps = {
@@ -38,26 +39,35 @@ const Index = () => {
         status: '',
         user: '',
         master: user.email,
+        archival: false,
     }
 
     const taskCollection = collection(db, 'tasks')
-    const deleteTask = async (id: any) => {
-        const taskDoc = doc(db, 'tasks', id)
-        await deleteDoc(taskDoc)
-        setReload(!reload)
-    }
 
     useEffect(() => {
         const getTask = async () => {
             const data = await getDocs(taskCollection)
-            setTask(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+            setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         }
         getTask()
 
         return () => {
-            setTask([])
+            setTasks([])
         }
     }, [reload])
+
+    //TODO: make option to revert this
+    const archiveTask = async (task_id: string) => {
+        const taskDoc = doc(db, 'tasks', task_id)
+
+        try {
+            await updateDoc(taskDoc, {
+                archival: true,
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     return (
         <Layout>
@@ -92,18 +102,19 @@ const Index = () => {
                             </Button>
                         )}
                     </div>
-                    {task
-                        .filter((taskUser: any) =>
+                    {tasks
+                        .filter((task: any) => task?.archival === false)
+                        .filter((task: any) =>
                             user.role === 'Admin'
-                                ? !!taskUser
+                                ? !!task
                                 : user.role === 'Master'
-                                ? taskUser.uid?.includes(user?.uid)
-                                : taskUser.user?.includes(user?.email)
+                                ? task.uid?.includes(user?.uid)
+                                : task.user?.includes(user?.email)
                         )
-                        .filter((taskUser: any) =>
+                        .filter((task: any) =>
                             statusFilter === ''
-                                ? taskUser.status.includes(statusFilter)
-                                : taskUser.status === statusFilter
+                                ? task.status.includes(statusFilter)
+                                : task.status === statusFilter
                         )
                         .filter((el: any) =>
                             el.task_title
@@ -114,7 +125,7 @@ const Index = () => {
                             <Task
                                 {...el}
                                 key={el.id}
-                                deleteTask={() => deleteTask(el.id)}
+                                archiveTask={() => archiveTask(el.id)}
                             />
                         ))}
                 </div>

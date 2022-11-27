@@ -1,7 +1,7 @@
 import { RiArrowDownSLine } from 'react-icons/ri'
 import { useState } from 'react'
 import StatusDiode from '../atoms/StatusDiode'
-import TaskDetails from '../molecules/TaskDetails'
+import TaskDetails from '../molecules/taskDetails'
 
 const Task = ({
     id,
@@ -9,6 +9,7 @@ const Task = ({
     date_start,
     date_end,
     deleteTask,
+    archiveTask,
     status,
     user,
     master,
@@ -42,6 +43,7 @@ const Task = ({
                 <TaskDetails
                     id={id}
                     deleteTask={deleteTask}
+                    archiveTask={archiveTask}
                     date_end={date_end}
                     date_start={date_start}
                 />
