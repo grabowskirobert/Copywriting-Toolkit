@@ -8,13 +8,15 @@ interface Props {
     id: string
     deleteTask: () => void
     archiveTask: () => void
+    revertTask: () => void
     date_start: string
     date_end: string
 }
 
 export default function TaskDetails(props: Props) {
     const { user } = useAuth()
-    const { id, archiveTask, deleteTask, date_start, date_end } = props
+    const { id, archiveTask, deleteTask, revertTask, date_start, date_end } =
+        props
     const [buttonConfirm, setButtonConfirm] = useState<boolean>(false)
     const { pathname } = useRouter()
 
@@ -78,13 +80,7 @@ export default function TaskDetails(props: Props) {
                             Are you sure?
                         </Button>
                     )}
-                    <Button
-                        onClick={() =>
-                            console.log('Revert archive task effect')
-                        }
-                    >
-                        Revert task
-                    </Button>
+                    <Button onClick={() => revertTask()}>Revert task</Button>
                 </div>
             )}
         </>

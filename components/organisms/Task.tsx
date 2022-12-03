@@ -1,7 +1,20 @@
 import { RiArrowDownSLine } from 'react-icons/ri'
 import { useState } from 'react'
 import StatusDiode from '../atoms/StatusDiode'
-import TaskDetails from '../molecules/taskDetails'
+import TaskDetails from '../molecules/TaskDetails'
+
+interface TaskProps {
+    id: string
+    task_title: string
+    date_start: string
+    date_end: string
+    deleteTask: () => void
+    archiveTask: () => void
+    revertTask: () => void
+    status: 'active' | 'check' | 'finished'
+    user: any
+    master: any
+}
 
 const Task = ({
     id,
@@ -10,10 +23,11 @@ const Task = ({
     date_end,
     deleteTask,
     archiveTask,
+    revertTask,
     status,
     user,
     master,
-}: any) => {
+}: TaskProps) => {
     const [showMore, setShowMore] = useState<boolean>(false)
 
     return (
@@ -44,6 +58,7 @@ const Task = ({
                     id={id}
                     deleteTask={deleteTask}
                     archiveTask={archiveTask}
+                    revertTask={revertTask}
                     date_end={date_end}
                     date_start={date_start}
                 />

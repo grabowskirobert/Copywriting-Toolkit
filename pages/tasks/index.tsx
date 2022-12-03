@@ -56,7 +56,6 @@ const Index = () => {
         }
     }, [reload])
 
-    //TODO: make option to revert this
     const archiveTask = async (task_id: string) => {
         const taskDoc = doc(db, 'tasks', task_id)
 
@@ -64,6 +63,7 @@ const Index = () => {
             await updateDoc(taskDoc, {
                 archival: true,
             })
+            setReload(!reload)
         } catch (err) {
             console.log(err)
         }

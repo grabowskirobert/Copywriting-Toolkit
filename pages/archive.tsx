@@ -3,7 +3,13 @@ import Task from '../components/organisms/Task'
 import { useAuth } from '../contexts/AuthContext'
 import Layout from '../layouts/Layout'
 import privateRoute from '../layouts/PrivateRoute'
-import { collection, getDocs, doc, deleteDoc } from '@firebase/firestore'
+import {
+    collection,
+    getDocs,
+    doc,
+    deleteDoc,
+    updateDoc,
+} from '@firebase/firestore'
 import { db } from '../firebase/firebase'
 
 const tasksCollection = collection(db, 'tasks')
@@ -18,6 +24,19 @@ const Archive = () => {
         const taskDoc = doc(db, 'tasks', id)
         await deleteDoc(taskDoc)
         setReload(!reload)
+    }
+
+    const revertTask = async (task_id: string) => {
+        const taskDoc = doc(db, 'tasks', task_id)
+
+        try {
+            await updateDoc(taskDoc, {
+                archival: false,
+            })
+            setReload(!reload)
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     useEffect(() => {
@@ -63,6 +82,7 @@ const Archive = () => {
                                 {...el}
                                 key={el.id}
                                 deleteTask={() => deleteTask(el.id)}
+                                revertTask={() => revertTask(el.id)}
                             />
                         ))}
                 </div>
