@@ -9,6 +9,53 @@ import { useAuth } from '../../../contexts/AuthContext'
 import privateRoute from '../../../layouts/PrivateRoute'
 import { deleteDoc, doc } from '@firebase/firestore'
 import { db } from '../../../firebase/firebase'
+import { Bar } from 'react-chartjs-2'
+import { CategoryScale } from 'chart.js'
+import Chart from 'chart.js/auto'
+
+Chart.register(CategoryScale)
+
+const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+]
+
+const copyData = {
+    labels: months,
+    datasets: [
+        {
+            label: 'Characters with spaces',
+            data: [
+                17000, 14500, 22000, 18000, 20000, 13000, 17000, 14500, 22000,
+                18000, 20000, 13000,
+            ],
+            backgroundColor: ['rgba(153, 102, 255, 0.2)'],
+            borderColor: ['rgba(153, 102, 255, 1)'],
+            borderWidth: 1,
+        },
+    ],
+}
+const masterData = {
+    labels: months,
+    datasets: [
+        {
+            label: 'Checked tasks',
+            data: [8, 10, 13, 7, 11, 15, 8, 10, 12, 11, 10, 9],
+            backgroundColor: ['rgba(153, 102, 255, 0.2)'],
+            borderColor: ['rgba(153, 102, 255, 1)'],
+            borderWidth: 1,
+        },
+    ],
+}
 
 const Member = () => {
     const router = useRouter()
@@ -39,7 +86,7 @@ const Member = () => {
                         <span className='font-semibold pr-1'>Role:</span>
                         {member?.role}
                     </div>
-                    {member?.role === 'Copywriter' ||
+                    {/* {member?.role === 'Copywriter' ||
                         (member?.role === 'Master' && (
                             <div>
                                 <span className='font-semibold pr-1'>
@@ -49,7 +96,21 @@ const Member = () => {
                                     ? 'Todo'
                                     : 'This user has currently no tasks.'}
                             </div>
-                        ))}
+                        ))} */}
+                    {member?.role === 'Copywriter' && (
+                        <Bar
+                            data={copyData}
+                            width={400}
+                            height={200}
+                        />
+                    )}
+                    {member?.role === 'Master' && (
+                        <Bar
+                            data={masterData}
+                            width={400}
+                            height={200}
+                        />
+                    )}
 
                     <div className='mx-auto mt-4 flex gap-2'>
                         {(member?.role === 'Copywriter' ||
