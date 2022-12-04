@@ -78,43 +78,22 @@ function Notifications() {
                     <div className='text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4'>
                         Notifications
                     </div>
-                    {/* <ul>
-            <li className="border-b border-slate-200 last:border-0">
-              <Link
-                className="block py-2 px-4 hover:bg-slate-50"
-                href="/"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <>
-                  <span className="block text-sm mb-2">📣 <span className="font-medium text-slate-800">Edit your information in a swipe</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
-                  <span className="block text-xs font-medium text-slate-400">Feb 12, 2021</span></>
-              </Link>
-            </li>
-            <li className="border-b border-slate-200 last:border-0">
-              <Link
-                className="block py-2 px-4 hover:bg-slate-50"
-                href="#0"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <>
-                  <span className="block text-sm mb-2">📣 <span className="font-medium text-slate-800">Edit your information in a swipe</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
-                  <span className="block text-xs font-medium text-slate-400">Feb 9, 2021</span>
-                </>
-              </Link>
-            </li>
-            <li className="border-b border-slate-200 last:border-0">
-              <Link
-                className="block py-2 px-4 hover:bg-slate-50"
-                href="#0"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <>
-                  <span className="block text-sm mb-2">🚀<span className="font-medium text-slate-800">Say goodbye href paper receipts!</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
-                  <span className="block text-xs font-medium text-slate-400">Jan 24, 2020</span>
-                </>
-              </Link>
-            </li>
-          </ul> */}
+                    <ul className='px-4'>
+                        <li className='border-b border-slate-200 last:border-0'>
+                            <span className='block text-sm mb-2'>
+                                <span className='font-medium text-slate-800'>
+                                    You have a new task to check! <br />
+                                    <span className='text-indigo-500'>&apos;Task to be checked example&apos;</span>
+                                </span>
+                                <p className='cursor-pointer underline'>
+                                    Click here to see it!
+                                </p>
+                            </span>
+                            <span className='block text-xs font-medium text-slate-400'>
+                                Dec 22, 2022
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </Transition>
         </div>
