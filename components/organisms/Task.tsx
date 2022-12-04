@@ -5,9 +5,9 @@ import TaskDetails from '../molecules/TaskDetails'
 
 interface TaskProps {
     id: string
-    task_title: string
-    date_start: string
-    date_end: string
+    title: string
+    start: string
+    end: string
     deleteTask: () => void
     archiveTask: () => void
     revertTask: () => void
@@ -18,9 +18,9 @@ interface TaskProps {
 
 const Task = ({
     id,
-    task_title,
-    date_start,
-    date_end,
+    title,
+    start,
+    end,
     deleteTask,
     archiveTask,
     revertTask,
@@ -38,7 +38,7 @@ const Task = ({
             >
                 <div className='flex items-center gap-1'>
                     <StatusDiode status={status} />
-                    <b>{task_title}</b>
+                    <b>{title}</b>
                 </div>
                 <p className='font-semibold'>
                     Copywriter: <span className='font-normal'>{user}</span>
@@ -59,8 +59,8 @@ const Task = ({
                     deleteTask={deleteTask}
                     archiveTask={archiveTask}
                     revertTask={revertTask}
-                    date_end={date_end}
-                    date_start={date_start}
+                    end={end}
+                    start={start}
                 />
             )}
         </div>

@@ -9,14 +9,13 @@ interface Props {
     deleteTask: () => void
     archiveTask: () => void
     revertTask: () => void
-    date_start: string
-    date_end: string
+    start: string
+    end: string
 }
 
 export default function TaskDetails(props: Props) {
     const { user } = useAuth()
-    const { id, archiveTask, deleteTask, revertTask, date_start, date_end } =
-        props
+    const { id, archiveTask, deleteTask, revertTask, start, end } = props
     const [buttonConfirm, setButtonConfirm] = useState<boolean>(false)
     const { pathname } = useRouter()
 
@@ -25,11 +24,10 @@ export default function TaskDetails(props: Props) {
             <div className='my-5'>
                 <p className='font-semibold'>
                     Date of start:
-                    <span className='font-normal ml-1'>{date_start}</span>
+                    <span className='font-normal ml-1'>{start}</span>
                 </p>
                 <p className='font-semibold'>
-                    Date of end:{' '}
-                    <span className='font-normal ml-1'>{date_end}</span>
+                    Date of end: <span className='font-normal ml-1'>{end}</span>
                 </p>
             </div>
             {pathname === '/tasks' && (

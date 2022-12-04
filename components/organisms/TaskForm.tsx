@@ -9,9 +9,9 @@ import Container from '../atoms/Container'
 
 interface TaskProps {
     uid: string
-    task_title: string
-    date_start: string
-    date_end: string
+    title: string
+    start: string
+    end: string
     keywords: Array<string>
     content: string
     status: string
@@ -41,15 +41,15 @@ const TaskForm = ({
     const { copywriters } = useTeamMembers()
     const [form, setForm] = useState({
         uid: taskForm.uid,
-        task_title: taskForm.task_title,
-        date_start: taskForm.date_start,
-        date_end: taskForm.date_end,
+        title: taskForm.title,
+        start: taskForm.start,
+        end: taskForm.end,
         keywords: taskForm.keywords,
         content: taskForm.content,
         status: update ? taskForm.status : 'active',
         user: taskForm.user,
         master: taskForm.master,
-        archival: taskForm.archival
+        archival: taskForm.archival,
     })
     function handleChange(e: any) {
         const { value, name } = e.target
@@ -94,29 +94,29 @@ const TaskForm = ({
                         onSubmit={handleSubmit}
                         className='flex flex-col gap-1'
                     >
-                        <label htmlFor='task_title'>Task title</label>
+                        <label htmlFor='title'>Task title</label>
                         <input
                             type='text'
-                            value={form.task_title}
+                            value={form.title}
                             onChange={handleChange}
                             required
-                            name='task_title'
+                            name='title'
                         />
-                        <label htmlFor='date_start'>Date start</label>
+                        <label htmlFor='start'>Date start</label>
                         <input
                             type='date'
-                            value={form.date_start}
+                            value={form.start}
                             onChange={handleChange}
                             required
-                            name='date_start'
+                            name='start'
                         />
-                        <label htmlFor='date_end'>Date end</label>
+                        <label htmlFor='end'>Date end</label>
                         <input
                             type='date'
-                            value={form.date_end}
+                            value={form.end}
                             onChange={handleChange}
                             required
-                            name='date_end'
+                            name='end'
                         />
                         <label htmlFor='keywords'>
                             Keywords (seperated by spaces)

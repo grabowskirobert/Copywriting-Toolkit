@@ -18,9 +18,9 @@ const Index = () => {
 
     interface TaskProps {
         uid: string
-        task_title: string
-        date_start: string
-        date_end: string
+        title: string
+        start: string
+        end: string
         keywords: Array<string>
         content: string
         status: string
@@ -31,9 +31,9 @@ const Index = () => {
 
     const taskForm: TaskProps = {
         uid: user?.uid,
-        task_title: '',
-        date_start: '',
-        date_end: '',
+        title: '',
+        start: '',
+        end: '',
         keywords: [],
         content: '',
         status: '',
@@ -117,7 +117,7 @@ const Index = () => {
                                 : task.status === statusFilter
                         )
                         .filter((el: any) =>
-                            el.task_title
+                            el.title
                                 .toLocaleLowerCase()
                                 .includes(query.toLocaleLowerCase())
                         )

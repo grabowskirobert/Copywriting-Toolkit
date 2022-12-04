@@ -73,7 +73,7 @@ const Archive = () => {
                         )
                         .filter((task: any) => task?.archival === true)
                         .filter((el: any) =>
-                            el.task_title
+                            el.title
                                 .toLocaleLowerCase()
                                 .includes(query.toLocaleLowerCase())
                         )
